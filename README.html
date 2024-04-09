@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Curso de SQL Avanzado</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="curso-de-sql-avanzado">Curso de SQL Avanzado</h1>
+<img src="https://amei.mx/wp-content/uploads/2016/08/Scotiabank-logo.jpg" alt="Scotiabank Logo" height="60">
+<img src="https://www.belatrix.com/wp-content/uploads/2023/08/belatrix-logosweb-1.png" alt="Belatrix Logo" height="60">
+<p><strong><a href="https://www.scotiabank.com.mx">Scotiabank</a></strong> | <strong><a href="https://www.belatrix.com">Belatrix</a></strong></p>
+<p>Instructor: <a href="alan@nomadacode.com">Alan Badillo Salas</a></p>
+<hr>
+<h2 id="bienvenida">Bienvenida</h2>
+<p>Bienvenidos al <strong>Curso de SQL Avanzado</strong> para Scotiabank, brindado por Belatrix.</p>
+<p>En este curso aprenderás a desarrollar conceptos avanzados de SQL a través de bases de datos Oracle, mediante la plataforma Apex, para poder trabajar desde tu navegador.</p>
+<p>El curso está dirigido a profesionales relacionados al área de desarrollo, soporte, análisis de datos.</p>
+<p>Se requieren conocimientos previos de SQL Intermedio para poder cubrir satisfactoriamente este curso.</p>
+<p>En el <strong>Módulo 1. Optimización de Consultas</strong> daremos un repaso general a las consultas SQL, los tipos de datos principales, el manejo de subconsultas y las consultas anidadas, así como estrategias para mejorar el rendimiento y el uso de índices avanzados.</p>
+<p>En el <strong>Módulo 2: Gestión de Transacciones y Concurrencia</strong> trabajaremos sobre el control de las transacciones, el bloqueo y concurrencia efectiva en trasacciones y el menjo de conflictos.</p>
+<p>En el <strong>Módulo 3: Modelado de Datos Avanzado</strong> entenderemos los conceptos de normalización y denormalización de tablas, el diseño de esquemas avanzados y las estrategias de particionamiento.</p>
+<p>En el <strong>Módulo 4: Programación en SQL</strong> trabajaremos con procedimientos almacenados y disparadores, así como con cursores y variables.</p>
+<p>En el <strong>Módulo 5: Seguridad y Auditoría</strong> revisaremos la implementación de perfiles de seguridad, la auditoría de accesos y cambios y el uso de estrategias de cifrado.</p>
+<p>En el <strong>Módulo 6: Manejo de Grandes Conjuntos de Datos</strong> aprenderemos el manejo de grandes volúmenes de datos, las vistas materializadas y la importación y exportación masiva de datos.</p>
+<p>En el <strong>Módulo 7: Tuning y Monitoreo Avanzado</strong> veremos las herramientas de monitoreo y diagnósitico, las estrategias para resolver cuellos de botella y el ajuste de parámetros avanzados.</p>
+<p>Finalmente, en el <strong>Módulo 8: Solución de Problemas y Escenarios Prácticos</strong> realizaremos casos de uso prácticos basados en problemas del mundo real y las estrategias para mantener la base de datos eficiente a largo plazo.</p>
+<p>El curso está dividio en 10 sesiones de 2 horas prácticas donde se mostrarán ejemplos para mostrar los conceptos importantes para poder resolver los ejercicios relacionados al curso.</p>
+<p>Todo el material generado en clases, así como las notas de cada sesión quedarán disponibles en este repositorio para su consulta.</p>
+<h2 id="contenido-del-curso">Contenido del curso</h2>
+<p><strong>Módulo 1. Optimización de Consultas</strong></p>
+<ol>
+<li>Estrategias para mejorar el rendimiento</li>
+<li>Índices avanzados y su impacto</li>
+<li>Optimización de subconsultas y joins</li>
+</ol>
+<p><strong>Módulo 2: Gestión de Transacciones y Concurrencia</strong></p>
+<ol>
+<li>Control de transacciones</li>
+<li>Bloqueo y concurrencia efectiva</li>
+<li>Manejo de conflictos.</li>
+</ol>
+<p><strong>Módulo 3: Modelado de Datos Avanzado</strong></p>
+<ol>
+<li>Normalización y desnormalización</li>
+<li>Diseño de esquemas avanzados</li>
+<li>Estrategias de particionamiento</li>
+</ol>
+<p><strong>Módulo 4: Programación en SQL</strong></p>
+<ol>
+<li>Uso de funciones y procedimientos almacenados</li>
+<li>Desarrollo de disparadores avanzados</li>
+<li>Trabajo con cursores y variables</li>
+</ol>
+<p><strong>Módulo 5: Seguridad y Auditoría</strong></p>
+<ol>
+<li>Implementación de perfiles de seguridad</li>
+<li>Auditoría de accesos y cambios</li>
+<li>Estrategias de cifrado</li>
+</ol>
+<p><strong>Módulo 6: Manejo de Grandes Conjuntos de Datos</strong></p>
+<ol>
+<li>Estrategias para la manipulación eficiente de grandes volúmenes de datos</li>
+<li>Uso de vistas materializadas</li>
+<li>Importación y exportación masiva de datos</li>
+</ol>
+<p><strong>Módulo 7: Tuning y Monitoreo Avanzado</strong></p>
+<ol>
+<li>Herramientas de monitoreo y diagnóstico</li>
+<li>Estrategias para identificar y resolver cuellos de botella</li>
+<li>Ajuste de parámetros avanzados</li>
+</ol>
+<p><strong>Módulo 8: Solución de Problemas y Escenarios Prácticos</strong></p>
+<ol>
+<li>Resolución de problemas comunes en el mundo real</li>
+<li>Estudio de casos y escenarios prácticos</li>
+<li>Estrategias para mantener bases de datos eficientes a largo plazo</li>
+</ol>
+<h2 id="calendario-de-fechas">Calendario de Fechas</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>Sesión</strong></th>
+<th style="text-align:left"><strong>Fecha</strong></th>
+<th style="text-align:left"><strong>Módulo</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">01</td>
+<td style="text-align:left">Lunes 8 de abril de 2024</td>
+<td style="text-align:left"><strong>Módulo 1</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">02</td>
+<td style="text-align:left">Martes 9 de abril de 2024</td>
+<td style="text-align:left"><strong>Módulo 2</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">03</td>
+<td style="text-align:left">Miércoles 10 de abril de 2024</td>
+<td style="text-align:left"><strong>Módulo 3</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">04</td>
+<td style="text-align:left">Lunes 15 de abril de 2024</td>
+<td style="text-align:left"><strong>Módulo 4</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">05</td>
+<td style="text-align:left">Martes 16 de abril de 2024</td>
+<td style="text-align:left"><strong>Módulo 5</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">06</td>
+<td style="text-align:left">Miércoles 17 de abril de 2024</td>
+<td style="text-align:left"><strong>Módulo 6</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">07</td>
+<td style="text-align:left">Lunes 22 de abril de 2024</td>
+<td style="text-align:left"><strong>Módulo 7</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">08</td>
+<td style="text-align:left">Martes 23 de abril de 2024</td>
+<td style="text-align:left"><strong>Módulo 8</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">09</td>
+<td style="text-align:left">Miércoles 24 de abril de 2024</td>
+<td style="text-align:left"><strong>Proyecto Final</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:left">Lunes 29 de abril de 2024</td>
+<td style="text-align:left"><strong>Cierre del Curso</strong></td>
+</tr>
+</tbody>
+</table>
+
+            
+            
+        </body>
+        </html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Curso de SQL Avanzado - Sesi&oacute;n 2</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="curso-de-sql-avanzado---sesión-2">Curso de SQL Avanzado - Sesión 2</h1>
+<img src="https://amei.mx/wp-content/uploads/2016/08/Scotiabank-logo.jpg" alt="Scotiabank Logo" height="60">
+<img src="https://www.belatrix.com/wp-content/uploads/2023/08/belatrix-logosweb-1.png" alt="Belatrix Logo" height="60">
+<p><strong><a href="https://www.scotiabank.com.mx">Scotiabank</a></strong> | <strong><a href="https://www.belatrix.com">Belatrix</a></strong></p>
+<p>Instructor: <a href="alan@nomadacode.com">Alan Badillo Salas</a></p>
+<hr>
+<h2 id="contenido">Contenido</h2>
+<pre><code>Módulo 2: Gestión de Transacciones y Concurrencia
+
+1. Control de transacciones
+2. Bloqueo y concurrencia efectiva
+3. Manejo de conflictos.
+</code></pre>
+<h3 id="temas">Temas</h3>
+<ol start="201">
+<li>Control de transacciones</li>
+<li>Bloqueo y concurrencia efectiva</li>
+<li>Manejo de conflictos</li>
+</ol>
+<h2 id="201-control-de-transacciones">201. Control de transacciones</h2>
+<p>El control de transacciones en SQL, especialmente en un entorno de base de datos Oracle, es una parte fundamental del manejo de bases de datos que permite a los usuarios gestionar cambios en los datos de manera eficiente y segura. Las transacciones son secuencias de operaciones de base de datos que se tratan como una unidad única de trabajo. Si todas las operaciones en la transacción se completan con éxito, la transacción se confirma y todos los cambios de datos se hacen permanentes en la base de datos. Si alguna de las operaciones falla, la transacción se puede revertir, deshaciendo todos los cambios que se hayan hecho durante la transacción.</p>
+<p>Aquí te dejo los conceptos clave del control de transacciones en Oracle:</p>
+<h3 id="1-iniciar-una-transacción">1. <strong>Iniciar una Transacción</strong></h3>
+<p>Una transacción comienza implícitamente cuando se ejecuta el primer comando SQL (como <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, <code>CREATE TABLE</code>, etc.) después de conectar a la base de datos o después de que la última transacción haya sido finalizada con un <code>COMMIT</code> o <code>ROLLBACK</code>.</p>
+<h3 id="2-commit">2. <strong>COMMIT</strong></h3>
+<p>El comando <code>COMMIT</code> se utiliza para finalizar una transacción, haciendo todos los cambios permanentes en la base de datos. Una vez que se emite un <code>COMMIT</code>, no puedes revertir los cambios realizados por la transacción.</p>
+<h3 id="3-rollback">3. <strong>ROLLBACK</strong></h3>
+<p>El comando <code>ROLLBACK</code> se utiliza para deshacer todas las operaciones realizadas en la transacción actual, volviendo al estado en que se encontraba la base de datos antes de iniciar la transacción. Puedes emitir un <code>ROLLBACK</code> en caso de que algo salga mal en tu secuencia de operaciones.</p>
+<h3 id="4-savepoint">4. <strong>SAVEPOINT</strong></h3>
+<p>Los savepoints son puntos intermedios dentro de una transacción que puedes definir para marcar un estado específico de la base de datos. Si necesitas revertir parte de una transacción, puedes hacer un <code>ROLLBACK</code> a un <code>SAVEPOINT</code> específico, sin necesidad de deshacer toda la transacción. Esto ofrece una mayor flexibilidad en el manejo de transacciones.</p>
+<h3 id="5-set-transaction">5. <strong>SET TRANSACTION</strong></h3>
+<p>Este comando se utiliza para establecer ciertas características de la transacción actual, como el nivel de aislamiento, que determina cómo la transacción debe ser aislada de los efectos de otras transacciones concurrentes. Los niveles de aislamiento incluyen <code>READ COMMITTED</code>, <code>SERIALIZABLE</code>, entre otros, y afectan cómo y cuándo los cambios hechos por una transacción son visibles para otras transacciones.</p>
+<h3 id="6-autocommit">6. <strong>Autocommit</strong></h3>
+<p>En algunos entornos de desarrollo, la opción de autocommit puede estar habilitada, lo que significa que cada instrucción SQL se trata como una transacción individual y se comete automáticamente. Sin embargo, en la mayoría de los entornos de producción, especialmente en aplicaciones críticas, se prefiere tener un control explícito sobre las transacciones para garantizar la integridad de los datos.</p>
+<p>El control de transacciones es crucial para asegurar la consistencia de los datos, especialmente en aplicaciones que requieren alta disponibilidad y en entornos donde se realizan muchas operaciones concurrentes. Comprender y utilizar adecuadamente los comandos de control de transacciones en Oracle te permitirá gestionar tus datos de forma más efectiva, asegurando la integridad y la consistencia de tu base de datos.</p>
+<h3 id="ejemplo-de-una-transacción-con-guardado-reversión-y-confirmación">Ejemplo de una transacción con guardado, reversión y confirmación</h3>
+<p>A continuación se muestra un ejemplo práctico que involucra el uso de transacciones, <code>COMMIT</code>, <code>SAVEPOINT</code>, y <code>ROLLBACK</code> en un entorno de base de datos Oracle. Este ejemplo simula una secuencia de operaciones de base de datos en una situación hipotética en la que se actualizan registros de empleados y departamentos.</p>
+<p>Supongamos que tienes dos tablas en tu base de datos: <code>empleados</code> y <code>departamentos</code>. Quieres realizar las siguientes operaciones como parte de una única transacción:</p>
+<ol>
+<li>Actualizar el salario de un empleado.</li>
+<li>Asignar a un empleado a un nuevo departamento.</li>
+<li>Después de realizar algunas operaciones, decides que quieres revertir el cambio en el departamento, pero mantener la actualización del salario.</li>
+</ol>
+<p>A continuación, se muestra cómo podrías escribir esta secuencia de operaciones usando SQL en Oracle:</p>
+<pre><code class="language-sql"><span class="hljs-comment">-- Inicia la transacción automáticamente con la primera operación</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment">-- Primera operación: Actualizar el salario del empleado con ID 101</span>
+    <span class="hljs-keyword">UPDATE</span> empleados
+    <span class="hljs-keyword">SET</span> salario <span class="hljs-operator">=</span> salario <span class="hljs-operator">+</span> <span class="hljs-number">1000</span>
+    <span class="hljs-keyword">WHERE</span> empleado_id <span class="hljs-operator">=</span> <span class="hljs-number">101</span>;
+
+    <span class="hljs-comment">-- Crea un SAVEPOINT antes de la siguiente operación</span>
+    <span class="hljs-keyword">SAVEPOINT</span> antes_de_actualizar_departamento;
+
+    <span class="hljs-comment">-- Segunda operación: Asignar al empleado con ID 101 al departamento 5</span>
+    <span class="hljs-keyword">UPDATE</span> empleados
+    <span class="hljs-keyword">SET</span> departamento_id <span class="hljs-operator">=</span> <span class="hljs-number">5</span>
+    <span class="hljs-keyword">WHERE</span> empleado_id <span class="hljs-operator">=</span> <span class="hljs-number">101</span>;
+
+    <span class="hljs-comment">-- Imagina que aquí sucede algo que te hace querer revertir el cambio de departamento</span>
+    <span class="hljs-comment">-- pero quieres mantener la actualización del salario.</span>
+
+    <span class="hljs-comment">-- Revierte al SAVEPOINT creado previamente</span>
+    <span class="hljs-keyword">ROLLBACK</span> <span class="hljs-keyword">TO</span> <span class="hljs-keyword">SAVEPOINT</span> antes_de_actualizar_departamento;
+
+    <span class="hljs-comment">-- La transacción aún está activa aquí, y el cambio de salario se ha mantenido.</span>
+
+    <span class="hljs-comment">-- Confirmar la transacción</span>
+    <span class="hljs-keyword">COMMIT</span>;
+<span class="hljs-keyword">END</span>;
+</code></pre>
+<p>Este bloque de código realiza lo siguiente:</p>
+<ul>
+<li><strong>Inicia una transacción</strong>: La primera operación <code>UPDATE</code> inicia la transacción automáticamente.</li>
+<li><strong>Crea un <code>SAVEPOINT</code></strong>: Antes de realizar la segunda operación, se crea un punto de guardado llamado <code>antes_de_actualizar_departamento</code>. Esto permite revertir a este estado específico sin afectar las operaciones previas.</li>
+<li><strong>Revertir a un <code>SAVEPOINT</code></strong>: Utiliza <code>ROLLBACK TO SAVEPOINT</code> para deshacer los cambios realizados después del <code>SAVEPOINT</code> específico, en este caso, revertir la asignación del empleado al nuevo departamento pero manteniendo el aumento de salario.</li>
+<li><strong>Confirmar la transacción</strong>: Al final, se utiliza <code>COMMIT</code> para hacer permanentes los cambios que deseas mantener, en este caso, solo el aumento de salario.</li>
+</ul>
+<p>Este ejemplo muestra cómo las transacciones, junto con <code>COMMIT</code>, <code>SAVEPOINT</code>, y <code>ROLLBACK</code>, ofrecen control y flexibilidad sobre el manejo de las operaciones de base de datos, permitiéndote asegurar la integridad y consistencia de los datos.</p>
+<h2 id="202-bloqueo-y-concurrencia-efectiva">202. Bloqueo y concurrencia efectiva</h2>
+<p>El manejo de bloqueo y concurrencia efectiva son conceptos fundamentales en sistemas de gestión de bases de datos como Oracle, esenciales para mantener la integridad de los datos y el rendimiento del sistema en entornos con múltiples usuarios o aplicaciones accediendo y modificando los datos simultáneamente. Estos conceptos están estrechamente relacionados con el control de transacciones, pero se centran en cómo las transacciones interactúan y se aíslan entre sí.</p>
+<h3 id="bloqueo">Bloqueo</h3>
+<p>El bloqueo es un mecanismo que los sistemas de bases de datos utilizan para controlar el acceso a los datos durante las transacciones. Su propósito principal es asegurar la integridad de los datos evitando que múltiples transacciones modifiquen el mismo dato al mismo tiempo, lo que podría resultar en inconsistencias o corrupción de datos.</p>
+<h4 id="tipos-de-bloqueos">Tipos de Bloqueos</h4>
+<ul>
+<li><strong>Bloqueos de Lectura (Shared Locks):</strong> Permiten a una transacción leer datos mientras evitan que otros lo modifiquen durante la lectura. Varias transacciones pueden tener bloqueos de lectura sobre el mismo dato al mismo tiempo.</li>
+<li><strong>Bloqueos de Escritura (Exclusive Locks):</strong> Se utilizan cuando una transacción quiere modificar datos. Este tipo de bloqueo previene que otras transacciones lean o escriban en los datos afectados hasta que el bloqueo sea liberado.</li>
+</ul>
+<h3 id="concurrencia">Concurrencia</h3>
+<p>La concurrencia se refiere a la capacidad de múltiples transacciones para acceder y modificar la base de datos al mismo tiempo de manera eficiente, sin interferir entre sí y manteniendo la integridad de los datos. La gestión efectiva de la concurrencia asegura que el sistema de base de datos sea escalable y pueda manejar cargas de trabajo altas sin degradar el rendimiento o comprometer la integridad de los datos.</p>
+<h4 id="control-de-concurrencia">Control de Concurrencia</h4>
+<p>Los sistemas de bases de datos implementan modelos de control de concurrencia para manejar cómo las transacciones concurrentes interactúan. Oracle utiliza principalmente el control de concurrencia basado en multiversión (MVCC, Multiversion Concurrency Control), que proporciona cada transacción con una &quot;instantánea&quot; de los datos en un punto específico en el tiempo, permitiendo lecturas consistentes sin bloquear y minimizando la necesidad de bloqueos de lectura.</p>
+<h3 id="estrategias-para-manejar-la-concurrencia-y-el-bloqueo">Estrategias para Manejar la Concurrencia y el Bloqueo</h3>
+<ol>
+<li><strong>Niveles de Aislamiento de Transacciones:</strong> SQL estándar define varios niveles de aislamiento que determinan el grado en que los efectos de una transacción son visibles para otras transacciones y en qué medida las transacciones están aisladas de los cambios de otras. Oracle soporta niveles como Read Committed y Serializable.</li>
+<li><strong>Deadlocks:</strong> Un deadlock ocurre cuando dos o más transacciones se bloquean mutuamente, esperando que la otra libere recursos. Oracle detecta automáticamente deadlocks y resuelve el problema cancelando una de las transacciones involucradas y devolviéndola con un error, permitiendo que las demás continúen.</li>
+<li><strong>Optimización de Consultas:</strong> Escribir consultas eficientes puede reducir la necesidad de bloqueos prolongados y mejorar la concurrencia. Esto incluye usar índices adecuados, evitar bloqueos de tabla completa cuando sea posible y diseñar esquemas de base de datos que faciliten la concurrencia.</li>
+</ol>
+<p>En resumen, el manejo efectivo del bloqueo y la concurrencia en Oracle y otros sistemas de bases de datos es vital para asegurar que las transacciones se ejecuten de manera eficiente y segura, manteniendo la integridad de los datos y el rendimiento del sistema en entornos con múltiples usuarios y aplicaciones.</p>
+<h3 id="ejemplo-de-un-bloqueo-en-dos-transacciones">Ejemplo de un bloqueo en dos transacciones</h3>
+<p>A continuación se muestra| un ejemplo simplificado que ilustra cómo los bloqueos funcionan en un entorno de base de datos Oracle, utilizando el concepto de bloqueos exclusivos para modificar datos. Este ejemplo simulará dos transacciones que intentan actualizar el mismo registro en una tabla, lo que resulta en un bloqueo hasta que la primera transacción se completa.</p>
+<p>Imagina que tienes una tabla llamada <code>cuentas</code>, la cual contiene columnas para <code>id_cuenta</code>, <code>nombre_usuario</code>, y <code>saldo</code>. Dos usuarios simultáneamente intentan actualizar el saldo de la misma cuenta.</p>
+<h3 id="paso-1-configuración-de-la-tabla">Paso 1: Configuración de la Tabla</h3>
+<p>Primero, asegúrate de tener la tabla <code>cuentas</code>:</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> cuentas (
+    id_cuenta <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY,
+    nombre_usuario <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>),
+    saldo <span class="hljs-type">DECIMAL</span>(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>)
+);
+</code></pre>
+<h3 id="paso-2-transacción-1---inicia-y-adquiere-un-bloqueo">Paso 2: Transacción 1 - Inicia y Adquiere un Bloqueo</h3>
+<p>Transacción 1 inicia para actualizar el saldo de la cuenta con <code>id_cuenta = 1</code>.</p>
+<pre><code class="language-sql"><span class="hljs-comment">-- Transacción 1 inicia</span>
+<span class="hljs-keyword">BEGIN</span>;
+<span class="hljs-keyword">UPDATE</span> cuentas
+<span class="hljs-keyword">SET</span> saldo <span class="hljs-operator">=</span> saldo <span class="hljs-operator">+</span> <span class="hljs-number">500</span>
+<span class="hljs-keyword">WHERE</span> id_cuenta <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;
+<span class="hljs-comment">-- No hacemos COMMIT todavía, dejando la transacción abierta</span>
+</code></pre>
+<p>En este punto, Transacción 1 tiene un bloqueo exclusivo sobre el registro con <code>id_cuenta = 1</code>, porque ha iniciado una operación de escritura (UPDATE) sobre ese registro.</p>
+<h3 id="paso-3-transacción-2---intenta-actualizar-el-mismo-registro">Paso 3: Transacción 2 - Intenta Actualizar el Mismo Registro</h3>
+<p>Casi al mismo tiempo, otra transacción intenta realizar una operación de actualización sobre el mismo registro:</p>
+<pre><code class="language-sql"><span class="hljs-comment">-- Transacción 2 inicia</span>
+<span class="hljs-keyword">BEGIN</span>;
+<span class="hljs-keyword">UPDATE</span> cuentas
+<span class="hljs-keyword">SET</span> saldo <span class="hljs-operator">=</span> saldo <span class="hljs-operator">-</span> <span class="hljs-number">200</span>
+<span class="hljs-keyword">WHERE</span> id_cuenta <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;
+<span class="hljs-comment">-- Esta transacción queda bloqueada, esperando que Transacción 1 haga COMMIT o ROLLBACK</span>
+</code></pre>
+<p>Transacción 2 no puede proceder inmediatamente porque Transacción 1 tiene un bloqueo exclusivo en el registro que intenta modificar. Transacción 2 debe esperar hasta que Transacción 1 complete su operación.</p>
+<h3 id="paso-4-transacción-1-completa">Paso 4: Transacción 1 Completa</h3>
+<pre><code class="language-sql"><span class="hljs-comment">-- Transacción 1 hace COMMIT, liberando el bloqueo</span>
+<span class="hljs-keyword">COMMIT</span>;
+</code></pre>
+<p>Una vez que Transacción 1 completa su operación y realiza un <code>COMMIT</code>, libera el bloqueo sobre el registro. Ahora, Transacción 2 puede proceder con su operación de actualización.</p>
+<h3 id="paso-5-transacción-2-completa">Paso 5: Transacción 2 Completa</h3>
+<p>Después de que Transacción 1 libera el bloqueo, Transacción 2 puede completar su operación de actualización y también hacer <code>COMMIT</code>:</p>
+<pre><code class="language-sql"><span class="hljs-comment">-- Ahora Transacción 2 puede completar y hace COMMIT</span>
+<span class="hljs-keyword">COMMIT</span>;
+</code></pre>
+<p>Este ejemplo demuestra cómo funciona el mecanismo de bloqueo en una situación de actualización de datos concurrente. Los bloqueos exclusivos aseguran que cada transacción que modifica datos tenga acceso exclusivo a esos datos durante su operación, evitando así conflictos y asegurando la integridad de los datos.</p>
+<h2 id="203-manejo-de-conflictos">203. Manejo de conflictos</h2>
+<p>El manejo de conflictos en bases de datos, especialmente en sistemas que soportan transacciones concurrentes como Oracle, es crucial para mantener la integridad de los datos y el rendimiento del sistema. Los conflictos surgen cuando múltiples transacciones intentan acceder o modificar los mismos datos simultáneamente de manera incompatible, lo que puede llevar a problemas como la pérdida de actualizaciones, lecturas sucias, y condiciones de carrera.</p>
+<h3 id="tipos-de-conflictos">Tipos de Conflictos</h3>
+<ol>
+<li><strong>Pérdida de Actualizaciones:</strong> Ocurre cuando dos transacciones modifican el mismo dato de forma concurrente, y el trabajo de una transacción se sobrescribe por el de otra.</li>
+<li><strong>Lecturas Sucias:</strong> Sucede cuando una transacción lee cambios que otra transacción ha hecho pero aún no ha confirmado. Si la segunda transacción se revierte, la primera transacción habrá leído datos que nunca existieron oficialmente.</li>
+<li><strong>Lecturas No Repetibles/Fantasmas:</strong> Se da cuando una transacción lee el mismo dato dos veces y encuentra diferentes valores debido a las modificaciones de otras transacciones entre las dos lecturas.</li>
+</ol>
+<h3 id="estrategias-de-manejo-de-conflictos">Estrategias de Manejo de Conflictos</h3>
+<p>Para manejar estos conflictos, los sistemas de gestión de bases de datos implementan varias estrategias:</p>
+<ol>
+<li>
+<p><strong>Niveles de Aislamiento de Transacciones:</strong> Los niveles de aislamiento permiten a los desarrolladores y administradores de bases de datos equilibrar la necesidad de concurrencia contra la probabilidad y aceptabilidad de ciertos tipos de conflictos. Niveles más altos de aislamiento reducen los conflictos pero a costa de la concurrencia y viceversa.</p>
+</li>
+<li>
+<p><strong>Locking (Bloqueo):</strong> Los sistemas de bases de datos utilizan bloqueos para controlar el acceso a los datos. Los bloqueos pueden ser exclusivos o compartidos y ayudan a prevenir la corrupción de datos asegurando que solo una transacción pueda modificar los datos a la vez.</p>
+</li>
+<li>
+<p><strong>Multiversion Concurrency Control (MVCC):</strong> MVCC permite que diferentes transacciones vean diferentes versiones de los datos al mismo tiempo, lo que puede ayudar a evitar bloqueos y reducir conflictos entre transacciones concurrentes.</p>
+</li>
+<li>
+<p><strong>Detección y Resolución de Deadlocks:</strong> Los deadlocks ocurren cuando dos o más transacciones se bloquean mutuamente, esperando que la otra libere recursos. Los sistemas de bases de datos modernos pueden detectar automáticamente deadlocks y abortar una de las transacciones involucradas para romper el deadlock.</p>
+</li>
+<li>
+<p><strong>Compensación de Transacciones:</strong> En algunos casos, especialmente en sistemas distribuidos, se pueden diseñar transacciones de manera que si ocurre un conflicto que no se puede resolver de forma satisfactoria, las operaciones realizadas por una transacción se pueden &quot;compensar&quot; o deshacer con otra transacción.</p>
+</li>
+<li>
+<p><strong>Retry Logic:</strong> La lógica de reintento puede implementarse en la aplicación, donde si una transacción falla debido a un conflicto, la aplicación automáticamente reintenta la transacción después de un breve retraso, posiblemente después de ajustar los datos o la lógica para evitar el conflicto.</p>
+</li>
+</ol>
+<h3 id="buenas-prácticas">Buenas Prácticas</h3>
+<ul>
+<li><strong>Diseñar con la Concurrencia en Mente:</strong> Considerar la concurrencia y el potencial de conflictos desde el inicio del diseño de la base de datos y la aplicación puede ayudar a minimizar problemas más adelante.</li>
+<li><strong>Minimizar el Tiempo de Transacción:</strong> Mantener las transacciones lo más cortas posible reduce la ventana durante la cual pueden ocurrir conflictos.</li>
+<li><strong>Monitorización y Ajuste:</strong> Usar herramientas de monitorización para identificar y resolver cuellos de botella y ajustar la configuración de la base de datos y la aplicación según sea necesario para manejar la carga de trabajo concurrente de manera eficiente.</li>
+</ul>
+<p>El manejo efectivo de conflictos es fundamental para el diseño y operación de cualquier sistema de base de datos que deba manejar cargas de trabajo concurrentes, asegurando que la base de datos permanezca consistente y performante bajo diversas condiciones de operación.</p>
+<p>Vamos a ver cómo se pueden manejar los conflictos en transacciones con ejemplos prácticos, utilizando estrategias comunes como niveles de aislamiento de transacciones, bloqueo, y control de concurrencia basado en multiversión (MVCC). Estos ejemplos te ayudarán a entender cómo las bases de datos manejan situaciones potencialmente problemáticas derivadas de la ejecución concurrente de transacciones.</p>
+<h3 id="ejemplo-1-niveles-de-aislamiento-de-transacciones">Ejemplo 1: Niveles de Aislamiento de Transacciones</h3>
+<p>Supongamos que dos transacciones, <code>T1</code> y <code>T2</code>, intentan leer y actualizar los mismos datos simultáneamente en una tabla <code>cuentas</code> que tiene columnas <code>id_cuenta</code> y <code>saldo</code>.</p>
+<p><strong>Situación sin control adecuado de aislamiento:</strong></p>
+<ul>
+<li><code>T1</code> lee el saldo de la cuenta con <code>id_cuenta = 1</code>.</li>
+<li><code>T2</code> actualiza el saldo de la misma cuenta, incrementándolo en 100, y hace <code>COMMIT</code> de sus cambios.</li>
+<li><code>T1</code> lee nuevamente el saldo de la cuenta con <code>id_cuenta = 1</code> esperando obtener el mismo valor que antes, pero ahora obtiene un valor diferente debido a la actualización de <code>T2</code>.</li>
+</ul>
+<p><strong>Solución con Nivel de Aislamiento Serializable:</strong></p>
+<p>Para evitar este problema, se puede establecer el nivel de aislamiento de la transacción <code>T1</code> a serializable. En este nivel, si <code>T1</code> intenta leer nuevamente los datos después de que <code>T2</code> ha realizado cambios, <code>T1</code> recibiría un error indicando que no puede proceder debido a un conflicto de serialización, o vería los datos como estaban antes de cualquier cambio realizado por <code>T2</code> (dependiendo de cómo el sistema gestione el nivel serializable).</p>
+<pre><code class="language-sql"><span class="hljs-keyword">SET</span> TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+<span class="hljs-keyword">BEGIN</span>;
+<span class="hljs-comment">-- Lecturas y operaciones de T1</span>
+<span class="hljs-keyword">COMMIT</span>;
+</code></pre>
+<h3 id="ejemplo-2-bloqueo-pessimista">Ejemplo 2: Bloqueo Pessimista</h3>
+<p>Imagina que <code>T1</code> quiere actualizar el saldo de una cuenta y asegurarse de que nadie más pueda modificar esa cuenta hasta que <code>T1</code> termine.</p>
+<p><strong>Implementación de Bloqueo Pessimista:</strong></p>
+<ul>
+<li>
+<p><code>T1</code> inicia y selecciona el saldo de la cuenta con <code>id_cuenta = 1</code> para actualización, lo que coloca un bloqueo exclusivo en ese registro.</p>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> saldo <span class="hljs-keyword">FROM</span> cuentas <span class="hljs-keyword">WHERE</span> id_cuenta <span class="hljs-operator">=</span> <span class="hljs-number">1</span> <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">UPDATE</span>;
+</code></pre>
+</li>
+<li>
+<p>Mientras <code>T1</code> tiene el bloqueo, cualquier otra transacción (<code>T2</code>) que intente leer o modificar el mismo registro quedará bloqueada hasta que <code>T1</code> haga <code>COMMIT</code> o <code>ROLLBACK</code> de sus cambios, liberando el bloqueo.</p>
+</li>
+</ul>
+<h3 id="ejemplo-3-mvcc-y-lecturas-consistentes">Ejemplo 3: MVCC y Lecturas Consistentes</h3>
+<p>Supongamos que tienes una transacción <code>T1</code> que está leyendo una gran cantidad de registros de una tabla <code>pedidos</code> para generar un reporte. Al mismo tiempo, <code>T2</code> actualiza algunos de los registros que <code>T1</code> está leyendo.</p>
+<p><strong>Manejo de Conflictos con MVCC:</strong></p>
+<ul>
+<li><code>T1</code> comienza su operación de lectura. Con MVCC, <code>T1</code> ve una instantánea consistente de los datos en el momento en que comenzó, incluso si <code>T2</code> realiza cambios en los datos que <code>T1</code> está leyendo.</li>
+<li><code>T2</code> hace sus actualizaciones y <code>COMMIT</code>. Estos cambios no afectan la instantánea que <code>T1</code> está utilizando para su lectura, garantizando que <code>T1</code> tenga una vista consistente de los datos para su reporte.</li>
+</ul>
+<h3 id="buenas-prácticas-en-el-manejo-de-conflictos">Buenas Prácticas en el Manejo de Conflictos</h3>
+<ol>
+<li><strong>Evaluar y Seleccionar el Nivel de Aislamiento Apropiado:</strong> Dependiendo de las necesidades de concurrencia y coherencia de datos de tu aplicación, selecciona un nivel de aislamiento que ofrezca el balance correcto.</li>
+<li><strong>Utilizar Bloqueos con Precaución:</strong> Los bloqueos son necesarios para mantener la integridad de los datos, pero un uso excesivo puede llevar a deadlocks y afectar el rendimiento. Utiliza bloqueos solo cuando sea estrictamente necesario.</li>
+<li><strong>Aprovechar MVCC para Lecturas Consistentes:</strong> MVCC es una potente característica para mantener lecturas consistentes sin bloquear escrituras, especialmente útil en entornos de lectura intensiva.</li>
+</ol>
+<p>Estos ejemplos ilustran cómo diferentes estrategias de manejo de conflictos pueden ser aplicadas en situaciones específicas para mantener la integridad y el rendimiento de las bases de datos en entornos concurrentes.</p>
+<h3 id="manejo-de-excepciones-dentro-de-la-transacción">Manejo de excepciones dentro de la transacción</h3>
+<p>Prevenir errores dentro de una transacción y asegurar que se realice un <code>ROLLBACK</code> en caso de error es una práctica crucial para mantener la integridad de los datos en cualquier sistema de gestión de bases de datos, incluido Oracle. La idea es capturar cualquier error que ocurra durante la ejecución de la transacción y, automáticamente, revertir todas las operaciones realizadas hasta ese punto. Esto se puede lograr mediante el manejo de excepciones en procedimientos almacenados o bloques PL/SQL, o mediante la lógica de aplicación.</p>
+<p>A continuación, se muestra cómo manejar esto en un bloque PL/SQL en Oracle:</p>
+<h3 id="uso-de-bloques-plsql-para-manejo-de-excepciones">Uso de Bloques PL/SQL para Manejo de Excepciones</h3>
+<pre><code class="language-sql"><span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment">-- Inicia la transacción</span>
+    <span class="hljs-comment">-- Ejemplo: Actualizar el saldo de una cuenta</span>
+    <span class="hljs-keyword">UPDATE</span> cuentas <span class="hljs-keyword">SET</span> saldo <span class="hljs-operator">=</span> saldo <span class="hljs-operator">-</span> <span class="hljs-number">100</span> <span class="hljs-keyword">WHERE</span> id_cuenta <span class="hljs-operator">=</span> <span class="hljs-number">123</span>;
+
+    <span class="hljs-comment">-- Aquí podrías tener más operaciones SQL como parte de tu transacción</span>
+
+    <span class="hljs-comment">-- Si todo va bien hasta este punto, se hace COMMIT</span>
+    <span class="hljs-keyword">COMMIT</span>;
+EXCEPTION
+    <span class="hljs-keyword">WHEN</span> OTHERS <span class="hljs-keyword">THEN</span>
+        <span class="hljs-comment">-- Si ocurre algún error, revierte todas las operaciones</span>
+        <span class="hljs-keyword">ROLLBACK</span>;
+        
+        <span class="hljs-comment">-- Opcionalmente, registra el error o envía un mensaje de error</span>
+        <span class="hljs-comment">-- Por ejemplo, podrías usar DBMS_OUTPUT.PUT_LINE o registrar en una tabla de logs</span>
+        DBMS_OUTPUT.PUT_LINE(<span class="hljs-string">&#x27;Error: &#x27;</span> <span class="hljs-operator">||</span> SQLERRM);
+        
+        <span class="hljs-comment">-- Puedes optar por propagar el error después del rollback</span>
+        RAISE;
+<span class="hljs-keyword">END</span>;
+</code></pre>
+<p>En este ejemplo, cualquier operación dentro del bloque <code>BEGIN...END</code> forma parte de la transacción. Si se produce un error en cualquier punto dentro de este bloque, el flujo de control pasa al bloque <code>EXCEPTION</code>, donde se manejan los errores.</p>
+<ul>
+<li><strong><code>ROLLBACK</code></strong>: Se ejecuta para revertir todas las operaciones realizadas en la transacción actual, asegurando que no se apliquen cambios parciales a la base de datos que podrían violar la integridad de los datos.</li>
+<li><strong><code>WHEN OTHERS</code></strong>: Es un manejador de excepciones genérico que captura cualquier error. Para manejar errores específicos de manera diferente, puedes definir múltiples secciones <code>WHEN</code> para diferentes tipos de excepciones de Oracle.</li>
+<li><strong><code>DBMS_OUTPUT.PUT_LINE</code></strong>: Se utiliza para imprimir el mensaje de error en la consola o interfaz de usuario, lo cual es útil para fines de depuración o registro.</li>
+<li><strong><code>RAISE</code></strong>: Propaga el error capturado después de realizar el rollback para que pueda ser manejado o registrado por una capa superior, como la aplicación que llamó al procedimiento almacenado.</li>
+</ul>
+<h3 id="consideraciones-adicionales">Consideraciones Adicionales</h3>
+<ul>
+<li><strong>Manejo de Errores Específicos</strong>: Puedes capturar y manejar errores específicos utilizando sus identificadores de excepción en lugar de usar <code>WHEN OTHERS</code> para todas las excepciones. Esto te permite tener un control más granular sobre el manejo de errores y realizar acciones específicas basadas en el tipo de error.</li>
+<li><strong>Log de Errores</strong>: Considera registrar los errores en una tabla dedicada a logs dentro de tu base de datos. Esto puede ser invaluable para el diagnóstico y análisis post-mortem de incidentes.</li>
+<li><strong>Lógica de Aplicación</strong>: En algunos casos, especialmente cuando se trabaja con múltiples bases de datos o sistemas, es posible que desees manejar el <code>ROLLBACK</code> en la lógica de la aplicación. Asegúrate de que tu aplicación pueda manejar adecuadamente las excepciones y realizar los <code>ROLLBACK</code> necesarios cuando se interactúa con la base de datos.</li>
+</ul>
+<p>Implementar un manejo robusto de errores en tus transacciones te ayudará a mantener la consistencia y fiabilidad de tu base de datos frente a condiciones inesperadas.</p>
+<h3 id="ejemplo-de-propagación-de-excepciones-con-disparadores-y-procedimientos-almacenados">Ejemplo de propagación de excepciones con disparadores y procedimientos almacenados</h3>
+<p>Generar y manejar un error cuando se intenta colocar un saldo negativo en una cuenta implica establecer reglas de negocio dentro de tu base de datos o aplicación. Hay varias formas de implementar esta lógica en un entorno de base de datos Oracle, incluyendo el uso de restricciones en la base de datos, triggers (disparadores) y bloques PL/SQL para la validación de datos antes de permitir la actualización o inserción de registros.</p>
+<h3 id="usando-triggers-para-prevenir-saldos-negativos">Usando Triggers para Prevenir Saldos Negativos</h3>
+<p>Una forma efectiva de evitar saldos negativos es mediante el uso de un trigger que se ejecute antes de actualizar o insertar en la tabla de cuentas. Este trigger puede verificar si la operación resultará en un saldo negativo y, de ser así, generar un error para abortar la transacción.</p>
+<p>Aquí te muestro cómo podrías hacerlo:</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> REPLACE <span class="hljs-keyword">TRIGGER</span> evitar_saldo_negativo
+BEFORE <span class="hljs-keyword">UPDATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">ON</span> cuentas
+<span class="hljs-keyword">FOR</span> <span class="hljs-keyword">EACH</span> <span class="hljs-type">ROW</span>
+<span class="hljs-keyword">BEGIN</span>
+    IF :NEW.saldo <span class="hljs-operator">&lt;</span> <span class="hljs-number">0</span> <span class="hljs-keyword">THEN</span>
+        RAISE_APPLICATION_ERROR(<span class="hljs-number">-20001</span>, <span class="hljs-string">&#x27;El saldo de la cuenta no puede ser negativo.&#x27;</span>);
+    <span class="hljs-keyword">END</span> IF;
+<span class="hljs-keyword">END</span>;
+<span class="hljs-operator">/</span>
+</code></pre>
+<p>Este trigger se activa antes de cada operación de inserción o actualización en la tabla <code>cuentas</code>. Utiliza <code>RAISE_APPLICATION_ERROR</code> para generar un error con un mensaje personalizado si el nuevo valor de <code>saldo</code> es menor que cero. El código de error <code>-20001</code> es un número arbitrario que elegí para este ejemplo; puedes utilizar cualquier número en el rango de <code>-20000</code> a <code>-20999</code>, que Oracle reserva para errores definidos por el usuario.</p>
+<h3 id="usando-bloques-plsql">Usando Bloques PL/SQL</h3>
+<p>Otra forma de manejar esta validación es dentro de un procedimiento almacenado o bloque PL/SQL que actualiza el saldo. Este método te da más flexibilidad para realizar validaciones complejas y manejar errores de manera más sofisticada.</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> REPLACE <span class="hljs-keyword">PROCEDURE</span> actualizar_saldo(id_cuenta <span class="hljs-keyword">IN</span> <span class="hljs-type">INT</span>, monto <span class="hljs-keyword">IN</span> <span class="hljs-type">DECIMAL</span>) <span class="hljs-keyword">IS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment">-- Verificar si el monto resulta en un saldo negativo</span>
+    IF monto <span class="hljs-operator">&lt;</span> <span class="hljs-number">0</span> <span class="hljs-keyword">THEN</span>
+        <span class="hljs-comment">-- Selecciona el saldo actual para verificar</span>
+        <span class="hljs-keyword">SELECT</span> saldo <span class="hljs-keyword">INTO</span> v_saldo_actual <span class="hljs-keyword">FROM</span> cuentas <span class="hljs-keyword">WHERE</span> id_cuenta <span class="hljs-operator">=</span> id_cuenta <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">UPDATE</span>;
+        IF v_saldo_actual <span class="hljs-operator">+</span> monto <span class="hljs-operator">&lt;</span> <span class="hljs-number">0</span> <span class="hljs-keyword">THEN</span>
+            RAISE_APPLICATION_ERROR(<span class="hljs-number">-20002</span>, <span class="hljs-string">&#x27;La operación resultaría en un saldo negativo.&#x27;</span>);
+        <span class="hljs-keyword">END</span> IF;
+    <span class="hljs-keyword">END</span> IF;
+
+    <span class="hljs-comment">-- Procede con la actualización si no hay errores</span>
+    <span class="hljs-keyword">UPDATE</span> cuentas <span class="hljs-keyword">SET</span> saldo <span class="hljs-operator">=</span> saldo <span class="hljs-operator">+</span> monto <span class="hljs-keyword">WHERE</span> id_cuenta <span class="hljs-operator">=</span> id_cuenta;
+
+    <span class="hljs-keyword">COMMIT</span>;
+EXCEPTION
+    <span class="hljs-keyword">WHEN</span> OTHERS <span class="hljs-keyword">THEN</span>
+        <span class="hljs-keyword">ROLLBACK</span>;
+        RAISE;
+<span class="hljs-keyword">END</span> actualizar_saldo;
+<span class="hljs-operator">/</span>
+</code></pre>
+<p>En este procedimiento, primero se verifica si la aplicación del <code>monto</code> al <code>saldo</code> actual resultaría en un saldo negativo. Si es así, se genera un error utilizando <code>RAISE_APPLICATION_ERROR</code>, similar al trigger. La ventaja de este enfoque es que puedes incorporar lógica adicional antes de la actualización y manejar transacciones de forma más controlada dentro del procedimiento.</p>
+<h3 id="consideraciones">Consideraciones</h3>
+<ul>
+<li><strong>Restricciones de Integridad:</strong> Oracle también permite definir restricciones de integridad directamente en la definición de la tabla. Sin embargo, para el caso de evitar saldos negativos que dependen del valor previo y nuevo, un trigger o procedimiento almacenado es más adecuado.</li>
+<li><strong>Manejo de Errores en Aplicaciones:</strong> Es importante manejar adecuadamente los errores generados por <code>RAISE_APPLICATION_ERROR</code> en tu aplicación, asegurando que los usuarios reciban feedback claro sobre por qué una operación no se pudo completar.</li>
+</ul>
+<p>Implementar una validación a nivel de base de datos como esta asegura que tu base de datos se mantenga consistente y que las reglas de negocio se apliquen de manera efectiva, incluso antes de que los datos sean modificados o insertados.</p>
+
+            
+            
+        </body>
+        </html>
