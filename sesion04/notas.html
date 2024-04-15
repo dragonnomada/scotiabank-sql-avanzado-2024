@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>notas.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="curso-de-sql-avanzado---sesi%C3%B3n-4">Curso de SQL Avanzado - Sesión 4</h1>
+<img src="https://amei.mx/wp-content/uploads/2016/08/Scotiabank-logo.jpg" alt="Scotiabank Logo" height="60">
+<img src="https://www.belatrix.com/wp-content/uploads/2023/08/belatrix-logosweb-1.png" alt="Belatrix Logo" height="60">
+<p><strong><a href="https://www.scotiabank.com.mx">Scotiabank</a></strong> | <strong><a href="https://www.belatrix.com">Belatrix</a></strong></p>
+<p>Instructor: <a href="alan@nomadacode.com">Alan Badillo Salas</a></p>
+<hr>
+<h2 id="contenido">Contenido</h2>
+<pre><code>Módulo 4: Programación en SQL
+
+1. Uso de funciones y procedimientos almacenados
+2. Desarrollo de disparadores avanzados
+3. Trabajo con cursores y variables
+</code></pre>
+<h3 id="temas">Temas</h3>
+<ol start="401">
+<li>Introducción a SQL Server</li>
+<li>Repaso de Consultas, Índices y Particionamiento en SQL Server</li>
+<li>Uso de funciones y procedimientos almacenados</li>
+<li>Desarrollo de disparadores avanzados</li>
+<li>Trabajo con cursores y variables</li>
+</ol>
+<h2 id="401-introducci%C3%B3n-a-sql-server">401. Introducción a SQL Server</h2>
+<p>SQL Server es un sistema de gestión de bases de datos relacional desarrollado por Microsoft. Esta plataforma es ampliamente utilizada en empresas de todos los tamaños para almacenar, recuperar y gestionar datos. Aquí están algunos aspectos fundamentales que cubre la administración de SQL Server:</p>
+<h3 id="1-instalaci%C3%B3n-y-configuraci%C3%B3n">1. Instalación y configuración</h3>
+<p>La administración comienza con la instalación de SQL Server. Es crucial seleccionar la edición adecuada que se ajuste a las necesidades del negocio (por ejemplo, Express, Standard, Enterprise). Después de la instalación, la configuración del servidor es fundamental para optimizar el rendimiento, la seguridad y la accesibilidad. Esto incluye configurar instancias, bases de datos, y parámetros de red.</p>
+<h3 id="2-gesti%C3%B3n-de-bases-de-datos">2. Gestión de bases de datos</h3>
+<p>El administrador de SQL Server debe saber cómo crear y configurar bases de datos. Esto incluye definir el tamaño inicial, el crecimiento incremental y las opciones de seguridad. La gestión de bases de datos también implica el diseño y la normalización de esquemas, la creación de tablas, índices, procedimientos almacenados y vistas.</p>
+<h3 id="3-seguridad">3. Seguridad</h3>
+<p>La seguridad es crucial en la administración de SQL Server. Esto abarca la configuración de autenticación (Windows o SQL Server), asignación de roles y permisos a usuarios y grupos, y asegurar los datos mediante cifrado y auditorías. Se debe prestar atención especial a proteger los datos contra accesos no autorizados y amenazas externas.</p>
+<h3 id="4-respaldos-y-recuperaci%C3%B3n">4. Respaldos y recuperación</h3>
+<p>Esencial para cualquier sistema de base de datos, los administradores deben establecer políticas de respaldo para proteger los datos. Esto incluye realizar respaldos completos, diferenciales y de registros de transacciones regularmente. Además, deben estar preparados para restaurar bases de datos de estos respaldos en caso de pérdida de datos o desastres.</p>
+<h3 id="5-monitoreo-y-optimizaci%C3%B3n-del-rendimiento">5. Monitoreo y optimización del rendimiento</h3>
+<p>El monitoreo regular del rendimiento de SQL Server ayuda a identificar y resolver cuellos de botella. Esto puede involucrar la supervisión del uso de la CPU, la memoria, el espacio en disco y la actividad de la red. La optimización puede requerir ajustes en las consultas, índices, o configuraciones del servidor para mejorar la eficiencia general.</p>
+<h3 id="6-automatizaci%C3%B3n-de-tareas">6. Automatización de tareas</h3>
+<p>SQL Server proporciona herramientas como SQL Server Agent, que permite automatizar tareas repetitivas como respaldos, mantenimiento de bases de datos y ejecución de scripts. La automatización ayuda a reducir errores humanos y a liberar tiempo del administrador para centrarse en tareas más críticas.</p>
+<h3 id="7-actualizaciones-y-migraciones">7. Actualizaciones y migraciones</h3>
+<p>Mantener SQL Server actualizado es importante para aprovechar las mejoras en características y seguridad. Las actualizaciones pueden requerir planificación cuidadosa y pruebas para asegurar la compatibilidad con aplicaciones existentes. Las migraciones, ya sea a nuevas versiones o a plataformas en la nube como Azure SQL, también son parte del trabajo del administrador.</p>
+<h3 id="8-soluci%C3%B3n-de-problemas">8. Solución de problemas</h3>
+<p>Los administradores deben ser adeptos en diagnosticar y resolver problemas que puedan surgir, como problemas de rendimiento, fallos en el hardware, y errores de software. Conocer las herramientas y técnicas de solución de problemas es crucial.</p>
+<p>La administración de SQL Server es un campo dinámico y esencial que requiere una combinación de conocimientos técnicos y habilidades prácticas. Dominar estas áreas fundamentales puede llevar a una gestión eficaz y eficiente de los recursos de datos de una organización.</p>
+<h2 id="402-repaso-de-consultas-%C3%ADndices-y-particionamiento-en-sql-server">402. Repaso de Consultas, Índices y Particionamiento en SQL Server</h2>
+<p>Debido a la sustición de Oracle por SQL Server, vamos a repasar algunos conceptos en SQL Server y su manejo desde Python.</p>
+<p>Lo principal será entender cómo se realiza la conexión a la base de datos desde Python (con usuario previamente configurado). En el módulo siguiente veremos cómo configurar una base de datos y usuario para implementar las auditorías.</p>
+<h3 id="conectar-a-la-base-de-datos-desde-python">Conectar a la base de datos desde Python</h3>
+<p>Lo principal para comenzar a trabajar con SQL Server desde Python es crear una conexión usando la librería <code>pymssql</code> que se puede instalar con:</p>
+<pre class="hljs"><code><div>pip install pymssql
+</div></code></pre>
+<p><strong>Nota:</strong> En Google Colab deberemos usar <code>!pip install pymssql</code>.</p>
+<p>Una vez instalado apuntaremos al servidor de la base de datos especificando las credenciales y demás configuraciones que deberán ser válidas en el servidor.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> pymssql
+
+<span class="hljs-comment"># Configuraciones de la conexión</span>
+server = <span class="hljs-string">'&lt;IP | HOST | DOMINIO DNS&gt;'</span>
+database = <span class="hljs-string">'&lt;nombre de la base de datos&gt;'</span>
+username = <span class="hljs-string">'&lt;usuario con acceso a la base de datos&gt;'</span>
+password = <span class="hljs-string">'&lt;Contraseña del usuario&gt;'</span>
+
+<span class="hljs-comment"># Crear la conexión y extraer el cursor capaz de ejecutar las consultas</span>
+conn = pymssql.connect(server, username, password, database)
+cursor = conn.cursor()
+
+<span class="hljs-comment"># Consultamos la versión para verificar que funcione</span>
+cursor.execute(<span class="hljs-string">'SELECT @@VERSION'</span>)
+row = cursor.fetchone()
+<span class="hljs-keyword">while</span> row:
+    print(<span class="hljs-string">"SQL Server version:"</span>, row[<span class="hljs-number">0</span>])
+    row = cursor.fetchone()
+</div></code></pre>
+<p><strong>Nota:</strong> Del lado del servidor debemos verificar que esté habilitado el modo <em>SQL Server authentication</em> y el inicio de sesión otorgado a las bases de datos para el usuario que tendrá acceso.</p>
+<p>Cuando no utilicemos más la conexión debemos cerrarla para no acumular conexiones abiertas:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Cerrar conexión</span>
+cursor.close()
+conn.close()
+</div></code></pre>
+<h3 id="1-consultas">1. Consultas</h3>
+<p>Las consultas en SQL Server son instrucciones escritas en Transact-SQL (T-SQL) que permiten recuperar, actualizar, insertar y eliminar datos de las bases de datos. Para escribir consultas eficientes, es fundamental entender:</p>
+<ul>
+<li><strong>Selección de datos</strong>: Usar <code>SELECT</code> para especificar las columnas y <code>FROM</code> para indicar las tablas. Las cláusulas <code>WHERE</code>, <code>JOIN</code>, y <code>GROUP BY</code> permiten filtrar, combinar y agrupar datos, respectivamente.</li>
+<li><strong>Funciones agregadas</strong>: Como <code>SUM()</code>, <code>AVG()</code>, <code>COUNT()</code>, etc., que permiten realizar cálculos sobre un conjunto de valores.</li>
+<li><strong>Subconsultas y CTEs</strong>: Las subconsultas permiten utilizar el resultado de una consulta como parte de otra. Las Common Table Expressions (CTEs) proporcionan una manera más legible y potente de estructurar las subconsultas.</li>
+</ul>
+<p>En Python usaremos el cursor para ejecutar las sentencias de consulta:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Consulta SQL que quieres ejecutar</span>
+sql = <span class="hljs-string">"SELECT id, nombre FROM usuarios"</span>
+
+<span class="hljs-comment"># Ejecutar la consulta</span>
+cursor.execute(sql)
+
+<span class="hljs-comment"># Iterar sobre los resultados</span>
+<span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> cursor:
+    print(<span class="hljs-string">f"ID: <span class="hljs-subst">{row[<span class="hljs-number">0</span>]}</span>, Nombre: <span class="hljs-subst">{row[<span class="hljs-number">1</span>]}</span>"</span>)
+</div></code></pre>
+<p>Con algunas estrategias podemos recolectar los resultados y procesarlos mediante Python.</p>
+<p>También podemos hacer actualizaciones:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Consulta SQL para inserción</span>
+sql_insert = <span class="hljs-string">"INSERT INTO usuarios (id, nombre) VALUES (%d, %s)"</span>
+
+<span class="hljs-comment"># Datos que quieres insertar</span>
+id = <span class="hljs-number">2</span>
+name = <span class="hljs-string">'Ana Ming'</span>
+
+<span class="hljs-comment"># Ejecutar la consulta de inserción</span>
+cursor.execute(sql_insert, (id, name))
+conn.commit() <span class="hljs-comment"># &lt;-- Necesario para que quede insertado correctamente</span>
+</div></code></pre>
+<p>Y actualizaciones:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Información para actualizar</span>
+user_id = <span class="hljs-number">1</span>
+new_email = <span class="hljs-string">'nuevo_email@example.com'</span>
+
+<span class="hljs-comment"># Consulta SQL para actualizar</span>
+sql = <span class="hljs-string">"UPDATE usuarios SET email = %s WHERE id = %s"</span>
+
+<span class="hljs-comment"># Ejecutar la consulta de actualización</span>
+cursor.execute(sql, (new_email, user_id))
+
+<span class="hljs-comment"># Asegurar que los cambios se reflejen en la base de datos</span>
+conn.commit()
+</div></code></pre>
+<h3 id="subconsultas-en-sql-server">Subconsultas en SQL Server</h3>
+<p>En SQL Server, las subconsultas son consultas anidadas dentro de otra consulta principal. Se utilizan para obtener datos que luego se utilizan en la consulta externa. Las subconsultas pueden aparecer en diversas partes de la consulta principal, incluyendo la cláusula <code>SELECT</code>, <code>FROM</code>, y <code>WHERE</code>.</p>
+<h3 id="tipos-de-subconsultas">Tipos de Subconsultas</h3>
+<ol>
+<li><strong>Subconsulta Escalar</strong>: Retorna un único valor y se utiliza en la cláusula <code>SELECT</code> o <code>WHERE</code>.</li>
+<li><strong>Subconsulta de Tabla</strong>: Retorna una tabla completa y se utiliza como una fuente de datos en la cláusula <code>FROM</code>.</li>
+<li><strong>Subconsulta Correlativa</strong>: Referencia a una columna de la consulta externa dentro de la subconsulta, se evalúa fila por fila.</li>
+</ol>
+<h3 id="ejemplo-de-subconsulta">Ejemplo de Subconsulta</h3>
+<p>Considera una base de datos con dos tablas, <code>Empleados</code> y <code>Departamentos</code>, como en el ejemplo anterior:</p>
+<ul>
+<li><strong>Empleados</strong>: <code>EmpleadoID</code>, <code>Nombre</code>, <code>DepartamentoID</code>, <code>Salario</code></li>
+<li><strong>Departamentos</strong>: <code>DepartamentoID</code>, <code>NombreDepartamento</code></li>
+</ul>
+<p>Supongamos que quieres encontrar los nombres de los empleados que ganan más que el promedio de salarios de su departamento.</p>
+<h4 id="consulta-con-subconsulta">Consulta con Subconsulta</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">SELECT</span> e.Nombre, e.Salario
+<span class="hljs-keyword">FROM</span> Empleados e
+<span class="hljs-keyword">WHERE</span> e.Salario &gt; (
+    <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">AVG</span>(Salario)
+    <span class="hljs-keyword">FROM</span> Empleados
+    <span class="hljs-keyword">WHERE</span> DepartamentoID = e.DepartamentoID
+)
+</div></code></pre>
+<p>En este ejemplo, la subconsulta calcula el salario promedio de los empleados dentro de cada departamento, y la consulta principal selecciona los empleados que ganan más que ese promedio. La subconsulta es correlativa porque referencia <code>DepartamentoID</code> de la consulta externa.</p>
+<h3 id="uso-de-with-common-table-expressions-cte">Uso de <code>WITH</code> (Common Table Expressions, CTE)</h3>
+<p>SQL Server también soporta el uso de Common Table Expressions (CTEs), que son una forma de crear una vista temporal que está disponible solo durante la ejecución de la consulta. Las CTEs son útiles para simplificar consultas complejas, especialmente cuando se requiere reutilizar los resultados de una subconsulta múltiples veces.</p>
+<h4 id="sintaxis-b%C3%A1sica-de-cte">Sintaxis Básica de CTE</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">WITH</span> CTE_Nombre <span class="hljs-keyword">AS</span> (
+    <span class="hljs-keyword">SELECT</span> columna1, columna2, ...
+    <span class="hljs-keyword">FROM</span> tabla
+    <span class="hljs-keyword">WHERE</span> condicion
+)
+<span class="hljs-keyword">SELECT</span> columna1, columna2, ...
+<span class="hljs-keyword">FROM</span> CTE_Nombre
+<span class="hljs-keyword">WHERE</span> condicion_adicional;
+</div></code></pre>
+<h4 id="ejemplo-de-uso-de-cte">Ejemplo de Uso de CTE</h4>
+<p>Supongamos que quieres obtener los nombres de todos los empleados junto con el nombre de su departamento.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">WITH</span> DeptoCTE <span class="hljs-keyword">AS</span> (
+    <span class="hljs-keyword">SELECT</span> DepartamentoID, NombreDepartamento
+    <span class="hljs-keyword">FROM</span> Departamentos
+)
+<span class="hljs-keyword">SELECT</span> e.Nombre, d.NombreDepartamento
+<span class="hljs-keyword">FROM</span> Empleados e
+<span class="hljs-keyword">JOIN</span> DeptoCTE d <span class="hljs-keyword">ON</span> e.DepartamentoID = d.DepartamentoID
+</div></code></pre>
+<p>En este caso, la CTE <code>DeptoCTE</code> simplifica la consulta principal al manejar por separado la obtención de los nombres de los departamentos. Luego, se realiza un <code>JOIN</code> entre <code>Empleados</code> y la CTE para obtener el resultado deseado.</p>
+<h3 id="2-%C3%ADndices">2. Índices</h3>
+<p>Los índices en SQL Server ayudan a acelerar la recuperación de datos sin tener que buscar en toda la base de datos. Son particularmente útiles en tablas grandes y se utilizan para mejorar el rendimiento de las consultas. Los tipos principales de índices son:</p>
+<ul>
+<li><strong>Índices Clusterizados</strong>: Reorganizan físicamente los registros de la tabla para que coincidan con el orden del índice. Una tabla solo puede tener un índice clusterizado, ya que define el orden de almacenamiento físico de los datos.</li>
+<li><strong>Índices No Clusterizados</strong>: Mantienen un orden diferente del almacenamiento físico de los datos. Pueden apuntar a los registros de la tabla mediante un identificador de fila.</li>
+<li><strong>Índices Columnstore</strong>: Optimizados para consultas de procesamiento analítico en línea (OLAP), estos índices almacenan datos de manera columnar, lo que puede mejorar significativamente el rendimiento de ciertas consultas.</li>
+</ul>
+<p>La selección y configuración adecuada de los índices puede reducir significativamente los tiempos de consulta.</p>
+<p>los índices en SQL Server son esenciales para mejorar el rendimiento de las consultas, especialmente en tablas grandes donde pueden reducir significativamente el tiempo de acceso a los datos. A continuación, te explicaré cómo se crean y utilizan los índices en SQL Server, y te mostraré algunos ejemplos prácticos.</p>
+<h3 id="tipos-de-%C3%ADndices">Tipos de Índices</h3>
+<ol>
+<li><strong>Índices Clusterizados</strong>: Reorganizan físicamente los datos de la tabla en el orden del índice. Cada tabla puede tener solo un índice clusterizado, ya que define el almacenamiento físico de los datos en la tabla.</li>
+<li><strong>Índices No Clusterizados</strong>: Mantienen un orden lógico que no afecta el orden físico de los datos. Pueden apuntar a los registros de datos mediante un identificador de fila si la tabla tiene un índice clusterizado o mediante punteros de fila si no lo tiene.</li>
+</ol>
+<h3 id="creaci%C3%B3n-de-%C3%ADndices">Creación de Índices</h3>
+<h4 id="%C3%ADndice-clusterizado">Índice Clusterizado</h4>
+<p>Supongamos que tienes una tabla llamada <code>Clientes</code> con las siguientes columnas: <code>ClienteID</code>, <code>Nombre</code>, y <code>Ciudad</code>. Para crear un índice clusterizado en <code>ClienteID</code>, usarías el siguiente comando SQL:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> CLUSTERED <span class="hljs-keyword">INDEX</span> IDX_ClienteID <span class="hljs-keyword">ON</span> Clientes(ClienteID);
+</div></code></pre>
+<p>Este índice organiza físicamente la tabla <code>Clientes</code> en el orden de <code>ClienteID</code>, lo que puede hacer que las operaciones de búsqueda, inserción y eliminación que utilizan esta columna sean más rápidas.</p>
+<h4 id="%C3%ADndice-no-clusterizado">Índice No Clusterizado</h4>
+<p>Si deseas crear un índice no clusterizado en la columna <code>Ciudad</code> para mejorar el rendimiento de las consultas que filtran por esta columna, el comando sería:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> NONCLUSTERED <span class="hljs-keyword">INDEX</span> IDX_Ciudad <span class="hljs-keyword">ON</span> Clientes(Ciudad);
+</div></code></pre>
+<p>Este índice ayuda a acelerar las consultas que utilizan la columna <code>Ciudad</code> en la cláusula <code>WHERE</code>, pero no reorganiza físicamente los datos de la tabla.</p>
+<h3 id="uso-de-%C3%ADndices">Uso de Índices</h3>
+<p>Los índices mejoran el rendimiento de las consultas que utilizan las columnas indexadas en cláusulas como <code>WHERE</code>, <code>JOIN</code>, y <code>ORDER BY</code>. Por ejemplo, si frecuentemente ejecutas una consulta para encontrar clientes en una ciudad específica, el índice no clusterizado <code>IDX_Ciudad</code> mejorará el rendimiento de esta consulta:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">SELECT</span> Nombre <span class="hljs-keyword">FROM</span> Clientes <span class="hljs-keyword">WHERE</span> Ciudad = <span class="hljs-string">'Madrid'</span>;
+</div></code></pre>
+<h3 id="%C3%ADndices-%C3%BAnicos">Índices únicos</h3>
+<p>Un índice <code>UNIQUE</code> garantiza que los datos en una columna, o un conjunto de columnas, sean únicos para todas las filas en la tabla. Esto es útil para mantener la integridad de los datos al asegurarse de que no se inserten duplicados inadvertidamente en la tabla.</p>
+<h3 id="funci%C3%B3n-de-un-%C3%ADndice-unique">Función de un Índice UNIQUE</h3>
+<p>Los índices <code>UNIQUE</code> no solo ayudan a mantener la integridad de los datos, sino que también mejoran el rendimiento de las consultas que buscan o filtran por las columnas que han sido indexadas de forma única. A diferencia de un índice regular, un índice <code>UNIQUE</code> crea una restricción en la tabla que impide la entrada de datos duplicados.</p>
+<h3 id="ejemplo-de-creaci%C3%B3n-de-un-%C3%ADndice-unique">Ejemplo de Creación de un Índice UNIQUE</h3>
+<p>Supongamos que tienes una tabla llamada <code>Usuarios</code> con las siguientes columnas: <code>UsuarioID</code> (que ya es la clave primaria y por lo tanto única) y <code>Email</code>. Quieres asegurarte de que los emails de los usuarios sean únicos en la base de datos. Podrías crear un índice <code>UNIQUE</code> en la columna <code>Email</code> con el siguiente comando SQL:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">INDEX</span> UX_Email <span class="hljs-keyword">ON</span> Usuarios(Email);
+</div></code></pre>
+<p>Este índice impedirá que dos usuarios se registren con el mismo correo electrónico. Si intentas insertar o actualizar un registro que cause un duplicado en la columna <code>Email</code>, SQL Server rechazará la operación y devolverá un error.</p>
+<h3 id="creaci%C3%B3n-de-%C3%ADndices-desde-python">Creación de índices desde Python</h3>
+<p>Puedes crear índices en SQL Server directamente desde Python usando la biblioteca <code>pymssql</code>. Al igual que cualquier otra instrucción SQL, puedes ejecutar comandos para crear índices utilizando un cursor obtenido de una conexión <code>pymssql</code>. Esto te permite automatizar la administración de bases de datos y la configuración inicial desde scripts de Python.</p>
+<h3 id="ejemplo-de-c%C3%B3mo-crear-un-%C3%ADndice-desde-pymssql">Ejemplo de cómo crear un índice desde pymssql</h3>
+<p>Aquí te muestro cómo crear un índice <code>UNIQUE</code> en una columna específica de una tabla utilizando <code>pymssql</code>. Vamos a suponer que tienes una tabla llamada <code>Usuarios</code> con una columna <code>Email</code> y quieres asegurarte de que cada email sea único.</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># ... crea la conexión y el cursor</span>
+
+<span class="hljs-comment"># Comando SQL para crear un índice UNIQUE</span>
+create_index_sql = <span class="hljs-string">"""
+CREATE UNIQUE INDEX UX_Email ON Usuarios(Email);
+"""</span>
+
+<span class="hljs-keyword">try</span>:
+    <span class="hljs-comment"># Ejecutar el comando SQL</span>
+    cursor.execute(create_index_sql)
+    <span class="hljs-comment"># Guardar los cambios</span>
+    conn.commit()
+    print(<span class="hljs-string">"Índice UNIQUE creado exitosamente."</span>)
+<span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+    <span class="hljs-comment"># Manejo de errores, por ejemplo, si el índice ya existe o si hay datos duplicados</span>
+    print(<span class="hljs-string">"Error al crear el índice:"</span>, e)
+<span class="hljs-keyword">finally</span>:
+    <span class="hljs-comment"># Cerrar el cursor y la conexión</span>
+    cursor.close()
+    conn.close()
+</div></code></pre>
+<h3 id="detalles-importantes">Detalles importantes</h3>
+<ol>
+<li><strong>Manejo de errores</strong>: Es importante manejar excepciones al crear índices, especialmente para manejar casos donde el índice ya existe o hay datos que violan la restricción <code>UNIQUE</code>.</li>
+<li><strong>Confirmación de cambios</strong>: No olvides llamar a <code>conn.commit()</code> después de ejecutar el comando de creación del índice para asegurar que los cambios se apliquen permanentemente a la base de datos.</li>
+<li><strong>Cierre de recursos</strong>: Siempre cierra el cursor y la conexión para liberar recursos de manera adecuada.</li>
+</ol>
+<h3 id="ventajas-de-crear-%C3%ADndices-desde-python">Ventajas de crear índices desde Python</h3>
+<p>Crear índices directamente desde un script de Python puede ser muy útil en varios contextos, como:</p>
+<ul>
+<li><strong>Automatización de despliegues</strong>: Automatizar la configuración inicial de una base de datos en entornos de desarrollo, pruebas o producción.</li>
+<li><strong>Mantenimiento programado</strong>: Automatizar tareas de mantenimiento de base de datos, incluyendo la creación y reconstrucción de índices.</li>
+<li><strong>Integración en aplicaciones</strong>: Integrar la administración de bases de datos directamente en aplicaciones back-end que utilicen Python.</li>
+</ul>
+<p>Esta flexibilidad puede ser especialmente valiosa en entornos donde las bases de datos necesitan ser configuradas o modificadas dinámicamente en respuesta a cambios en los requisitos de la aplicación o del sistema.</p>
+<h3 id="consideraciones-al-usar-%C3%ADndices-unique">Consideraciones al Usar Índices UNIQUE</h3>
+<ul>
+<li><strong>Rendimiento de Inserción y Actualización</strong>: Al igual que otros índices, los índices <code>UNIQUE</code> incurren en un costo adicional durante las operaciones de inserción y actualización porque el sistema necesita mantener el índice actualizado. Esto puede ser especialmente significativo en tablas con un alto volumen de transacciones.</li>
+<li><strong>Uso de NULLs</strong>: SQL Server permite múltiples entradas <code>NULL</code> en columnas indexadas de forma única, a menos que la columna o columnas también estén definidas como <code>NOT NULL</code>. Esto es importante tener en cuenta al diseñar la estructura de la tabla y el índice.</li>
+</ul>
+<h3 id="aplicaciones-de-%C3%ADndices-unique">Aplicaciones de Índices UNIQUE</h3>
+<p>Los índices <code>UNIQUE</code> son particularmente útiles en escenarios donde necesitas asegurar la no duplicidad de información para elementos como:</p>
+<ul>
+<li>Números de identificación personal.</li>
+<li>Direcciones de correo electrónico.</li>
+<li>Números de serie de productos.</li>
+<li>Otros identificadores únicos de negocio.</li>
+</ul>
+<p>En resumen, los índices <code>UNIQUE</code> en SQL Server son una herramienta esencial para la gestión de la integridad de los datos y pueden ayudar a mejorar el rendimiento de las consultas al proporcionar un camino de acceso rápido y directo a datos únicos.</p>
+<h3 id="consideraciones-adicionales">Consideraciones Adicionales</h3>
+<ul>
+<li><strong>Mantenimiento de Índices</strong>: Los índices deben ser mantenidos, especialmente en tablas con alta actividad de inserción, actualización, o eliminación. Las operaciones DML (Data Manipulation Language) pueden fragmentar el índice, lo que eventualmente degradará el rendimiento.</li>
+<li><strong>Costo de Índices</strong>: Aunque los índices pueden mejorar el rendimiento de las consultas, también tienen un costo. Consumen espacio adicional en disco y pueden ralentizar las operaciones de inserción, actualización y eliminación, ya que el índice debe ser actualizado cada vez que se modifican los datos.</li>
+</ul>
+<h3 id="conclusi%C3%B3n">Conclusión</h3>
+<p>Los índices son una herramienta poderosa para los administradores de bases de datos y desarrolladores que buscan optimizar el rendimiento de las consultas en SQL Server. Es importante evaluar y planificar cuidadosamente los índices en función de los patrones de acceso a los datos y las necesidades específicas del sistema. La creación de índices debe equilibrar el rendimiento de las consultas de lectura con el costo adicional en operaciones de escritura y el uso de almacenamiento.</p>
+<h3 id="3-particionamiento">3. Particionamiento</h3>
+<p>El particionamiento en SQL Server es una técnica para dividir grandes tablas y bases de datos en partes más pequeñas y manejables, sin cambiar la lógica de acceso a los datos. Los principales beneficios del particionamiento incluyen:</p>
+<ul>
+<li><strong>Mejora de rendimiento</strong>: Reduce el número de filas a leer en las consultas si están bien diseñadas para aprovechar el particionamiento.</li>
+<li><strong>Mantenimiento más fácil</strong>: Operaciones como reconstrucción de índices, respaldos y otras tareas de mantenimiento pueden ser ejecutadas en particiones individuales en lugar de en la tabla completa.</li>
+<li><strong>Disponibilidad mejorada</strong>: Permite a los administradores acceder y modificar partes de la tabla mientras otras partes permanecen disponibles para operaciones críticas.</li>
+</ul>
+<p>El particionamiento puede ser basado en rangos (por ejemplo, fechas o identificadores numéricos) o en listas (por ejemplo, categorías o regiones).</p>
+<h3 id="conclusi%C3%B3n">Conclusión</h3>
+<p>Un buen entendimiento y aplicación de consultas eficientes, índices adecuados y estrategias de particionamiento son cruciales para el manejo eficiente de bases de datos en SQL Server. Estas herramientas y técnicas ayudan a los administradores y desarrolladores a manejar mejor el rendimiento y la escalabilidad de las bases de datos, especialmente en entornos con grandes volúmenes de datos.</p>
+<h3 id="detalles-del-particionamiento-en-sql-server">Detalles del particionamiento en SQL Server</h3>
+<p>El particionamiento de tablas en SQL Server es una técnica poderosa para manejar grandes volúmenes de datos al dividirlos en partes más manejables, pero manteniendo la visibilidad de los datos como si fueran una sola tabla. Esto puede mejorar significativamente el rendimiento de las consultas y facilitar la administración de los datos, especialmente para las operaciones de mantenimiento y respaldo.</p>
+<h3 id="%C2%BFc%C3%B3mo-funciona-el-particionamiento">¿Cómo Funciona el Particionamiento?</h3>
+<p>En SQL Server, el particionamiento se realiza sobre tablas y/o índices y está basado en una columna de la tabla que sirve como columna de partición. Generalmente, se utiliza una columna que tenga un rango de valores amplio y claramente definido, como fechas, números de identificación o regiones geográficas.</p>
+<h3 id="componentes-clave-del-particionamiento">Componentes Clave del Particionamiento</h3>
+<ol>
+<li><strong>Función de partición</strong>: Define cómo se distribuyen las filas en diferentes particiones basadas en los valores de la columna de partición.</li>
+<li><strong>Esquema de partición</strong>: Asocia la función de partición con los grupos de archivos físicos donde se almacenarán las particiones.</li>
+</ol>
+<h3 id="ejemplo-de-particionamiento">Ejemplo de Particionamiento</h3>
+<p>Supongamos que tienes una tabla <code>Ventas</code> con millones de registros. La tabla incluye una columna <code>FechaVenta</code> que indica cuándo se realizó cada venta. Deseas particionar esta tabla por año para mejorar el rendimiento de las consultas de datos históricos.</p>
+<h4 id="paso-1-crear-grupos-de-archivos">Paso 1: Crear Grupos de Archivos</h4>
+<p>Primero, debes preparar la base de datos con grupos de archivos, cada uno podría estar dedicado a un año específico:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> MiBaseDatos <span class="hljs-keyword">ADD</span> FILEGROUP FG_Ventas2019;
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> MiBaseDatos <span class="hljs-keyword">ADD</span> FILEGROUP FG_Ventas2020;
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> MiBaseDatos <span class="hljs-keyword">ADD</span> FILEGROUP FG_Ventas2021;
+</div></code></pre>
+<h4 id="paso-2-crear-archivos-en-los-grupos-de-archivos">Paso 2: Crear Archivos en los Grupos de Archivos</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> MiBaseDatos <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">FILE</span> (
+    <span class="hljs-keyword">NAME</span> = <span class="hljs-string">'Ventas2019'</span>,
+    FILENAME = <span class="hljs-string">'C:\Data\Ventas2019.ndf'</span>,
+    <span class="hljs-keyword">SIZE</span> = <span class="hljs-number">100</span>MB,
+    FILEGROWTH = <span class="hljs-number">50</span>MB
+) <span class="hljs-keyword">TO</span> FILEGROUP FG_Ventas2019;
+
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> MiBaseDatos <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">FILE</span> (
+    <span class="hljs-keyword">NAME</span> = <span class="hljs-string">'Ventas2020'</span>,
+    FILENAME = <span class="hljs-string">'C:\Data\Ventas2020.ndf'</span>,
+    <span class="hljs-keyword">SIZE</span> = <span class="hljs-number">100</span>MB,
+    FILEGROWTH = <span class="hljs-number">50</span>MB
+) <span class="hljs-keyword">TO</span> FILEGROUP FG_Ventas2020;
+
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> MiBaseDatos <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">FILE</span> (
+    <span class="hljs-keyword">NAME</span> = <span class="hljs-string">'Ventas2021'</span>,
+    FILENAME = <span class="hljs-string">'C:\Data\Ventas2021.ndf'</span>,
+    <span class="hljs-keyword">SIZE</span> = <span class="hljs-number">100</span>MB,
+    FILEGROWTH = <span class="hljs-number">50</span>MB
+) <span class="hljs-keyword">TO</span> FILEGROUP FG_Ventas2021;
+</div></code></pre>
+<h4 id="paso-3-crear-funci%C3%B3n-y-esquema-de-partici%C3%B3n">Paso 3: Crear Función y Esquema de Partición</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Crear la función de partición</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">FUNCTION</span> pf_VentasFecha (<span class="hljs-built_in">DATE</span>)
+<span class="hljs-keyword">AS</span> <span class="hljs-keyword">RANGE</span> <span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'2020-01-01'</span>, <span class="hljs-string">'2021-01-01'</span>);
+
+<span class="hljs-comment">-- Crear el esquema de partición</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PARTITION</span> SCHEME ps_VentasFecha
+<span class="hljs-keyword">AS</span> <span class="hljs-keyword">PARTITION</span> pf_VentasFecha
+<span class="hljs-keyword">TO</span> (FG_Ventas2019, FG_Ventas2020, FG_Ventas2021, [PRIMARY]);
+</div></code></pre>
+<h4 id="paso-4-crear-o-modificar-la-tabla-para-usar-el-particionamiento">Paso 4: Crear o Modificar la Tabla para Usar el Particionamiento</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Crear la tabla con el esquema de partición</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Ventas (
+    VentaID <span class="hljs-built_in">INT</span> <span class="hljs-keyword">IDENTITY</span>(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>) PRIMARY <span class="hljs-keyword">KEY</span>,
+    FechaVenta <span class="hljs-built_in">DATE</span>,
+    Monto <span class="hljs-built_in">DECIMAL</span>(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>),
+    ProductoID <span class="hljs-built_in">INT</span>
+) <span class="hljs-keyword">ON</span> ps_VentasFecha(FechaVenta);
+</div></code></pre>
+<h3 id="c%C3%B3mo-funciona">Cómo Funciona</h3>
+<ul>
+<li>Las ventas de antes del 2020 se almacenan en <code>FG_Ventas2019</code>.</li>
+<li>Las ventas de 2020 se almacenan en <code>FG_Ventas2020</code>.</li>
+<li>Las ventas de 2021 se almacenan en <code>FG_Ventas2021</code>.</li>
+<li>Las ventas posteriores a 2021 se almacenan en el grupo de archivos <code>PRIMARY</code> por defecto.</li>
+</ul>
+<p>Este enfoque permite que las consultas que buscan datos específicos del año se ejecuten más rápidamente porque solo tienen que buscar en los datos de un grupo de archivos, en lugar de en toda la base de datos. Además, las operaciones de mantenimiento como los respaldos y las restauraciones pueden ser más granulares y eficientes, al poder enfocarse en particiones específicas en lugar de en toda la tabla.</p>
+<h3 id="exclusividad-de-las-particiones">Exclusividad de las particiones</h3>
+<p>Las particiones deben ser mutuamente excluyentes en SQL Server y en la mayoría de los sistemas de gestión de bases de datos que soportan particionamiento. Esto significa que cada fila de la tabla debe pertenecer a una y solo una partición, sin superposiciones entre los rangos o criterios que definen a cada partición.</p>
+<h3 id="importancia-de-la-exclusividad">Importancia de la Exclusividad</h3>
+<p>La exclusividad de las particiones garantiza que cada dato solo pueda ser almacenado en una partición. Esto es crítico para:</p>
+<ul>
+<li><strong>Eficiencia en Consultas</strong>: Permite que el motor de la base de datos aplique eficientemente estrategias de optimización como el pruning de particiones, donde el motor puede ignorar por completo las particiones que no cumplen con los criterios de la consulta.</li>
+<li><strong>Mantenimiento Claro y Organizado</strong>: Facilita tareas administrativas como respaldos, restauraciones, y mantenimientos de índices, al poder operar en particiones individuales.</li>
+<li><strong>Integridad de los Datos</strong>: Evita la duplicidad y inconsistencias en los datos, lo cual podría complicar las operaciones de CRUD (Crear, Leer, Actualizar, Borrar) y afectar negativamente el rendimiento y la precisión de los resultados.</li>
+</ul>
+<h3 id="c%C3%B3mo-asegurar-la-exclusividad">Cómo Asegurar la Exclusividad</h3>
+<p>En SQL Server, la función de partición define cómo se distribuyen los datos entre las particiones. Aquí se pueden emplear dos estrategias principales:</p>
+<ol>
+<li>
+<p><strong>RANGE LEFT</strong>: En esta estrategia, el valor límite especificado en la función de partición es incluido en la partición izquierda (la partición que corresponde a valores menores). Por ejemplo, si tienes puntos de corte en '2020-01-01' y '2021-01-01', entonces los datos desde '2020-01-01' hasta '2020-12-31' se incluyen en la primera partición y '2021-01-01' en adelante en la siguiente.</p>
+</li>
+<li>
+<p><strong>RANGE RIGHT</strong>: En esta estrategia, el valor límite es incluido en la partición derecha (la partición que corresponde a valores iguales o mayores). Siguiendo el mismo ejemplo anterior, los datos anteriores a '2020-01-01' quedarían en la primera partición y desde '2020-01-01' en adelante en la segunda.</p>
+</li>
+</ol>
+<h3 id="ejemplo">Ejemplo</h3>
+<p>Supongamos que defines una función de partición con <code>RANGE RIGHT</code> para particionar datos basados en años:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">FUNCTION</span> PartitionFunctionYear (<span class="hljs-built_in">DATE</span>)
+<span class="hljs-keyword">AS</span> <span class="hljs-keyword">RANGE</span> <span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'2020-01-01'</span>, <span class="hljs-string">'2021-01-01'</span>, <span class="hljs-string">'2022-01-01'</span>);
+</div></code></pre>
+<p>En este caso:</p>
+<ul>
+<li>Datos anteriores a '2020-01-01' van a la primera partición.</li>
+<li>Datos desde '2020-01-01' hasta '2020-12-31' van a la segunda partición.</li>
+<li>Datos desde '2021-01-01' hasta '2021-12-31' van a la tercera partición.</li>
+<li>Datos desde '2022-01-01' en adelante van a la cuarta partición.</li>
+</ul>
+<p>Cada rango es exclusivo y mutuamente excluyente, asegurando que no hay superposición de datos entre particiones.</p>
+<h3 id="conclusi%C3%B3n">Conclusión</h3>
+<p>La mutua exclusividad en las particiones es fundamental para el manejo efectivo y eficiente de las bases de datos, especialmente en entornos de grandes volúmenes de datos. Al diseñar y configurar particiones, es esencial asegurar que cada partición tenga un rango de valores claramente definido y no solapado para mantener la integridad y optimización del rendimiento de las consultas.</p>
+<h3 id="los-archivos-ndf">Los archivos .ndf</h3>
+<p>En SQL Server, las particiones no toman automáticamente archivos <code>.ndf</code> a menos que se configuren explícitamente para hacerlo. Los archivos <code>.ndf</code> son archivos secundarios de datos que puedes utilizar en SQL Server para distribuir datos a través de varios discos si lo deseas. Estos archivos pueden albergar tablas completas o incluso partes de tablas, como en el caso de tablas particionadas. Aquí te explico cómo se configura esto y qué consecuencias tiene borrar dichos archivos.</p>
+<h3 id="configuraci%C3%B3n-de-archivos-ndf-para-particiones">Configuración de Archivos <code>.ndf</code> para Particiones</h3>
+<p>Cuando creas un esquema de partición en SQL Server, debes especificar a qué grupo de archivos (filegroup) pertenece cada partición. Cada grupo de archivos puede contener uno o más archivos físicos, que pueden ser <code>.mdf</code> (archivo primario) o <code>.ndf</code> (archivos secundarios).</p>
+<h3 id="ejemplo-de-la-creaci%C3%B3n-de-grupos-de-archivos">Ejemplo de la creación de grupos de archivos</h3>
+<ol>
+<li>
+<p><strong>Crear Grupos de Archivos</strong>: Como parte de tu estrategia de particionamiento, defines varios grupos de archivos.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> MiBaseDatos <span class="hljs-keyword">ADD</span> FILEGROUP FG2020;
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> MiBaseDatos <span class="hljs-keyword">ADD</span> FILEGROUP FG2021;
+</div></code></pre>
+</li>
+<li>
+<p><strong>Asignar Archivos <code>.ndf</code> a los Grupos de Archivos</strong>: Asignas archivos específicos a cada grupo de archivos.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> MiBaseDatos <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">FILE</span> (
+    <span class="hljs-keyword">NAME</span> = <span class="hljs-string">'Datos2020'</span>,
+    FILENAME = <span class="hljs-string">'C:\Data\Datos2020.ndf'</span>,
+    <span class="hljs-keyword">SIZE</span> = <span class="hljs-number">100</span>MB,
+    FILEGROWTH = <span class="hljs-number">50</span>MB
+) <span class="hljs-keyword">TO</span> FILEGROUP FG2020;
+
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> MiBaseDatos <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">FILE</span> (
+    <span class="hljs-keyword">NAME</span> = <span class="hljs-string">'Datos2021'</span>,
+    FILENAME = <span class="hljs-string">'C:\Data\Datos2021.ndf'</span>,
+    <span class="hljs-keyword">SIZE</span> = <span class="hljs-number">100</span>MB,
+    FILEGROWTH = <span class="hljs-number">50</span>MB
+) <span class="hljs-keyword">TO</span> FILEGROUP FG2021;
+</div></code></pre>
+</li>
+<li>
+<p><strong>Usar los Grupos de Archivos en el Esquema de Partición</strong>: Cuando creas el esquema de partición, especificas qué grupo de archivos se usa para cada partición.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PARTITION</span> SCHEME MiEsquemaDeParticion <span class="hljs-keyword">AS</span> <span class="hljs-keyword">PARTITION</span> MiFuncionDeParticion <span class="hljs-keyword">TO</span> (FG2020, FG2021, PRIMARY);
+</div></code></pre>
+</li>
+</ol>
+<h3 id="%C2%BFqu%C3%A9-pasa-si-se-borran-los-archivos-ndf">¿Qué Pasa si se Borran los Archivos <code>.ndf</code>?</h3>
+<p>Borrar un archivo <code>.ndf</code> utilizado por SQL Server puede tener consecuencias graves:</p>
+<ul>
+<li><strong>Pérdida de Datos</strong>: Si el archivo <code>.ndf</code> contiene datos (como sería el caso en un entorno de particionamiento donde los grupos de archivos están en archivos <code>.ndf</code> específicos), borrar este archivo resultará en una pérdida de datos irrecuperable para esa parte de la base de datos.</li>
+<li><strong>Falla de la Base de Datos</strong>: SQL Server espera que estos archivos estén disponibles y funcionales. Si se borra un archivo <code>.ndf</code>, cualquier intento de acceso a datos contenidos en ese archivo resultará en errores. La base de datos puede incluso dejar de funcionar correctamente, dependiendo de qué datos se vieron afectados.</li>
+<li><strong>Necesidad de Restauración</strong>: Para recuperar los datos o restaurar la funcionalidad completa de la base de datos, necesitarías restaurar los datos desde un respaldo, suponiendo que dispones de respaldos recientes y completos.</li>
+</ul>
+<h3 id="recomendaciones">Recomendaciones</h3>
+<ul>
+<li><strong>Nunca Borrar Archivos <code>.ndf</code> Manualmente</strong>: Si necesitas mover o eliminar un archivo <code>.ndf</code>, hazlo a través de SQL Server Management Studio o mediante scripts T-SQL que primero desvinculen el archivo del grupo de archivos de forma segura.</li>
+<li><strong>Monitoreo y Respaldos</strong>: Asegúrate de monitorear el uso del espacio de disco y tener una estrategia de respaldos robusta para proteger tus datos.</li>
+</ul>
+<p>En resumen, los archivos <code>.ndf</code> en el contexto de particiones deben ser manejados con cuidado, y cualquier operación que involucre manipulación física de los archivos de datos debe ser realizada con un conocimiento pleno de las implicaciones y procedimientos adecuados.</p>
+<h3 id="deshacer-una-partici%C3%B3n">Deshacer una partición</h3>
+<p>Para revertir el particionamiento de una tabla en SQL Server y hacer que la tabla deje de usar particiones, básicamente necesitas realizar una serie de operaciones que trasladen los datos a una tabla no particionada y luego eliminen la configuración de particionamiento existente. Este proceso implica recrear la tabla sin el esquema de partición y luego mover los datos de la tabla particionada a esta nueva tabla.</p>
+<h3 id="pasos-para-revertir-una-partici%C3%B3n">Pasos para Revertir una Partición</h3>
+<p>Aquí te muestro un enfoque general sobre cómo puedes deshacer el particionamiento de una tabla y eliminar la dependencia de los archivos <code>.ndf</code>:</p>
+<h4 id="1-crear-una-nueva-tabla">1. Crear una Nueva Tabla</h4>
+<p>Primero, debes crear una nueva tabla que tenga la misma estructura que la tabla particionada, pero sin aplicar el esquema de partición. Asegúrate de que esta tabla se cree en el grupo de archivos predeterminado o en uno que no esté asociado a un archivo <code>.ndf</code> específico.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> dbo.Usuarios_New (
+    UsuarioID <span class="hljs-built_in">INT</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+    Nombre <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">100</span>),
+    Email <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">100</span>)
+    <span class="hljs-comment">-- Incluye todas las columnas adicionales necesarias</span>
+);
+</div></code></pre>
+<h4 id="2-migrar-los-datos">2. Migrar los Datos</h4>
+<p>Después de crear la nueva tabla, copia los datos de la tabla particionada a la nueva tabla usando un comando <code>INSERT INTO ... SELECT FROM</code>.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> dbo.Usuarios_New (UsuarioID, Nombre, Email)
+<span class="hljs-keyword">SELECT</span> UsuarioID, Nombre, Email
+<span class="hljs-keyword">FROM</span> dbo.Usuarios;
+</div></code></pre>
+<h4 id="3-renombrar-tablas">3. Renombrar Tablas</h4>
+<p>Una vez que los datos están copiados, y después de verificar que todo está correcto, puedes eliminar la tabla original y cambiar el nombre de la nueva tabla para que tome el lugar de la antigua.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Eliminar la tabla particionada</span>
+<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> dbo.Usuarios;
+
+<span class="hljs-comment">-- Cambiar el nombre de la nueva tabla</span>
+EXEC sp_rename 'dbo.Usuarios_New', 'Usuarios';
+</div></code></pre>
+<h4 id="4-eliminar-la-configuraci%C3%B3n-de-particionamiento">4. Eliminar la Configuración de Particionamiento</h4>
+<p>Si ya no vas a usar los grupos de archivos y esquemas de partición, deberías eliminarlos para limpiar la base de datos y evitar confusiones en el futuro.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Eliminar esquema de partición</span>
+<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">PARTITION</span> SCHEME MiEsquemaDeParticion;
+
+<span class="hljs-comment">-- Eliminar función de partición</span>
+<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">FUNCTION</span> MiFuncionDeParticion;
+
+<span class="hljs-comment">-- Eliminar grupos de archivos si ya no se necesitan</span>
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> MiBaseDatos REMOVE FILEGROUP FG2020;
+<span class="hljs-comment">-- Repite para cada grupo de archivos</span>
+</div></code></pre>
+<p><strong>Nota</strong>: Antes de poder eliminar un grupo de archivos, debes asegurarte de que esté vacío. Puede que necesites eliminar los archivos físicos <code>.ndf</code> del grupo de archivos utilizando <code>ALTER DATABASE</code> para remover los archivos antes de poder eliminar el grupo de archivos.</p>
+<h4 id="5-limpieza-final">5. Limpieza Final</h4>
+<p>Es posible que también necesites limpiar los archivos <code>.ndf</code> si ya no se utilizan.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Asegúrate de que los archivos no contengan datos y no estén en uso</span>
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> MiBaseDatos REMOVE <span class="hljs-keyword">FILE</span> Datos2020;
+</div></code></pre>
+<h3 id="consideraciones">Consideraciones</h3>
+<ul>
+<li><strong>Respaldos</strong>: Asegúrate de hacer un respaldo completo de los datos antes de comenzar este proceso.</li>
+<li><strong>Verificación</strong>: Verifica cada paso antes de proceder al siguiente para asegurarte de que los datos se han trasladado correctamente y que la aplicación o usuarios dependientes de la base de datos no se vean afectados negativamente.</li>
+<li><strong>Tiempo de Inactividad</strong>: Dependiendo de la cantidad de datos, este proceso puede llevar tiempo y podría requerir tiempo de inactividad para la aplicación, así que planifícalo adecuadamente.</li>
+</ul>
+<p>Estos pasos te ayudarán a revertir el particionamiento de una tabla en SQL Server y a eliminar la dependencia de los archivos <code>.ndf</code>, devolviendo la tabla a un estado no particionado y simplificando la estructura física de la base de datos.</p>
+<h2 id="403-uso-de-funciones-y-procedimientos-almacenados">403. Uso de funciones y procedimientos almacenados</h2>
+<p>Las funciones y procedimientos almacenados en SQL Server son esenciales para comprender cómo estructurar aplicaciones de base de datos de manera eficiente y segura. Ambos son objetos de base de datos que permiten encapsular lógica de negocio que se ejecuta en el servidor de bases de datos, lo cual puede mejorar el rendimiento, la reutilización del código y la seguridad.</p>
+<h3 id="funciones-almacenadas">Funciones Almacenadas</h3>
+<p>Las funciones almacenadas en SQL Server son objetos de base de datos que pueden aceptar parámetros, realizar operaciones y retornar un resultado. Las funciones pueden ser de varios tipos, incluidos:</p>
+<ol>
+<li><strong>Funciones Escalares</strong>: Devuelven un valor único (no una tabla) y pueden ser usadas en consultas SQL similares a cómo se usan las funciones integradas como <code>GETDATE()</code> o <code>SUM()</code>.</li>
+<li><strong>Funciones de Tabla</strong>: Retornan un conjunto de registros; es decir, una tabla. Estas son especialmente útiles para ser utilizadas en cláusulas <code>FROM</code> de consultas SQL.</li>
+<li><strong>Funciones de Tabla con Valores de Tabla (TVF)</strong>: Similar a las funciones de tabla, pero permiten una mayor flexibilidad y complejidad en la manipulación de datos.</li>
+</ol>
+<h4 id="ejemplo-de-funci%C3%B3n-escalar">Ejemplo de Función Escalar</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">FUNCTION</span> dbo.FnObtenerImpuesto(@Precio <span class="hljs-built_in">DECIMAL</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>))
+<span class="hljs-keyword">RETURNS</span> <span class="hljs-built_in">DECIMAL</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>)
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">DECLARE</span> @Impuesto <span class="hljs-built_in">DECIMAL</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>)
+    <span class="hljs-keyword">SET</span> @Impuesto = @Precio * <span class="hljs-number">0.16</span>
+    <span class="hljs-keyword">RETURN</span> @Impuesto
+<span class="hljs-keyword">END</span>
+</div></code></pre>
+<p>Esta función calcula un impuesto del 16% sobre un precio dado y devuelve el valor del impuesto.</p>
+<h4 id="ejemplo-de-funci%C3%B3n-de-tabla">Ejemplo de Función de Tabla</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">FUNCTION</span> dbo.FnEmpleadosPorDepartamento(@DepartamentoID <span class="hljs-built_in">INT</span>)
+<span class="hljs-keyword">RETURNS</span> <span class="hljs-keyword">TABLE</span>
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">RETURN</span>
+    (<span class="hljs-keyword">SELECT</span> EmpleadoID, Nombre <span class="hljs-keyword">FROM</span> Empleados <span class="hljs-keyword">WHERE</span> DepartamentoID = @DepartamentoID)
+</div></code></pre>
+<p>Esta función devuelve una tabla de empleados pertenecientes a un departamento específico.</p>
+<h3 id="creaci%C3%B3n-de-funciones-desde-python">Creación de funciones desde Python</h3>
+<p>La creación y utilización de funciones en SQL Server desde Python usando <code>pymssql</code> es similar a trabajar con procedimientos almacenados, pero con algunas diferencias clave en la forma en que se definen y se invocan las funciones. Vamos a ver un ejemplo de cómo crear y utilizar una función que calcule el impuesto sobre un precio dado, devolviendo el monto del impuesto.</p>
+<h3 id="ejemplo-creaci%C3%B3n-de-una-funci%C3%B3n-para-calcular-el-impuesto">Ejemplo: Creación de una Función para Calcular el Impuesto</h3>
+<p>Supongamos que quieres crear una función en SQL Server que acepte un precio como entrada y devuelva el impuesto calculado a un 16%.</p>
+<h4 id="definir-y-crear-la-funci%C3%B3n">Definir y Crear la Función</h4>
+<p>A continuación, define la función en SQL. En este ejemplo, crearemos una función escalar que devuelve un valor decimal.</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Definición de la función en SQL</span>
+create_function_sql = <span class="hljs-string">"""
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'FN' AND name = 'CalcularImpuesto')
+    DROP FUNCTION CalcularImpuesto;
+GO
+
+CREATE FUNCTION CalcularImpuesto(@Precio DECIMAL(10,2))
+RETURNS DECIMAL(10,2)
+AS
+BEGIN
+    RETURN @Precio * 0.16
+END
+GO
+"""</span>
+
+<span class="hljs-comment"># Dividir el comando para evitar problemas con 'GO'</span>
+commands = create_function_sql.split(<span class="hljs-string">'GO'</span>)
+<span class="hljs-keyword">for</span> command <span class="hljs-keyword">in</span> commands:
+    <span class="hljs-keyword">if</span> command.strip() != <span class="hljs-string">''</span>:
+        cursor.execute(command)
+conn.commit()
+</div></code></pre>
+<h4 id="invocar-la-funci%C3%B3n-desde-python">Invocar la Función desde Python</h4>
+<p>Una vez que la función está creada, puedes invocarla para calcular impuestos sobre diferentes precios directamente en una consulta SQL.</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Preparar la consulta para invocar la función</span>
+query = <span class="hljs-string">"SELECT dbo.CalcularImpuesto(1000) AS Impuesto"</span>
+
+<span class="hljs-comment"># Ejecutar la consulta</span>
+cursor.execute(query)
+
+<span class="hljs-comment"># Obtener y imprimir el resultado</span>
+result = cursor.fetchone()
+print(<span class="hljs-string">f"Impuesto calculado: <span class="hljs-subst">{result[<span class="hljs-number">0</span>]}</span>"</span>)
+</div></code></pre>
+<h3 id="consideraciones-adicionales">Consideraciones Adicionales</h3>
+<ol>
+<li><strong>Control de Excepciones</strong>: Agregar control de excepciones para gestionar posibles errores durante la conexión, ejecución de comandos o cierre de la conexión es una buena práctica.</li>
+<li><strong>Uso de <code>GO</code></strong>: Como se mencionó, <code>pymssql</code> no maneja directamente los comandos <code>GO</code>. Debes dividir tu script SQL en bloques separados antes de <code>GO</code> y ejecutarlos uno por uno si es necesario.</li>
+</ol>
+<p>Este enfoque te permite automatizar la gestión de la lógica de negocio en el servidor de base de datos, mejorando la eficiencia de tus aplicaciones al reducir la carga de cálculos del lado del cliente y aprovechar las capacidades de SQL Server para el procesamiento de datos.</p>
+<h3 id="procedimientos-almacenados">Procedimientos Almacenados</h3>
+<p>Los procedimientos almacenados son bloques de código que se pueden ejecutar con parámetros y que están diseñados para realizar operaciones más complejas que las funciones. Pueden realizar una serie de pasos, ejecutar consultas, manipular datos y hasta controlar transacciones.</p>
+<h4 id="ventajas-de-los-procedimientos-almacenados">Ventajas de los Procedimientos Almacenados</h4>
+<ul>
+<li><strong>Mejora del rendimiento</strong>: El código se compila y optimiza al ser creado y luego se almacena en el servidor.</li>
+<li><strong>Seguridad</strong>: Pueden ejecutarse con permisos específicos, ayudando a asegurar la aplicación contra ataques como la inyección SQL.</li>
+<li><strong>Reducción del tráfico de red</strong>: Al ejecutar operaciones complejas en el servidor, se reduce la cantidad de datos enviados sobre la red.</li>
+</ul>
+<h4 id="ejemplo-de-procedimiento-almacenado">Ejemplo de Procedimiento Almacenado</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PROCEDURE</span> spAgregarEmpleado
+    @Nombre <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">100</span>),
+    @DepartamentoID <span class="hljs-built_in">INT</span>,
+    @Salario <span class="hljs-built_in">DECIMAL</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>)
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> Empleados (Nombre, DepartamentoID, Salario)
+    <span class="hljs-keyword">VALUES</span> (@Nombre, @DepartamentoID, @Salario)
+<span class="hljs-keyword">END</span>
+</div></code></pre>
+<p>Este procedimiento almacena agrega un nuevo empleado a la base de datos.</p>
+<h3 id="uso-en-aplicaciones">Uso en Aplicaciones</h3>
+<p>Tanto las funciones como los procedimientos almacenados se utilizan para encapsular lógica de negocio, asegurando que las operaciones de datos sean coherentes, estén optimizadas y centralizadas. Esto es especialmente útil en entornos empresariales donde múltiples aplicaciones o múltiples instancias de una aplicación necesitan realizar las mismas operaciones de datos de forma consistente.</p>
+<p>En resumen, las funciones y procedimientos almacenados son herramientas cruciales en SQL Server para mejorar el rendimiento, la seguridad y la gestión del código en aplicaciones de bases de datos. Su uso adecuado puede significar grandes beneficios en la eficiencia y mantenimiento de sistemas de bases de datos grandes y complejos.</p>
+<h3 id="creaci%C3%B3n-de-procedimientos-almacenados-desde-python">Creación de Procedimientos almacenados desde Python</h3>
+<p>Este enfoque es útil si necesitas automatizar la creación de procedimientos desde aplicaciones Python, especialmente en entornos donde Python actúa como un lenguaje de scripting para tareas administrativas o de gestión de bases de datos.</p>
+<h3 id="ejemplo-creaci%C3%B3n-de-un-procedimiento-almacenado-para-insertar-un-empleado">Ejemplo: Creación de un Procedimiento Almacenado para Insertar un Empleado</h3>
+<p>Supongamos que quieres crear un procedimiento almacenado llamado <code>spAgregarEmpleado</code> que inserta un nuevo empleado en una tabla <code>Empleados</code>. La tabla <code>Empleados</code> tiene las siguientes columnas: <code>EmpleadoID</code>, <code>Nombre</code>, y <code>Email</code>.</p>
+<h4 id="definir-y-crear-el-procedimiento-almacenado">Definir y Crear el Procedimiento Almacenado</h4>
+<p>Define el procedimiento almacenado usando SQL y ejecútalo a través del cursor:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Definición del procedimiento almacenado en SQL</span>
+create_sp_sql = <span class="hljs-string">"""
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spAgregarEmpleado')
+    DROP PROCEDURE spAgregarEmpleado;
+GO
+
+CREATE PROCEDURE spAgregarEmpleado
+    @Nombre NVARCHAR(100),
+    @Email NVARCHAR(100)
+AS
+BEGIN
+    INSERT INTO Empleados (Nombre, Email)
+    VALUES (@Nombre, @Email)
+END
+GO
+"""</span>
+
+<span class="hljs-comment"># Ejecuta el comando para crear el procedimiento almacenado</span>
+cursor.execute(create_sp_sql)
+conn.commit()
+</div></code></pre>
+<h3 id="notas-importantes">Notas Importantes</h3>
+<ol>
+<li><strong>Control de Excepciones</strong>: Es buena práctica agregar control de excepciones alrededor de tus operaciones de base de datos para manejar cualquier error que pueda ocurrir durante la conexión, ejecución de comandos, o cierre de la conexión.</li>
+<li><strong>GO Statement</strong>: <code>pymssql</code> no admite directamente múltiples comandos en una sola llamada <code>execute()</code> que incluyan <code>GO</code> (un delimitador de lotes de SQL Server). Si necesitas ejecutar múltiples declaraciones que incluyan <code>GO</code>, deberás dividirlas y ejecutarlas por separado o usar otro enfoque para manejar scripts que incluyan <code>GO</code>.</li>
+</ol>
+<h3 id="ejemplo-de-uso-del-procedimiento">Ejemplo de Uso del Procedimiento</h3>
+<p>Una vez que el procedimiento almacenado está en su lugar, puedes invocarlo desde Python de la siguiente manera:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Ejecuta el procedimiento almacenado</span>
+cursor.callproc(<span class="hljs-string">'spAgregarEmpleado'</span>, (<span class="hljs-string">'Ana Ruiz'</span>, <span class="hljs-string">'ana.ruiz@example.com'</span>))
+conn.commit()
+</div></code></pre>
+<p>Este ejemplo te proporciona una forma completa de cómo manejar procedimientos almacenados en SQL Server desde Python utilizando <code>pymssql</code>, desde su creación hasta su ejecución.</p>
+<h3 id="recuperar-el-id-creado-en-el-procedimiento-almacenado">Recuperar el ID creado en el procedimiento almacenado</h3>
+<p>Para recuperar el ID del objeto que acabas de insertar en SQL Server utilizando <code>pymssql</code> en un procedimiento almacenado, puedes utilizar la función <code>SCOPE_IDENTITY()</code>. Esta función es útil para obtener el último ID generado en la misma sesión y el mismo ámbito, evitando problemas que pueden surgir al usar <code>@@IDENTITY</code> o <code>IDENT_CURRENT</code>, que podrían retornar valores incorrectos si hay múltiples conexiones o inserciones en paralelo.</p>
+<h3 id="ejemplo-de-procedimiento-almacenado">Ejemplo de Procedimiento Almacenado</h3>
+<p>Primero, vamos a definir un procedimiento almacenado que inserta un registro en una tabla y luego devuelve el ID generado de ese registro.</p>
+<h4 id="1-definici%C3%B3n-del-procedimiento-almacenado">1. Definición del Procedimiento Almacenado</h4>
+<p>Supongamos que tienes una tabla llamada <code>Usuarios</code> con una columna <code>UsuarioID</code> que es una clave primaria con autoincremento, junto con otras columnas como <code>Nombre</code> y <code>Email</code>.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Usuarios (
+    UsuarioID <span class="hljs-built_in">INT</span> <span class="hljs-keyword">IDENTITY</span>(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>) PRIMARY <span class="hljs-keyword">KEY</span>,
+    Nombre <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">100</span>),
+    Email <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">100</span>)
+);
+</div></code></pre>
+<p>Ahora, define el procedimiento almacenado que inserta un nuevo usuario y devuelve el ID generado:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PROCEDURE</span> spAgregarUsuario
+    @Nombre <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">100</span>),
+    @Email <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">100</span>)
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> Usuarios (Nombre, Email)
+    <span class="hljs-keyword">VALUES</span> (@Nombre, @Email);
+
+    <span class="hljs-keyword">SELECT</span> SCOPE_IDENTITY() <span class="hljs-keyword">AS</span> NuevoUsuarioID;
+<span class="hljs-keyword">END</span>
+</div></code></pre>
+<h4 id="2-llamar-al-procedimiento-almacenado-desde-python">2. Llamar al Procedimiento Almacenado desde Python</h4>
+<p>Una vez definido el procedimiento, puedes llamarlo desde Python utilizando <code>pymssql</code> y recuperar el ID del nuevo usuario.</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># ... crea la conexión y el cursor</span>
+
+<span class="hljs-comment"># Llamada al procedimiento almacenado</span>
+cursor.callproc(<span class="hljs-string">'spAgregarUsuario'</span>, (<span class="hljs-string">'Ana Ruiz'</span>, <span class="hljs-string">'ana.ruiz@example.com'</span>))
+
+<span class="hljs-comment"># Recuperar y mostrar el ID del nuevo usuario</span>
+new_user_id = cursor.fetchone()[<span class="hljs-number">0</span>]
+print(<span class="hljs-string">f'El ID del nuevo usuario es: <span class="hljs-subst">{new_user_id}</span>'</span>)
+
+<span class="hljs-comment"># Confirmar la transacción</span>
+conn.commit()
+
+<span class="hljs-comment"># Nota: no debemos olvidar cerrar el cursor y la conexión cuando ya no se utilice</span>
+</div></code></pre>
+<h3 id="notas-adicionales">Notas Adicionales</h3>
+<ul>
+<li><strong><code>SCOPE_IDENTITY()</code> vs <code>@@IDENTITY</code></strong>: <code>SCOPE_IDENTITY()</code> es preferido sobre <code>@@IDENTITY</code> porque devuelve el último ID generado en el mismo ámbito, lo que evita problemas si hay otros triggers o inserciones que ocurren al mismo tiempo.</li>
+<li><strong>Manejo de Conexiones</strong>: Siempre es buena práctica manejar excepciones y errores en tu código Python para asegurar que la conexión se cierre adecuadamente incluso si ocurre un error durante la ejecución del procedimiento.</li>
+<li><strong>Commit de la Transacción</strong>: No olvides llamar a <code>commit()</code> en la conexión si necesitas que las modificaciones en la base de datos sean permanentes.</li>
+</ul>
+<p>Este método te permitirá integrar de manera eficiente SQL Server con aplicaciones Python, aprovechando <code>pymssql</code> para gestionar datos que requieren integridad y seguridad como los IDs de usuarios recién creados.</p>
+<h2 id="404-desarrollo-de-disparadores-avanzados">404. Desarrollo de disparadores avanzados</h2>
+<p>Los disparadores (triggers) en SQL Server son objetos de base de datos especiales que se asocian a tablas o vistas y que se activan automáticamente cuando se realizan operaciones específicas sobre estos objetos, como inserciones, actualizaciones o eliminaciones. Los disparadores son herramientas poderosas para mantener la integridad de los datos, automatizar el procesamiento de los mismos, y realizar tareas de auditoría, entre otros usos.</p>
+<h3 id="tipos-de-disparadores-en-sql-server">Tipos de Disparadores en SQL Server</h3>
+<ol>
+<li>
+<p><strong>Disparadores DML</strong> (Data Manipulation Language): Se activan en respuesta a cambios en los datos provocados por <code>INSERT</code>, <code>UPDATE</code>, o <code>DELETE</code>.</p>
+<ul>
+<li><strong>AFTER Triggers</strong> (también conocidos como FOR Triggers): Se ejecutan después de que la operación de inserción, actualización o eliminación se ha completado exitosamente.</li>
+<li><strong>INSTEAD OF Triggers</strong>: Se ejecutan en lugar de la operación que los activó, permitiendo sobreescribir el comportamiento estándar de las operaciones de <code>INSERT</code>, <code>UPDATE</code>, o <code>DELETE</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Disparadores DDL</strong> (Data Definition Language): Se activan en respuesta a cambios en la definición de la base de datos, como crear o alterar objetos de base de datos.</p>
+</li>
+<li>
+<p><strong>Disparadores de Logon</strong>: Se activan en respuesta a un evento de inicio de sesión en SQL Server.</p>
+</li>
+</ol>
+<h3 id="desarrollo-de-disparadores-avanzados">Desarrollo de Disparadores Avanzados</h3>
+<p>Los disparadores avanzados suelen incorporar lógica compleja que va más allá de las operaciones simples de registro o validación. Pueden incluir:</p>
+<ul>
+<li><strong>Control de la integridad referencial compleja</strong>: Asegurarse de que las operaciones en la base de datos no violen reglas de negocio específicas que no se pueden implementar a través de restricciones o relaciones clave foránea estándar.</li>
+<li><strong>Auditoría y registro de cambios</strong>: Automatizar el seguimiento de quién hizo qué cambios y cuándo, almacenando detalles en tablas de auditoría.</li>
+<li><strong>Cascada de cambios</strong>: Propagar automáticamente cambios a otras partes de la base de datos para mantener la sincronización y la integridad de los datos.</li>
+<li><strong>Validaciones personalizadas</strong>: Verificar que las transacciones cumplan con reglas de negocio específicas antes de permitir que se realicen.</li>
+</ul>
+<h3 id="ejemplo-de-un-disparador-after">Ejemplo de un Disparador AFTER</h3>
+<p>Vamos a crear un disparador AFTER en una tabla llamada <code>Pedidos</code> para asegurar que cada vez que se inserte un nuevo pedido, se verifique y actualice el inventario correspondiente.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> trgAfterInsertPedido
+<span class="hljs-keyword">ON</span> Pedidos
+<span class="hljs-keyword">AFTER</span> <span class="hljs-keyword">INSERT</span>
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">SET</span> NOCOUNT <span class="hljs-keyword">ON</span>;
+
+    <span class="hljs-keyword">DECLARE</span> @ProductoID <span class="hljs-built_in">int</span>, @Cantidad <span class="hljs-built_in">int</span>;
+
+    <span class="hljs-keyword">SELECT</span> @ProductoID = i.ProductoID, @Cantidad = i.Cantidad
+    <span class="hljs-keyword">FROM</span> inserted i;
+
+    <span class="hljs-comment">-- Actualizar el inventario reduciendo la cantidad pedida</span>
+    <span class="hljs-keyword">UPDATE</span> Inventario
+    <span class="hljs-keyword">SET</span> Cantidad = Cantidad - @Cantidad
+    <span class="hljs-keyword">WHERE</span> ProductoID = @ProductoID;
+
+    <span class="hljs-comment">-- Insertar en la tabla de auditoría</span>
+    <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> AuditoriaPedidos(ProductoID, CantidadCambiada, FechaCambio)
+    <span class="hljs-keyword">VALUES</span> (@ProductoID, -@Cantidad, <span class="hljs-keyword">GETDATE</span>());
+<span class="hljs-keyword">END</span>
+<span class="hljs-keyword">GO</span>
+</div></code></pre>
+<h3 id="consideraciones-al-desarrollar-disparadores">Consideraciones al Desarrollar Disparadores</h3>
+<ul>
+<li><strong>Rendimiento</strong>: Los disparadores pueden afectar significativamente el rendimiento de las operaciones de base de datos. Deben ser utilizados sabiamente y optimizados para no degradar el rendimiento.</li>
+<li><strong>Complejidad y mantenimiento</strong>: Los disparadores que contienen lógica compleja pueden ser difíciles de mantener y depurar. Es vital mantener la lógica tan simple y clara como sea posible.</li>
+<li><strong>Pruebas exhaustivas</strong>: Los disparadores deben ser probados exhaustivamente en escenarios que simulen el uso real para evitar efectos secundarios no deseados y asegurar que funcionan como se espera.</li>
+</ul>
+<p>El desarrollo de disparadores avanzados requiere una comprensión sólida de los eventos que activan los disparadores y cómo interactúan con otras operaciones de base de datos para implementar soluciones eficaces y eficientes que apoyen las operaciones y la integridad de los datos.</p>
+<h3 id="intercepci%C3%B3n-en-las-consultas">Intercepción en las consultas</h3>
+<p>En SQL Server, no existe un disparador <code>BEFORE</code> como tal, como lo encuentras en otros sistemas de gestión de bases de datos como PostgreSQL o MySQL. Sin embargo, SQL Server ofrece los disparadores <code>INSTEAD OF</code>, que funcionan de manera similar al permitirte intervenir antes de que se complete una operación de inserción, actualización o eliminación. Los disparadores <code>INSTEAD OF</code> pueden ser utilizados para revisar o modificar los datos antes de que se realicen cambios en la base de datos, ofreciendo un nivel de control previo a la acción que es similar al proporcionado por un disparador <code>BEFORE</code>.</p>
+<h3 id="uso-de-un-disparador-instead-of">Uso de un Disparador <code>INSTEAD OF</code></h3>
+<p>Los disparadores <code>INSTEAD OF</code> se ejecutan en lugar de la operación de inserción, actualización o eliminación original, lo que te permite realizar validaciones o cambios en los datos antes de proceder con la operación. Aquí te proporciono un ejemplo de cómo puedes utilizar un disparador <code>INSTEAD OF</code> para verificar y modificar datos antes de una inserción:</p>
+<h4 id="ejemplo-de-disparador-instead-of-insert">Ejemplo de Disparador <code>INSTEAD OF INSERT</code></h4>
+<p>Supongamos que tienes una tabla llamada <code>Empleados</code> con las columnas <code>EmpleadoID</code>, <code>Nombre</code>, y <code>Email</code>, y quieres asegurarte de que el email no esté vacío antes de insertar un nuevo registro.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Empleados (
+    EmpleadoID <span class="hljs-built_in">INT</span> <span class="hljs-keyword">IDENTITY</span>(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>) PRIMARY <span class="hljs-keyword">KEY</span>,
+    Nombre <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">100</span>),
+    Email <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-number">100</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+);
+
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> trgInsteadOfInsert
+<span class="hljs-keyword">ON</span> Empleados
+INSTEAD <span class="hljs-keyword">OF</span> <span class="hljs-keyword">INSERT</span>
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">SET</span> NOCOUNT <span class="hljs-keyword">ON</span>;
+
+    <span class="hljs-comment">-- Verificar que el email no esté vacío</span>
+    IF EXISTS (<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> inserted <span class="hljs-keyword">WHERE</span> Email <span class="hljs-keyword">IS</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">OR</span> Email = <span class="hljs-string">''</span>)
+    <span class="hljs-keyword">BEGIN</span>
+        RAISERROR (<span class="hljs-string">'El email no puede estar vacío'</span>, <span class="hljs-number">16</span>, <span class="hljs-number">1</span>);
+        RETURN;
+    <span class="hljs-keyword">END</span>
+
+    <span class="hljs-comment">-- Si todo está correcto, insertar el registro</span>
+    <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> Empleados (Nombre, Email)
+    <span class="hljs-keyword">SELECT</span> Nombre, Email <span class="hljs-keyword">FROM</span> inserted;
+<span class="hljs-keyword">END</span>
+<span class="hljs-keyword">GO</span>
+</div></code></pre>
+<h3 id="c%C3%B3mo-funciona-este-disparador">Cómo Funciona Este Disparador</h3>
+<ol>
+<li><strong>Verificación de la Condición</strong>: Antes de que se inserte el registro, el disparador verifica si el campo <code>Email</code> está vacío. Si encuentra que el email está vacío, genera un error y detiene la inserción.</li>
+<li><strong>Inserción de Datos</strong>: Si el campo <code>Email</code> pasa la verificación, el disparador procede a insertar los datos en la tabla <code>Empleados</code>.</li>
+</ol>
+<h3 id="consideraciones">Consideraciones</h3>
+<ul>
+<li><strong>Rendimiento</strong>: Aunque los disparadores <code>INSTEAD OF</code> ofrecen una gran flexibilidad, pueden afectar el rendimiento si se usan en operaciones que involucran grandes volúmenes de datos o son muy frecuentes. Debe considerarse cuidadosamente dónde y cómo se utilizan.</li>
+<li><strong>Mantenimiento</strong>: La lógica dentro de los disparadores puede hacer que el mantenimiento de la base de datos sea más complicado. Es importante mantener la lógica de los disparadores tan simple y clara como sea posible y asegurarse de que esté bien documentada.</li>
+</ul>
+<p>En resumen, aunque SQL Server no tiene disparadores <code>BEFORE</code> específicos, los disparadores <code>INSTEAD OF</code> ofrecen una funcionalidad comparable que te permite manejar y validar datos antes de que las operaciones de inserción, actualización o eliminación sean efectivamente realizadas en la base de datos.</p>
+<p>En SQL Server, los disparadores <code>INSTEAD OF</code> reemplazan completamente la sentencia original de inserción, actualización o eliminación por la que se activan. Esto significa que, a diferencia de un disparador <code>AFTER</code>, que simplemente responde a una operación que ya ha ocurrido, un disparador <code>INSTEAD OF</code> toma el control total de la operación y es responsable de implementar explícitamente cualquier lógica de inserción, actualización o eliminación que se supone debe ocurrir.</p>
+<h3 id="%C2%BFqu%C3%A9-implica-esto">¿Qué Implica Esto?</h3>
+<p>Cuando creas un disparador <code>INSTEAD OF</code>, debes proporcionar toda la lógica necesaria para manejar los datos de manera apropiada, incluyendo la inserción, actualización o eliminación de registros en la base de datos. Si no incluyes explícitamente esta lógica en el cuerpo del disparador, las operaciones originales que deberían haber ocurrido (como insertar un nuevo registro o actualizar uno existente) no se realizarán automáticamente.</p>
+<h3 id="ejemplo-pr%C3%A1ctico">Ejemplo Práctico</h3>
+<p>Vamos a revisar nuevamente el ejemplo del disparador <code>INSTEAD OF INSERT</code> para la tabla <code>Empleados</code> y explicar cómo asegurarte de que las inserciones se realicen adecuadamente a pesar de interceptar la operación original:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> trgInsteadOfInsert
+<span class="hljs-keyword">ON</span> Empleados
+INSTEAD <span class="hljs-keyword">OF</span> <span class="hljs-keyword">INSERT</span>
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">SET</span> NOCOUNT <span class="hljs-keyword">ON</span>;
+
+    <span class="hljs-comment">-- Verificar que el email no esté vacío</span>
+    IF EXISTS (<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> inserted <span class="hljs-keyword">WHERE</span> Email <span class="hljs-keyword">IS</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">OR</span> Email = <span class="hljs-string">''</span>)
+    <span class="hljs-keyword">BEGIN</span>
+        RAISERROR (<span class="hljs-string">'El email no puede estar vacío'</span>, <span class="hljs-number">16</span>, <span class="hljs-number">1</span>);
+        RETURN;
+    <span class="hljs-keyword">END</span>
+
+    <span class="hljs-comment">-- Inserción explícita de los registros validados</span>
+    <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> Empleados (Nombre, Email)
+    <span class="hljs-keyword">SELECT</span> Nombre, Email <span class="hljs-keyword">FROM</span> inserted;
+<span class="hljs-keyword">END</span>
+<span class="hljs-keyword">GO</span>
+</div></code></pre>
+<p>En este disparador:</p>
+<ul>
+<li><strong>Validación</strong>: Se verifica primero que ningún <code>Email</code> esté vacío.</li>
+<li><strong>Inserción Explícita</strong>: Solo si la validación es exitosa, se procede a insertar explícitamente los datos en la tabla <code>Empleados</code> utilizando los datos de la pseudo-tabla <code>inserted</code>. Esto es crucial porque la inserción original que habría activado el disparador no ocurrirá a menos que se especifique explícitamente aquí.</li>
+</ul>
+<h3 id="consideraciones-importantes">Consideraciones Importantes</h3>
+<ul>
+<li><strong>Control Completo</strong>: Los disparadores <code>INSTEAD OF</code> te dan un control completo sobre lo que sucede, pero también te imponen la responsabilidad de asegurarte de que todas las operaciones necesarias se lleven a cabo correctamente.</li>
+<li><strong>Complejidad y Riesgo de Error</strong>: Dado que debes manejar explícitamente las operaciones de la base de datos, hay un mayor riesgo de errores si no se replican completamente las intenciones originales de la operación.</li>
+<li><strong>Uso con Cautela</strong>: Debido a su potencial para complicar y posiblemente ralentizar las operaciones de la base de datos, los disparadores <code>INSTEAD OF</code> deben usarse con cautela y solo cuando sean claramente beneficiosos para manejar casos específicos que no pueden ser tratados de manera más sencilla.</li>
+</ul>
+<p>En resumen, los disparadores <code>INSTEAD OF</code> en SQL Server no permiten que la sentencia original se ejecute automáticamente. Es tu responsabilidad dentro del disparador asegurarte de que cualquier acción necesaria, como inserciones o actualizaciones, se realice explícitamente.</p>
+<h3 id="acceder-a-los-valores-originales">Acceder a los valores originales</h3>
+<p>En SQL Server, cuando se usa un disparador <code>INSTEAD OF</code> o un disparador <code>AFTER</code>, puedes acceder a los valores de la sentencia original que activó el disparador a través de las tablas especiales llamadas <code>inserted</code> y <code>deleted</code>. Estas tablas son usadas por SQL Server para almacenar los valores de fila antes y después de que ocurra un evento de datos, permitiendo que el disparador actúe basado en estos valores. Aquí te explico cómo funcionan estas tablas y cómo puedes utilizarlas para extraer valores:</p>
+<h3 id="tablas-inserted-y-deleted">Tablas <code>inserted</code> y <code>deleted</code></h3>
+<ul>
+<li><strong>Tabla <code>inserted</code></strong>: En los disparadores de <code>INSERT</code> y <code>UPDATE</code>, esta tabla contiene los valores de las filas tal como aparecerán después de la operación. Para un disparador <code>INSERT</code>, <code>inserted</code> contiene los valores de las nuevas filas que se están insertando en la base de datos.</li>
+<li><strong>Tabla <code>deleted</code></strong>: En los disparadores de <code>DELETE</code> y <code>UPDATE</code>, esta tabla contiene los valores de las filas antes de la operación. Para un disparador <code>DELETE</code>, <code>deleted</code> contiene los valores de las filas que están siendo eliminadas.</li>
+</ul>
+<h3 id="acceder-a-los-valores-en-disparadores-instead-of">Acceder a los Valores en Disparadores <code>INSTEAD OF</code></h3>
+<p>Cuando creas un disparador <code>INSTEAD OF</code>, puedes usar estas tablas para acceder a los valores originales de la operación que el disparador intercepta, lo que te permite realizar lógica condicional, validaciones, o manipulaciones antes de que se complete la operación real.</p>
+<h4 id="ejemplo-con-instead-of-update">Ejemplo con <code>INSTEAD OF UPDATE</code></h4>
+<p>Supongamos que tienes una tabla <code>Empleados</code> y quieres asegurarte de que ciertas condiciones se cumplan antes de permitir una actualización en la tabla. Aquí te muestro cómo puedes hacerlo:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> trgInsteadOfUpdate
+<span class="hljs-keyword">ON</span> Empleados
+INSTEAD <span class="hljs-keyword">OF</span> <span class="hljs-keyword">UPDATE</span>
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">SET</span> NOCOUNT <span class="hljs-keyword">ON</span>;
+
+    <span class="hljs-comment">-- Ejemplo de verificación: asegurar que el email no esté vacío</span>
+    IF EXISTS (<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> inserted <span class="hljs-keyword">WHERE</span> Email <span class="hljs-keyword">IS</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">OR</span> Email = <span class="hljs-string">''</span>)
+    <span class="hljs-keyword">BEGIN</span>
+        RAISERROR (<span class="hljs-string">'El email no puede estar vacío'</span>, <span class="hljs-number">16</span>, <span class="hljs-number">1</span>);
+        RETURN;
+    <span class="hljs-keyword">END</span>
+
+    <span class="hljs-comment">-- Actualizar la fila solo si pasa las validaciones</span>
+    <span class="hljs-keyword">UPDATE</span> Empleados
+    <span class="hljs-keyword">SET</span>
+        Nombre = i.Nombre,
+        Email = i.Email
+    <span class="hljs-keyword">FROM</span>
+        inserted i
+    <span class="hljs-keyword">WHERE</span>
+        Empleados.EmpleadoID = i.EmpleadoID;
+<span class="hljs-keyword">END</span>
+<span class="hljs-keyword">GO</span>
+</div></code></pre>
+<p>En este ejemplo, el disparador usa la tabla <code>inserted</code> para verificar si algún <code>Email</code> está vacío antes de permitir la actualización. Si la validación falla, se detiene la operación con un error.</p>
+<h3 id="consideraciones">Consideraciones</h3>
+<ul>
+<li><strong>Rendimiento</strong>: El uso de disparadores, especialmente aquellos que implementan lógica compleja o actúan sobre tablas grandes, puede tener un impacto en el rendimiento. Asegúrate de probar y optimizar tus disparadores.</li>
+<li><strong>Manejo de múltiples filas</strong>: Ten en cuenta que <code>inserted</code> y <code>deleted</code> pueden contener múltiples filas. Asegúrate de que tu disparador pueda manejar correctamente múltiples filas de manera eficiente.</li>
+<li><strong>Pruebas</strong>: Realiza pruebas exhaustivas para asegurarte de que tus disparadores se comportan como se espera en todos los casos posibles, incluyendo transacciones que involucren múltiples filas o valores límite.</li>
+</ul>
+<p>Utilizar las tablas <code>inserted</code> y <code>deleted</code> permite a los desarrolladores acceder y manipular datos basándose en el estado antes y después de una operación propuesta, proporcionando un poderoso mecanismo para asegurar la integridad y las reglas de negocio directamente dentro de la base de datos.</p>
+
+</body>
+</html>
