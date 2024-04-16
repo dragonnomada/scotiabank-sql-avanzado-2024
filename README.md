@@ -10,6 +10,10 @@ Instructor: [Alan Badillo Salas](alan@nomadacode.com)
 
 ---
 
+## Notas del Curso en Google Colab
+
+[https://colab.research.google.com/drive/1FcxGMRF5tDMkVoW1tfpemr1VOOw87pQ-?usp=sharing](https://colab.research.google.com/drive/1FcxGMRF5tDMkVoW1tfpemr1VOOw87pQ-?usp=sharing)
+
 ## Bienvenida
 
 Bienvenidos al **Curso de SQL Avanzado** para Scotiabank, brindado por Belatrix.
