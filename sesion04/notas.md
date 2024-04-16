@@ -1681,10 +1681,10 @@ Aquí está un ejemplo básico de cómo llamar a una función de SQL Server (por
 import pymssql
 
 # Configura tus credenciales y detalles de la base de datos
-server = 'your_server_address'
-user = 'your_username'
-password = 'your_password'
-database = 'your_database_name'
+server = '<HOST>'
+user = '<USER>'
+password = '<PASSWORD>'
+database = '<DATABASE>'
 
 # Conecta a la base de datos
 conn = pymssql.connect(server, user, password, database)
@@ -1807,10 +1807,10 @@ Supongamos que tienes un procedimiento almacenado llamado `UpdateEmployeeSalarie
 import pymssql
 
 # Configuración de conexión
-server = 'your_server_address'
-user = 'your_username'
-password = 'your_password'
-database = 'your_database_name'
+server = '<HOST>'
+user = '<USER>'
+password = '<PASSWORD>'
+database = '<DATABASE>'
 
 # Establece la conexión
 conn = pymssql.connect(server, user, password, database)
@@ -1833,10 +1833,10 @@ Ahora, si tu procedimiento almacenado requiere parámetros, por ejemplo, un proc
 import pymssql
 
 # Configuración de conexión
-server = 'your_server_address'
-user = 'your_username'
-password = 'your_password'
-database = 'your_database_name'
+server = '<HOST>'
+user = '<USER>'
+password = '<PASSWORD>'
+database = '<DATABASE>'
 
 # Establece la conexión
 conn = pymssql.connect(server, user, password, database)
