@@ -540,7 +540,7 @@ conn.commit()
 <li><strong>Índices Columnstore</strong>: Optimizados para consultas de procesamiento analítico en línea (OLAP), estos índices almacenan datos de manera columnar, lo que puede mejorar significativamente el rendimiento de ciertas consultas.</li>
 </ul>
 <p>La selección y configuración adecuada de los índices puede reducir significativamente los tiempos de consulta.</p>
-<p>los índices en SQL Server son esenciales para mejorar el rendimiento de las consultas, especialmente en tablas grandes donde pueden reducir significativamente el tiempo de acceso a los datos. A continuación, te explicaré cómo se crean y utilizan los índices en SQL Server, y te mostraré algunos ejemplos prácticos.</p>
+<p>los índices en SQL Server son esenciales para mejorar el rendimiento de las consultas, especialmente en tablas grandes donde pueden reducir significativamente el tiempo de acceso a los datos. A continuación, veremos cómo se crean y utilizan los índices en SQL Server, y algunos ejemplos prácticos.</p>
 <h3 id="tipos-de-%C3%ADndices">Tipos de Índices</h3>
 <ol>
 <li><strong>Índices Clusterizados</strong>: Reorganizan físicamente los datos de la tabla en el orden del índice. Cada tabla puede tener solo un índice clusterizado, ya que define el almacenamiento físico de los datos en la tabla.</li>
@@ -573,7 +573,7 @@ conn.commit()
 <h3 id="creaci%C3%B3n-de-%C3%ADndices-desde-python">Creación de índices desde Python</h3>
 <p>Puedes crear índices en SQL Server directamente desde Python usando la biblioteca <code>pymssql</code>. Al igual que cualquier otra instrucción SQL, puedes ejecutar comandos para crear índices utilizando un cursor obtenido de una conexión <code>pymssql</code>. Esto te permite automatizar la administración de bases de datos y la configuración inicial desde scripts de Python.</p>
 <h3 id="ejemplo-de-c%C3%B3mo-crear-un-%C3%ADndice-desde-pymssql">Ejemplo de cómo crear un índice desde pymssql</h3>
-<p>Aquí te muestro cómo crear un índice <code>UNIQUE</code> en una columna específica de una tabla utilizando <code>pymssql</code>. Vamos a suponer que tienes una tabla llamada <code>Usuarios</code> con una columna <code>Email</code> y quieres asegurarte de que cada email sea único.</p>
+<p>Vamos a crear un índice <code>UNIQUE</code> en una columna específica de una tabla utilizando <code>pymssql</code>. Vamos a suponer que tienes una tabla llamada <code>Usuarios</code> con una columna <code>Email</code> y quieres asegurarte de que cada email sea único.</p>
 <pre class="hljs"><code><div><span class="hljs-comment"># ... crea la conexión y el cursor</span>
 
 <span class="hljs-comment"># Comando SQL para crear un índice UNIQUE</span>
@@ -741,7 +741,7 @@ CREATE UNIQUE INDEX UX_Email ON Usuarios(Email);
 <h3 id="conclusi%C3%B3n">Conclusión</h3>
 <p>La mutua exclusividad en las particiones es fundamental para el manejo efectivo y eficiente de las bases de datos, especialmente en entornos de grandes volúmenes de datos. Al diseñar y configurar particiones, es esencial asegurar que cada partición tenga un rango de valores claramente definido y no solapado para mantener la integridad y optimización del rendimiento de las consultas.</p>
 <h3 id="los-archivos-ndf">Los archivos .ndf</h3>
-<p>En SQL Server, las particiones no toman automáticamente archivos <code>.ndf</code> a menos que se configuren explícitamente para hacerlo. Los archivos <code>.ndf</code> son archivos secundarios de datos que puedes utilizar en SQL Server para distribuir datos a través de varios discos si lo deseas. Estos archivos pueden albergar tablas completas o incluso partes de tablas, como en el caso de tablas particionadas. Aquí te explico cómo se configura esto y qué consecuencias tiene borrar dichos archivos.</p>
+<p>En SQL Server, las particiones no toman automáticamente archivos <code>.ndf</code> a menos que se configuren explícitamente para hacerlo. Los archivos <code>.ndf</code> son archivos secundarios de datos que puedes utilizar en SQL Server para distribuir datos a través de varios discos si lo deseas. Estos archivos pueden albergar tablas completas o incluso partes de tablas, como en el caso de tablas particionadas. Veamos cómo se configura esto y qué consecuencias tiene borrar dichos archivos.</p>
 <h3 id="configuraci%C3%B3n-de-archivos-ndf-para-particiones">Configuración de Archivos <code>.ndf</code> para Particiones</h3>
 <p>Cuando creas un esquema de partición en SQL Server, debes especificar a qué grupo de archivos (filegroup) pertenece cada partición. Cada grupo de archivos puede contener uno o más archivos físicos, que pueden ser <code>.mdf</code> (archivo primario) o <code>.ndf</code> (archivos secundarios).</p>
 <h3 id="ejemplo-de-la-creaci%C3%B3n-de-grupos-de-archivos">Ejemplo de la creación de grupos de archivos</h3>
@@ -791,7 +791,7 @@ CREATE UNIQUE INDEX UX_Email ON Usuarios(Email);
 <h3 id="deshacer-una-partici%C3%B3n">Deshacer una partición</h3>
 <p>Para revertir el particionamiento de una tabla en SQL Server y hacer que la tabla deje de usar particiones, básicamente necesitas realizar una serie de operaciones que trasladen los datos a una tabla no particionada y luego eliminen la configuración de particionamiento existente. Este proceso implica recrear la tabla sin el esquema de partición y luego mover los datos de la tabla particionada a esta nueva tabla.</p>
 <h3 id="pasos-para-revertir-una-partici%C3%B3n">Pasos para Revertir una Partición</h3>
-<p>Aquí te muestro un enfoque general sobre cómo puedes deshacer el particionamiento de una tabla y eliminar la dependencia de los archivos <code>.ndf</code>:</p>
+<p>Veamos un enfoque general sobre cómo deshacer el particionamiento de una tabla y eliminar la dependencia de los archivos <code>.ndf</code>:</p>
 <h4 id="1-crear-una-nueva-tabla">1. Crear una Nueva Tabla</h4>
 <p>Primero, debes crear una nueva tabla que tenga la misma estructura que la tabla particionada, pero sin aplicar el esquema de partición. Asegúrate de que esta tabla se cree en el grupo de archivos predeterminado o en uno que no esté asociado a un archivo <code>.ndf</code> específico.</p>
 <pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> dbo.Usuarios_New (
@@ -1084,7 +1084,7 @@ conn.commit()
 <h3 id="intercepci%C3%B3n-en-las-consultas">Intercepción en las consultas</h3>
 <p>En SQL Server, no existe un disparador <code>BEFORE</code> como tal, como lo encuentras en otros sistemas de gestión de bases de datos como PostgreSQL o MySQL. Sin embargo, SQL Server ofrece los disparadores <code>INSTEAD OF</code>, que funcionan de manera similar al permitirte intervenir antes de que se complete una operación de inserción, actualización o eliminación. Los disparadores <code>INSTEAD OF</code> pueden ser utilizados para revisar o modificar los datos antes de que se realicen cambios en la base de datos, ofreciendo un nivel de control previo a la acción que es similar al proporcionado por un disparador <code>BEFORE</code>.</p>
 <h3 id="uso-de-un-disparador-instead-of">Uso de un Disparador <code>INSTEAD OF</code></h3>
-<p>Los disparadores <code>INSTEAD OF</code> se ejecutan en lugar de la operación de inserción, actualización o eliminación original, lo que te permite realizar validaciones o cambios en los datos antes de proceder con la operación. Aquí te proporciono un ejemplo de cómo puedes utilizar un disparador <code>INSTEAD OF</code> para verificar y modificar datos antes de una inserción:</p>
+<p>Los disparadores <code>INSTEAD OF</code> se ejecutan en lugar de la operación de inserción, actualización o eliminación original, lo que te permite realizar validaciones o cambios en los datos antes de proceder con la operación. Veamos un ejemplo de cómo utilizar un disparador <code>INSTEAD OF</code> para verificar y modificar datos antes de una inserción:</p>
 <h4 id="ejemplo-de-disparador-instead-of-insert">Ejemplo de Disparador <code>INSTEAD OF INSERT</code></h4>
 <p>Supongamos que tienes una tabla llamada <code>Empleados</code> con las columnas <code>EmpleadoID</code>, <code>Nombre</code>, y <code>Email</code>, y quieres asegurarte de que el email no esté vacío antes de insertar un nuevo registro.</p>
 <pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Empleados (
@@ -1162,7 +1162,7 @@ INSTEAD <span class="hljs-keyword">OF</span> <span class="hljs-keyword">INSERT</
 </ul>
 <p>En resumen, los disparadores <code>INSTEAD OF</code> en SQL Server no permiten que la sentencia original se ejecute automáticamente. Es tu responsabilidad dentro del disparador asegurarte de que cualquier acción necesaria, como inserciones o actualizaciones, se realice explícitamente.</p>
 <h3 id="acceder-a-los-valores-originales">Acceder a los valores originales</h3>
-<p>En SQL Server, cuando se usa un disparador <code>INSTEAD OF</code> o un disparador <code>AFTER</code>, puedes acceder a los valores de la sentencia original que activó el disparador a través de las tablas especiales llamadas <code>inserted</code> y <code>deleted</code>. Estas tablas son usadas por SQL Server para almacenar los valores de fila antes y después de que ocurra un evento de datos, permitiendo que el disparador actúe basado en estos valores. Aquí te explico cómo funcionan estas tablas y cómo puedes utilizarlas para extraer valores:</p>
+<p>En SQL Server, cuando se usa un disparador <code>INSTEAD OF</code> o un disparador <code>AFTER</code>, puedes acceder a los valores de la sentencia original que activó el disparador a través de las tablas especiales llamadas <code>inserted</code> y <code>deleted</code>. Estas tablas son usadas por SQL Server para almacenar los valores de fila antes y después de que ocurra un evento de datos, permitiendo que el disparador actúe basado en estos valores. Veamos cómo funcionan estas tablas y cómo utilizarlas para extraer valores:</p>
 <h3 id="tablas-inserted-y-deleted">Tablas <code>inserted</code> y <code>deleted</code></h3>
 <ul>
 <li><strong>Tabla <code>inserted</code></strong>: En los disparadores de <code>INSERT</code> y <code>UPDATE</code>, esta tabla contiene los valores de las filas tal como aparecerán después de la operación. Para un disparador <code>INSERT</code>, <code>inserted</code> contiene los valores de las nuevas filas que se están insertando en la base de datos.</li>
@@ -1171,7 +1171,7 @@ INSTEAD <span class="hljs-keyword">OF</span> <span class="hljs-keyword">INSERT</
 <h3 id="acceder-a-los-valores-en-disparadores-instead-of">Acceder a los Valores en Disparadores <code>INSTEAD OF</code></h3>
 <p>Cuando creas un disparador <code>INSTEAD OF</code>, puedes usar estas tablas para acceder a los valores originales de la operación que el disparador intercepta, lo que te permite realizar lógica condicional, validaciones, o manipulaciones antes de que se complete la operación real.</p>
 <h4 id="ejemplo-con-instead-of-update">Ejemplo con <code>INSTEAD OF UPDATE</code></h4>
-<p>Supongamos que tienes una tabla <code>Empleados</code> y quieres asegurarte de que ciertas condiciones se cumplan antes de permitir una actualización en la tabla. Aquí te muestro cómo puedes hacerlo:</p>
+<p>Supongamos que tienes una tabla <code>Empleados</code> y quieres asegurarte de que ciertas condiciones se cumplan antes de permitir una actualización en la tabla.</p>
 <pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> trgInsteadOfUpdate
 <span class="hljs-keyword">ON</span> Empleados
 INSTEAD <span class="hljs-keyword">OF</span> <span class="hljs-keyword">UPDATE</span>
@@ -1206,6 +1206,650 @@ INSTEAD <span class="hljs-keyword">OF</span> <span class="hljs-keyword">UPDATE</
 <li><strong>Pruebas</strong>: Realiza pruebas exhaustivas para asegurarte de que tus disparadores se comportan como se espera en todos los casos posibles, incluyendo transacciones que involucren múltiples filas o valores límite.</li>
 </ul>
 <p>Utilizar las tablas <code>inserted</code> y <code>deleted</code> permite a los desarrolladores acceder y manipular datos basándose en el estado antes y después de una operación propuesta, proporcionando un poderoso mecanismo para asegurar la integridad y las reglas de negocio directamente dentro de la base de datos.</p>
+<h2 id="405-trabajo-con-cursores-y-variables">405. Trabajo con cursores y variables</h2>
+<p>Trabajar con cursores y variables en SQL Server te permite manejar datos de manera más controlada y realizar operaciones más complejas que simplemente seleccionar o actualizar datos.</p>
+<h3 id="variables-en-sql-server">Variables en SQL Server</h3>
+<p>Las variables en SQL Server te permiten almacenar datos temporales para usar en tus consultas. Se declaran usando la palabra clave <code>DECLARE</code> y luego se les puede asignar un valor con <code>SET</code> o <code>SELECT</code>.</p>
+<p><strong>Ejemplo:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">DECLARE</span> @EmployeeID <span class="hljs-built_in">int</span>;
+<span class="hljs-keyword">SET</span> @EmployeeID = <span class="hljs-number">1</span>;
+
+<span class="hljs-comment">-- Usar la variable en una consulta</span>
+<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> Employees <span class="hljs-keyword">WHERE</span> EmployeeID = @EmployeeID;
+</div></code></pre>
+<h3 id="cursores-en-sql-server">Cursores en SQL Server</h3>
+<p>Los cursores son útiles cuando necesitas procesar las filas de una tabla de manera secuencial, realizar operaciones fila por fila, o cuando cada fila requiere una lógica compleja que no puede ser realizada con un simple <code>SET</code> de operaciones. Sin embargo, deben ser usados con cautela ya que pueden ser menos eficientes que las operaciones de conjunto.</p>
+<p><strong>Pasos para usar un cursor:</strong></p>
+<ol>
+<li><strong>Declarar el cursor:</strong> Define el conjunto de resultados y el cursor con <code>DECLARE CURSOR</code>.</li>
+<li><strong>Abrir el cursor:</strong> Abre el cursor para comenzar a acceder a las filas.</li>
+<li><strong>Fetch:</strong> Recupera la siguiente fila del conjunto de resultados del cursor y mueve el cursor adelante.</li>
+<li><strong>Procesar la fila:</strong> Realiza las operaciones necesarias con los datos de la fila.</li>
+<li><strong>Cerrar el cursor:</strong> Cierra el cursor una vez que terminas de procesar todas las filas.</li>
+<li><strong>Desasignar el cursor:</strong> Libera los recursos asociados con el cursor.</li>
+</ol>
+<p><strong>Ejemplo de uso de cursor:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">DECLARE</span> @EmployeeID <span class="hljs-built_in">int</span>, @<span class="hljs-keyword">Name</span> <span class="hljs-keyword">nvarchar</span>(<span class="hljs-number">50</span>);
+
+<span class="hljs-comment">-- Declarar el cursor</span>
+<span class="hljs-keyword">DECLARE</span> employee_cursor <span class="hljs-keyword">CURSOR</span> <span class="hljs-keyword">FOR</span>
+<span class="hljs-keyword">SELECT</span> EmployeeID, <span class="hljs-keyword">Name</span> <span class="hljs-keyword">FROM</span> Employees;
+
+<span class="hljs-comment">-- Abrir el cursor</span>
+OPEN employee_cursor;
+
+<span class="hljs-comment">-- Fetch inicial</span>
+FETCH NEXT FROM employee_cursor INTO @EmployeeID, @Name;
+
+<span class="hljs-comment">-- Loop para procesar las filas</span>
+WHILE @@FETCH_STATUS = 0
+<span class="hljs-keyword">BEGIN</span>
+    PRINT <span class="hljs-string">'Employee ID: '</span> + <span class="hljs-keyword">CAST</span>(@EmployeeID <span class="hljs-keyword">AS</span> <span class="hljs-keyword">nvarchar</span>(<span class="hljs-number">10</span>)) + <span class="hljs-string">', Name: '</span> + @<span class="hljs-keyword">Name</span>;
+
+    <span class="hljs-comment">-- Fetch siguiente</span>
+    FETCH NEXT FROM employee_cursor INTO @EmployeeID, @Name;
+<span class="hljs-keyword">END</span>
+
+<span class="hljs-comment">-- Cerrar el cursor</span>
+<span class="hljs-keyword">CLOSE</span> employee_cursor;
+
+<span class="hljs-comment">-- Desasignar el cursor</span>
+<span class="hljs-keyword">DEALLOCATE</span> employee_cursor;
+</div></code></pre>
+<h3 id="recomendaciones">Recomendaciones</h3>
+<ul>
+<li><strong>Evitar el uso de cursores siempre que sea posible.</strong> En lugar de usar cursores, intenta usar operaciones de conjunto que son generalmente más eficientes en SQL Server.</li>
+<li><strong>Usa transacciones si modificas datos:</strong> Esto asegura que tus modificaciones sean manejadas correctamente y puedas revertirlas si algo sale mal.</li>
+<li><strong>Optimiza tu cursor si es necesario:</strong> Al declarar un cursor, puedes especificar opciones como <code>READ_ONLY</code> o <code>FAST_FORWARD</code> para mejorar el rendimiento dependiendo del caso de uso.</li>
+</ul>
+<p>Utiliza estas herramientas con precaución y siempre que sea posible, intenta reemplazar los cursores por consultas que manejen sets de datos para obtener un rendimiento óptimo.</p>
+<h3 id="uso-de-variables-fuera-de-la-transacci%C3%B3n">Uso de variables fuera de la transacción</h3>
+<p>Sí, las variables en SQL Server pueden ser usadas fuera de transacciones sin ningún problema. Las variables son independientes de las transacciones, lo que significa que puedes declararlas y usarlas para almacenar y manipular datos en cualquier parte de tu script o procedimiento almacenado, ya sea dentro o fuera de una transacción.</p>
+<h3 id="caracter%C3%ADsticas-de-las-variables-fuera-de-transacciones">Características de las variables fuera de transacciones</h3>
+<ul>
+<li><strong>Ámbito de vida:</strong> Las variables tienen un ámbito local al batch, procedimiento almacenado, trigger o bloque de código donde son declaradas. Una vez que el código termina de ejecutarse, las variables son desechadas.</li>
+<li><strong>Independencia:</strong> Las operaciones realizadas con variables no son afectadas por <code>COMMIT</code> o <code>ROLLBACK</code> de una transacción, dado que las variables no forman parte del estado de la transacción. Esto significa que los cambios en las variables no se revertirán si la transacción se deshace.</li>
+<li><strong>Flexibilidad de uso:</strong> Puedes usar variables para preparar datos, guardar resultados temporales, o controlar la lógica de flujo en tus scripts, independientemente de las transacciones.</li>
+</ul>
+<h3 id="ejemplo-de-uso-de-variables-fuera-de-transacciones">Ejemplo de uso de variables fuera de transacciones</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">DECLARE</span> @<span class="hljs-keyword">Count</span> <span class="hljs-built_in">int</span>;
+
+<span class="hljs-comment">-- Asignar un valor a la variable</span>
+<span class="hljs-keyword">SET</span> @<span class="hljs-keyword">Count</span> = (<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">COUNT</span>(*) <span class="hljs-keyword">FROM</span> Employees);
+
+<span class="hljs-comment">-- Usar la variable para realizar una condición</span>
+IF @Count &gt; 0
+<span class="hljs-keyword">BEGIN</span>
+    PRINT <span class="hljs-string">'Hay empleados en la tabla.'</span>;
+<span class="hljs-keyword">END</span>
+<span class="hljs-keyword">ELSE</span>
+<span class="hljs-keyword">BEGIN</span>
+    PRINT <span class="hljs-string">'No hay empleados en la tabla.'</span>;
+<span class="hljs-keyword">END</span>
+</div></code></pre>
+<p>En este ejemplo, la variable <code>@Count</code> se usa para almacenar el número de empleados en una tabla y luego se usa en una instrucción condicional para imprimir un mensaje basado en el valor de la variable. Todo esto se realiza fuera de cualquier transacción.</p>
+<h3 id="consideraciones">Consideraciones</h3>
+<p>Mientras que las variables son muy útiles para almacenar información temporal, es importante recordar que su uso debe ser bien pensado, especialmente en procedimientos almacenados y scripts que se ejecutan frecuentemente, para evitar problemas de rendimiento. Además, asegúrate de limpiar o reasignar variables en scripts largos para evitar confusión o resultados incorrectos debido a valores residuales de ejecuciones anteriores.</p>
+<h3 id="uso-de-variables-en-transacciones">Uso de Variables en transacciones</h3>
+<p>Veamos cómo podemos combinar el uso de variables y transacciones en SQL Server para realizar operaciones seguras sobre la base de datos y generar un reporte sencillo al final de la transacción. El ejemplo se enfocará en una transacción que actualiza los salarios de los empleados y luego imprime un reporte del estado final de los cambios.</p>
+<h3 id="ejemplo-de-transacci%C3%B3n-con-variables-y-reporte">Ejemplo de Transacción con Variables y Reporte</h3>
+<p>Imaginemos que necesitamos actualizar los salarios de algunos empleados y queremos asegurarnos de que todas las actualizaciones se hagan correctamente o que ninguna se haga (para mantener la integridad de la base de datos). Además, queremos un reporte que muestre cuántos empleados fueron actualizados y el total de incrementos realizados.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Declara las variables necesarias para la transacción</span>
+<span class="hljs-keyword">DECLARE</span> @EmployeeCount <span class="hljs-built_in">int</span> = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">DECLARE</span> @TotalIncrement <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>) = <span class="hljs-number">0.00</span>;
+
+<span class="hljs-keyword">BEGIN</span> TRY
+    <span class="hljs-comment">-- Inicia la transacción</span>
+    <span class="hljs-keyword">BEGIN</span> <span class="hljs-keyword">TRANSACTION</span>
+
+    <span class="hljs-comment">-- Actualiza el salario de los empleados y cuenta los afectados</span>
+    <span class="hljs-keyword">UPDATE</span> Employees
+    <span class="hljs-keyword">SET</span> Salary = Salary + <span class="hljs-number">1000</span>
+    <span class="hljs-keyword">WHERE</span> DepartmentID = <span class="hljs-number">5</span> <span class="hljs-keyword">AND</span> IsActive = <span class="hljs-number">1</span>;
+
+    <span class="hljs-comment">-- Obtiene el número de empleados actualizados</span>
+    <span class="hljs-keyword">SELECT</span> @EmployeeCount = @@ROWCOUNT;
+
+    <span class="hljs-comment">-- Calcula el total incrementado</span>
+    <span class="hljs-keyword">SET</span> @TotalIncrement = @EmployeeCount * <span class="hljs-number">1000</span>;
+
+    <span class="hljs-comment">-- Si todo va bien, confirma la transacción</span>
+    <span class="hljs-keyword">COMMIT</span> <span class="hljs-keyword">TRANSACTION</span>;
+
+    <span class="hljs-comment">-- Imprime el reporte</span>
+    PRINT 'Transacción completada exitosamente.';
+    PRINT 'Número de empleados actualizados: ' + CAST(@EmployeeCount AS varchar(10));
+    PRINT 'Total incrementado en salarios: $' + CAST(@TotalIncrement AS varchar(10));
+
+<span class="hljs-keyword">END</span> TRY
+<span class="hljs-keyword">BEGIN</span> CATCH
+    <span class="hljs-comment">-- Si algo sale mal, revierte la transacción</span>
+    <span class="hljs-keyword">ROLLBACK</span> <span class="hljs-keyword">TRANSACTION</span>;
+
+    <span class="hljs-comment">-- Imprime el error ocurrido</span>
+    PRINT 'Error en la transacción: ' + ERROR_MESSAGE();
+<span class="hljs-keyword">END</span> CATCH;
+</div></code></pre>
+<h3 id="detalles-del-c%C3%B3digo">Detalles del Código</h3>
+<ol>
+<li><strong>Variables:</strong> Se declaran variables para almacenar el número de empleados actualizados y el total de incrementos realizados en sus salarios.</li>
+<li><strong>Transacción:</strong> Utiliza <code>BEGIN TRANSACTION</code> para asegurar que todas las actualizaciones se realicen como una sola unidad de trabajo.</li>
+<li><strong>Actualización y Cálculo:</strong> Actualiza los salarios y calcula el número de empleados afectados y el total de los incrementos.</li>
+<li><strong>Manejo de Excepciones:</strong> Utiliza bloques <code>TRY...CATCH</code> para manejar errores. Si ocurre un error durante la transacción, se ejecutará el bloque <code>CATCH</code>, que revertirá la transacción y notificará el error.</li>
+<li><strong>Reporte:</strong> Imprime un reporte con los resultados de la transacción, utilizando las variables para mostrar cuántos empleados fueron afectados y cuánto fue el total del incremento.</li>
+</ol>
+<p>Este ejemplo demuestra cómo las transacciones y variables pueden ser utilizadas conjuntamente para realizar operaciones seguras en la base de datos y proporcionar feedback inmediato sobre los resultados de estas operaciones.</p>
+<h3 id="manejo-de-errores-en-las-transacciones">Manejo de errores en las transacciones</h3>
+<p>Para simular un error dentro de una transacción en SQL Server y luego atraparlo para hacer un rollback, puedes usar el bloque <code>TRY...CATCH</code> junto con una condición de error artificial o una operación que sepas que fallará. Esto permite probar la robustez de la transacción y asegurarte de que tu código maneja correctamente los errores para mantener la integridad de la base de datos.</p>
+<h3 id="ejemplo-de-transacci%C3%B3n-con-error-simulado-y-rollback">Ejemplo de Transacción con Error Simulado y Rollback</h3>
+<p>En este ejemplo, vamos a simular un error en una transacción que intenta actualizar los salarios de los empleados. Simularemos el error intentando insertar un valor que viole una restricción de clave foránea o que sea de un tipo de datos incorrecto.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Declara las variables necesarias para la transacción</span>
+<span class="hljs-keyword">DECLARE</span> @EmployeeCount <span class="hljs-built_in">int</span> = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">DECLARE</span> @TotalIncrement <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>) = <span class="hljs-number">0.00</span>;
+
+<span class="hljs-keyword">BEGIN</span> TRY
+    <span class="hljs-comment">-- Inicia la transacción</span>
+    <span class="hljs-keyword">BEGIN</span> <span class="hljs-keyword">TRANSACTION</span>
+
+    <span class="hljs-comment">-- Actualización válida del salario</span>
+    <span class="hljs-keyword">UPDATE</span> Employees
+    <span class="hljs-keyword">SET</span> Salary = Salary + <span class="hljs-number">1000</span>
+    <span class="hljs-keyword">WHERE</span> DepartmentID = <span class="hljs-number">5</span> <span class="hljs-keyword">AND</span> IsActive = <span class="hljs-number">1</span>;
+
+    <span class="hljs-comment">-- Obtiene el número de empleados actualizados</span>
+    <span class="hljs-keyword">SELECT</span> @EmployeeCount = @@ROWCOUNT;
+
+    <span class="hljs-comment">-- Calcula el total incrementado</span>
+    <span class="hljs-keyword">SET</span> @TotalIncrement = @EmployeeCount * <span class="hljs-number">1000</span>;
+
+    <span class="hljs-comment">-- Instrucción que se espera que falle: inserción incorrecta</span>
+    <span class="hljs-comment">-- Aquí intentamos insertar un valor incorrecto en una columna que espera un entero</span>
+    <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> Employees(DepartmentID) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'invalid_data'</span>); <span class="hljs-comment">-- Suponiendo que DepartmentID es de tipo INT</span>
+
+    <span class="hljs-comment">-- Si todo va bien (no se espera), confirma la transacción</span>
+    <span class="hljs-keyword">COMMIT</span> <span class="hljs-keyword">TRANSACTION</span>;
+
+    <span class="hljs-comment">-- Imprime el reporte</span>
+    PRINT 'Transacción completada exitosamente.';
+    PRINT 'Número de empleados actualizados: ' + CAST(@EmployeeCount AS varchar(10));
+    PRINT 'Total incrementado en salarios: $' + CAST(@TotalIncrement AS varchar(10));
+
+<span class="hljs-keyword">END</span> TRY
+<span class="hljs-keyword">BEGIN</span> CATCH
+    <span class="hljs-comment">-- Si algo sale mal, revierte la transacción</span>
+    <span class="hljs-keyword">ROLLBACK</span> <span class="hljs-keyword">TRANSACTION</span>;
+
+    <span class="hljs-comment">-- Imprime el error ocurrido</span>
+    PRINT 'Error en la transacción: ' + ERROR_MESSAGE();
+<span class="hljs-keyword">END</span> CATCH;
+</div></code></pre>
+<h3 id="explicaci%C3%B3n-del-c%C3%B3digo">Explicación del Código</h3>
+<ul>
+<li><strong>Variables:</strong> Se inicia declarando variables para contar los empleados y sumar el incremento total.</li>
+<li><strong>Bloque <code>TRY...CATCH</code>:</strong> Se inicia una transacción para actualizar los salarios y luego se introduce deliberadamente una instrucción <code>INSERT</code> con un valor erróneo. Esto es para garantizar que se genere un error.</li>
+<li><strong>Error Simulado:</strong> La inserción de un valor de texto en una columna que espera un entero (<code>DepartmentID</code>) causa un error de tipo de datos que es inmediatamente atrapado por el bloque <code>CATCH</code>.</li>
+<li><strong>Manejo de Errores:</strong> En el bloque <code>CATCH</code>, la transacción se revierte utilizando <code>ROLLBACK TRANSACTION</code>, asegurando que ninguna de las operaciones anteriores afecte permanentemente la base de datos.</li>
+<li><strong>Reporte de Errores:</strong> Se imprime un mensaje de error usando <code>ERROR_MESSAGE()</code>, el cual proporciona detalles sobre el error que causó la entrada al bloque <code>CATCH</code>.</li>
+</ul>
+<p>Este enfoque garantiza que si algo va mal durante la transacción, los cambios no se cometerán y el sistema informará adecuadamente sobre el error. Es una buena práctica para mantener la consistencia y la integridad de los datos en aplicaciones de bases de datos críticas.</p>
+<h3 id="validaciones-con-error-en-las-transacciones">Validaciones con error en las transacciones</h3>
+<p>Podemos adaptar el ejemplo para incluir una validación que verifique si el nuevo salario de un empleado excede un límite específico antes de aplicar la actualización. Si este límite se supera, la transacción se revertirá y se generará un mensaje de error.</p>
+<h3 id="ejemplo-de-transacci%C3%B3n-con-validaci%C3%B3n-de-l%C3%ADmite-de-salario">Ejemplo de Transacción con Validación de Límite de Salario</h3>
+<p>En este ejemplo, estableceremos un límite máximo para el salario de $100,000.00. Si el incremento del salario resulta en un salario que excede este límite, la transacción se revertirá.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Declara las variables necesarias para la transacción</span>
+<span class="hljs-keyword">DECLARE</span> @EmployeeCount <span class="hljs-built_in">int</span> = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">DECLARE</span> @TotalIncrement <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>) = <span class="hljs-number">0.00</span>;
+<span class="hljs-keyword">DECLARE</span> @MaxSalaryLimit <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>) = <span class="hljs-number">100000.00</span>; <span class="hljs-comment">-- Límite máximo del salario</span>
+
+<span class="hljs-keyword">BEGIN</span> TRY
+    <span class="hljs-comment">-- Inicia la transacción</span>
+    <span class="hljs-keyword">BEGIN</span> <span class="hljs-keyword">TRANSACTION</span>
+
+    <span class="hljs-comment">-- Actualización del salario con validación del límite</span>
+    <span class="hljs-keyword">UPDATE</span> Employees
+    <span class="hljs-keyword">SET</span> Salary = Salary + <span class="hljs-number">1000</span>
+    <span class="hljs-keyword">WHERE</span> DepartmentID = <span class="hljs-number">5</span> <span class="hljs-keyword">AND</span> IsActive = <span class="hljs-number">1</span>
+      <span class="hljs-keyword">AND</span> (Salary + <span class="hljs-number">1000</span>) &lt;= @MaxSalaryLimit;
+
+    <span class="hljs-comment">-- Obtiene el número de empleados actualizados</span>
+    <span class="hljs-keyword">SELECT</span> @EmployeeCount = @@ROWCOUNT;
+
+    <span class="hljs-comment">-- Calcula el total incrementado, solo si la actualización fue exitosa</span>
+    IF @EmployeeCount &gt; 0
+    <span class="hljs-keyword">BEGIN</span>
+        <span class="hljs-keyword">SET</span> @TotalIncrement = @EmployeeCount * <span class="hljs-number">1000</span>;
+        <span class="hljs-comment">-- Si todo va bien, confirma la transacción</span>
+        <span class="hljs-keyword">COMMIT</span> <span class="hljs-keyword">TRANSACTION</span>;
+        PRINT 'Transacción completada exitosamente.';
+        PRINT 'Número de empleados actualizados: ' + CAST(@EmployeeCount AS varchar(10));
+        PRINT 'Total incrementado en salarios: $' + CAST(@TotalIncrement AS varchar(10));
+    <span class="hljs-keyword">END</span>
+    <span class="hljs-keyword">ELSE</span>
+    <span class="hljs-keyword">BEGIN</span>
+        <span class="hljs-comment">-- Ningún empleado fue actualizado, lo que implica superación del límite</span>
+        THROW <span class="hljs-number">50000</span>, <span class="hljs-string">'El incremento de salario supera el límite máximo permitido.'</span>, <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">END</span>
+
+<span class="hljs-keyword">END</span> TRY
+<span class="hljs-keyword">BEGIN</span> CATCH
+    <span class="hljs-comment">-- Si algo sale mal, revierte la transacción</span>
+    <span class="hljs-keyword">ROLLBACK</span> <span class="hljs-keyword">TRANSACTION</span>;
+
+    <span class="hljs-comment">-- Imprime el error ocurrido</span>
+    PRINT 'Error en la transacción: ' + ERROR_MESSAGE();
+<span class="hljs-keyword">END</span> CATCH;
+</div></code></pre>
+<h3 id="detalles-del-c%C3%B3digo">Detalles del Código</h3>
+<ol>
+<li><strong>Validación de Límite:</strong> Antes de actualizar el salario, se verifica si el nuevo salario (salario actual + incremento) supera el límite establecido.</li>
+<li><strong>Actualización Condicional:</strong> La cláusula <code>WHERE</code> en la declaración <code>UPDATE</code> incluye la condición del límite de salario, asegurando que solo se actualicen aquellos registros que no superen el máximo.</li>
+<li><strong>Manejo de Transacciones:</strong> Si no se actualiza ningún registro debido a la restricción del límite de salario, se utiliza <code>THROW</code> para lanzar una excepción explícitamente, lo cual es capturado por el bloque <code>CATCH</code> para hacer un <code>ROLLBACK</code>.</li>
+<li><strong>Reporte y Error:</strong> Si la transacción es exitosa, se imprime un mensaje de éxito. Si se lanza una excepción, ya sea por la validación del límite o por otro error, se maneja en el bloque <code>CATCH</code>, revirtiendo cualquier cambio y reportando el error.</li>
+</ol>
+<p>Este enfoque asegura que la integridad de los datos se mantiene al prevenir actualizaciones de datos que violen las políticas de negocio establecidas, y proporciona un mecanismo robusto para manejar errores y excepciones.</p>
+<h3 id="capturar-el-c%C3%B3digo-de-error-en-una-transacci%C3%B3n">Capturar el código de error en una transacción</h3>
+<p>Para capturar y verificar específicamente el código de error en el bloque <code>CATCH</code> de una transacción SQL Server y reaccionar en consecuencia, puedes usar la función <code>ERROR_NUMBER()</code>. Esta función retorna el número de error que provocó la entrada al bloque <code>CATCH</code>. Puedes utilizar este número en una condición <code>IF</code> para determinar la causa del error y responder de manera apropiada.</p>
+<h3 id="ejemplo-modificado-para-manejar-el-c%C3%B3digo-de-error-50000">Ejemplo Modificado para Manejar el Código de Error 50000</h3>
+<p>Vamos a adaptar el ejemplo anterior para incluir la verificación del código de error. Si el código de error es 50000, imprimirá un mensaje específico que explique que el incremento del salario superó el límite permitido.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Declara las variables necesarias para la transacción</span>
+<span class="hljs-keyword">DECLARE</span> @EmployeeCount <span class="hljs-built_in">int</span> = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">DECLARE</span> @TotalIncrement <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>) = <span class="hljs-number">0.00</span>;
+<span class="hljs-keyword">DECLARE</span> @MaxSalaryLimit <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>) = <span class="hljs-number">100000.00</span>; <span class="hljs-comment">-- Límite máximo del salario</span>
+
+<span class="hljs-keyword">BEGIN</span> TRY
+    <span class="hljs-comment">-- Inicia la transacción</span>
+    <span class="hljs-keyword">BEGIN</span> <span class="hljs-keyword">TRANSACTION</span>
+
+    <span class="hljs-comment">-- Actualización del salario con validación del límite</span>
+    <span class="hljs-keyword">UPDATE</span> Employees
+    <span class="hljs-keyword">SET</span> Salary = Salary + <span class="hljs-number">1000</span>
+    <span class="hljs-keyword">WHERE</span> DepartmentID = <span class="hljs-number">5</span> <span class="hljs-keyword">AND</span> IsActive = <span class="hljs-number">1</span>
+      <span class="hljs-keyword">AND</span> (Salary + <span class="hljs-number">1000</span>) &lt;= @MaxSalaryLimit;
+
+    <span class="hljs-comment">-- Obtiene el número de empleados actualizados</span>
+    <span class="hljs-keyword">SELECT</span> @EmployeeCount = @@ROWCOUNT;
+
+    <span class="hljs-comment">-- Calcula el total incrementado, solo si la actualización fue exitosa</span>
+    IF @EmployeeCount &gt; 0
+    <span class="hljs-keyword">BEGIN</span>
+        <span class="hljs-keyword">SET</span> @TotalIncrement = @EmployeeCount * <span class="hljs-number">1000</span>;
+        <span class="hljs-comment">-- Si todo va bien, confirma la transacción</span>
+        <span class="hljs-keyword">COMMIT</span> <span class="hljs-keyword">TRANSACTION</span>;
+        PRINT 'Transacción completada exitosamente.';
+        PRINT 'Número de empleados actualizados: ' + CAST(@EmployeeCount AS varchar(10));
+        PRINT 'Total incrementado en salarios: $' + CAST(@TotalIncrement AS varchar(10));
+    <span class="hljs-keyword">END</span>
+    <span class="hljs-keyword">ELSE</span>
+    <span class="hljs-keyword">BEGIN</span>
+        <span class="hljs-comment">-- Ningún empleado fue actualizado, lo que implica superación del límite</span>
+        THROW <span class="hljs-number">50000</span>, <span class="hljs-string">'El incremento de salario supera el límite máximo permitido.'</span>, <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">END</span>
+
+<span class="hljs-keyword">END</span> TRY
+<span class="hljs-keyword">BEGIN</span> CATCH
+    <span class="hljs-comment">-- Si algo sale mal, revierte la transacción</span>
+    <span class="hljs-keyword">ROLLBACK</span> <span class="hljs-keyword">TRANSACTION</span>;
+
+    <span class="hljs-comment">-- Verifica el código de error</span>
+    IF ERROR_NUMBER() = 50000
+    <span class="hljs-keyword">BEGIN</span>
+        PRINT <span class="hljs-string">'La transacción falló porque el incremento del salario supera el límite máximo permitido.'</span>;
+    <span class="hljs-keyword">END</span>
+    <span class="hljs-keyword">ELSE</span>
+    <span class="hljs-keyword">BEGIN</span>
+        PRINT <span class="hljs-string">'Error en la transacción: '</span> + ERROR_MESSAGE();
+    <span class="hljs-keyword">END</span>
+<span class="hljs-keyword">END</span> CATCH;
+</div></code></pre>
+<h3 id="explicaci%C3%B3n-del-c%C3%B3digo">Explicación del Código</h3>
+<ol>
+<li><strong>Manejo de Error Específico:</strong> Dentro del bloque <code>CATCH</code>, se usa <code>IF ERROR_NUMBER() = 50000</code> para verificar si el error que provocó el <code>CATCH</code> es debido a que el incremento del salario supera el límite establecido.</li>
+<li><strong>Mensaje Específico:</strong> Si el error es 50000, se imprime un mensaje detallado explicando que el fallo se debe al exceso del límite de salario permitido. Para otros errores, se imprime el mensaje de error general usando <code>ERROR_MESSAGE()</code>.</li>
+</ol>
+<p>Usar <code>ERROR_NUMBER()</code> de esta manera permite manejar errores de forma más granular, proporcionando retroalimentación específica y clara sobre la naturaleza del problema, lo cual es particularmente útil en ambientes de producción donde el diagnóstico rápido de problemas puede ser crucial.</p>
+<h3 id="uso-de-variables-en-funciones">Uso de Variables en Funciones</h3>
+<p>Usar variables dentro de una función en SQL Server es bastante similar al uso en procedimientos almacenados, pero generalmente las funciones están diseñadas para devolver un valor o una tabla y son más restrictivas en términos de lo que pueden hacer (por ejemplo, no pueden realizar operaciones que modifiquen la base de datos directamente).</p>
+<h3 id="tipos-de-funciones-en-sql-server">Tipos de Funciones en SQL Server</h3>
+<ol>
+<li><strong>Funciones Escalares:</strong> Devuelven un valor único.</li>
+<li><strong>Funciones de Tabla:</strong> Devuelven una tabla que puede ser utilizada como cualquier otra tabla en una consulta SQL.</li>
+</ol>
+<h3 id="ejemplo-de-una-funci%C3%B3n-escalar">Ejemplo de una Función Escalar</h3>
+<p>Vamos a crear una función escalar que calcula el salario anual de un empleado basándose en su salario mensual. Este ejemplo demostrará cómo se pueden usar variables dentro de una función escalar para realizar cálculos.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">FUNCTION</span> CalculateAnnualSalary
+(
+    @MonthlySalary <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>)
+)
+<span class="hljs-keyword">RETURNS</span> <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>)
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment">-- Declara una variable para almacenar el salario anual</span>
+    <span class="hljs-keyword">DECLARE</span> @AnnualSalary <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>);
+
+    <span class="hljs-comment">-- Calcula el salario anual</span>
+    <span class="hljs-keyword">SET</span> @AnnualSalary = @MonthlySalary * <span class="hljs-number">12</span>;
+
+    <span class="hljs-comment">-- Devuelve el salario anual</span>
+    RETURN @AnnualSalary;
+<span class="hljs-keyword">END</span>;
+GO
+</div></code></pre>
+<h3 id="c%C3%B3mo-usar-la-funci%C3%B3n-escalar">Cómo Usar la Función Escalar</h3>
+<p>Una vez creada la función, puedes llamarla como parte de una consulta SQL para calcular el salario anual de los empleados basado en su salario mensual almacenado en una tabla.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">SELECT</span> EmployeeID, <span class="hljs-keyword">Name</span>, MonthlySalary, dbo.CalculateAnnualSalary(MonthlySalary) <span class="hljs-keyword">AS</span> AnnualSalary
+<span class="hljs-keyword">FROM</span> Employees;
+</div></code></pre>
+<h3 id="ejemplo-de-una-funci%C3%B3n-de-tabla">Ejemplo de una Función de Tabla</h3>
+<p>Las funciones de tabla pueden ser un poco más complejas ya que devuelven conjuntos de datos. A continuación, un ejemplo de cómo usar variables en una función de tabla para devolver una lista filtrada de empleados basada en el salario mínimo.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">FUNCTION</span> GetEmployeesByMinSalary
+(
+    @MinSalary <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>)
+)
+<span class="hljs-keyword">RETURNS</span> <span class="hljs-keyword">TABLE</span>
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">RETURN</span>
+(
+    <span class="hljs-keyword">SELECT</span> EmployeeID, <span class="hljs-keyword">Name</span>, Salary
+    <span class="hljs-keyword">FROM</span> Employees
+    <span class="hljs-keyword">WHERE</span> Salary &gt;= @MinSalary
+);
+</div></code></pre>
+<h3 id="c%C3%B3mo-usar-la-funci%C3%B3n-de-tabla">Cómo Usar la Función de Tabla</h3>
+<p>Esta función puede ser utilizada en una consulta como una tabla normal, permitiendo un filtrado adicional o unión con otras tablas.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">SELECT</span> *
+<span class="hljs-keyword">FROM</span> dbo.GetEmployeesByMinSalary(<span class="hljs-number">30000.00</span>)
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> Salary <span class="hljs-keyword">DESC</span>;
+</div></code></pre>
+<h3 id="consideraciones">Consideraciones</h3>
+<ul>
+<li><strong>Variables:</strong> Las funciones, especialmente las escalares, pueden utilizar variables para realizar cálculos, pero estas variables solo existen dentro del contexto de la función.</li>
+<li><strong>Restricciones:</strong> Las funciones en SQL Server no deben realizar modificaciones a la base de datos, y las operaciones dentro de ellas deben ser deterministas y repetibles.</li>
+<li><strong>Rendimiento:</strong> El uso excesivo de funciones, especialmente funciones escalares en cláusulas <code>SELECT</code> sobre grandes conjuntos de datos, puede afectar negativamente el rendimiento. Considera usar funciones de tabla en línea cuando sea posible para mejorar el rendimiento.</li>
+</ul>
+<p>El uso de variables dentro de funciones es una práctica común para manejar cálculos y lógica temporal que necesita ser encapsulada y reutilizada en múltiples lugares de tu base de datos.</p>
+<h3 id="llamada-a-funciones">Llamada a Funciones</h3>
+<p>Veamos cómo crear y ejecutar una función en SQL Server. Para este ejemplo, vamos a crear una función escalar simple que calcula el salario anual de un empleado a partir de su salario mensual. Luego, veremos cómo ejecutar o llamar a esa función desde una consulta SQL.</p>
+<h3 id="creaci%C3%B3n-de-una-funci%C3%B3n-escalar-en-sql-server">Creación de una Función Escalar en SQL Server</h3>
+<p>Primero, crearemos una función llamada <code>CalculateAnnualSalary</code>. Esta función toma un parámetro de entrada, que es el salario mensual, y devuelve el salario anual calculado multiplicando el salario mensual por 12.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">FUNCTION</span> dbo.CalculateAnnualSalary
+(
+    @MonthlySalary <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>)
+)
+<span class="hljs-keyword">RETURNS</span> <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>)
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment">-- Declara una variable para almacenar el salario anual</span>
+    <span class="hljs-keyword">DECLARE</span> @AnnualSalary <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>);
+
+    <span class="hljs-comment">-- Calcula el salario anual multiplicando el salario mensual por 12</span>
+    <span class="hljs-keyword">SET</span> @AnnualSalary = @MonthlySalary * <span class="hljs-number">12</span>;
+
+    <span class="hljs-comment">-- Devuelve el resultado</span>
+    RETURN @AnnualSalary;
+<span class="hljs-keyword">END</span>;
+GO
+</div></code></pre>
+<h3 id="ejecuci%C3%B3n-de-la-funci%C3%B3n">Ejecución de la Función</h3>
+<p>Una vez que la función está creada, puedes llamarla de varias maneras en tus consultas SQL. Por ejemplo, puedes usar esta función para calcular el salario anual de cada empleado, suponiendo que tienes una tabla <code>Employees</code> que incluye una columna <code>MonthlySalary</code>.</p>
+<h4 id="ejemplo-1-llamada-a-la-funci%C3%B3n-en-una-consulta-select">Ejemplo 1: Llamada a la función en una consulta <code>SELECT</code></h4>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Suponiendo que tienes una tabla llamada Employees con una columna MonthlySalary</span>
+<span class="hljs-keyword">SELECT</span> EmployeeID,
+       <span class="hljs-keyword">Name</span>,
+       MonthlySalary,
+       dbo.CalculateAnnualSalary(MonthlySalary) <span class="hljs-keyword">AS</span> AnnualSalary
+<span class="hljs-keyword">FROM</span> Employees;
+</div></code></pre>
+<h4 id="ejemplo-2-llamada-a-la-funci%C3%B3n-para-un-valor-espec%C3%ADfico">Ejemplo 2: Llamada a la función para un valor específico</h4>
+<p>También puedes llamar a la función directamente con un valor específico para realizar cálculos rápidos o pruebas.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Calcular el salario anual para un salario mensual específico</span>
+<span class="hljs-keyword">SELECT</span> dbo.CalculateAnnualSalary(<span class="hljs-number">5000</span>) <span class="hljs-keyword">AS</span> AnnualSalary;
+</div></code></pre>
+<h3 id="consejos-para-el-uso-de-funciones">Consejos para el Uso de Funciones</h3>
+<ul>
+<li><strong>Funciones Escalares vs. Funciones de Tabla</strong>: Las funciones escalares devuelven un solo valor y son útiles para cálculos que afectan a una columna. Sin embargo, pueden ser menos eficientes si se llaman en una consulta grande que afecta a muchas filas. Considera usar funciones de tabla cuando necesites devolver conjuntos de filas.</li>
+<li><strong>Optimización</strong>: Asegúrate de que tus funciones estén bien optimizadas para evitar cuellos de botella en tus consultas, especialmente cuando se usan en bases de datos grandes o en consultas complejas.</li>
+</ul>
+<p>Este ejemplo cubre la creación y ejecución de una función escalar simple en SQL Server, proporcionando una herramienta útil para calcular valores basados en la lógica de negocio directamente dentro de tu base de datos.</p>
+<h3 id="uso-de-las-funciones-tabla">Uso de las Funciones Tabla</h3>
+<p>Las funciones de tabla en SQL Server son una herramienta poderosa que te permite definir funciones que devuelven un conjunto de filas, similar a como lo haría una tabla. Estas funciones pueden ser especialmente útiles para encapsular consultas complejas y reutilizarlas en varias partes de tus aplicaciones o consultas.</p>
+<h3 id="tipos-de-funciones-de-tabla">Tipos de Funciones de Tabla</h3>
+<p>Hay dos tipos principales de funciones de tabla en SQL Server:</p>
+<ol>
+<li><strong>Funciones de Tabla con Valores de Tabla (TVFs - Table-Valued Functions):</strong> Estas pueden ser más específicamente clasificadas como:
+<ul>
+<li><strong>Funciones de Tabla de Valor en Línea (Inline Table-Valued Functions):</strong> No tienen un cuerpo de función que use la palabra clave <code>BEGIN...END</code> y consisten en una única instrucción <code>SELECT</code>.</li>
+<li><strong>Funciones de Tabla de Valor con Múltiples Instrucciones (Multi-statement Table-Valued Functions):</strong> Estas funciones incluyen un cuerpo de función que puede tener varias declaraciones SQL, incluyendo la creación de una tabla temporal en memoria para almacenar y manipular datos antes de devolverlos.</li>
+</ul>
+</li>
+</ol>
+<h3 id="ejemplo-de-funci%C3%B3n-de-tabla-de-valor-en-l%C3%ADnea">Ejemplo de Función de Tabla de Valor en Línea</h3>
+<p>Estas funciones son generalmente más eficientes y deben ser tu primera opción cuando sea posible usarlas.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">FUNCTION</span> dbo.GetEmployeesByDepartment (@DepartmentID <span class="hljs-built_in">int</span>)
+<span class="hljs-keyword">RETURNS</span> <span class="hljs-keyword">TABLE</span>
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">RETURN</span> 
+(
+    <span class="hljs-keyword">SELECT</span> EmployeeID, <span class="hljs-keyword">Name</span>, <span class="hljs-keyword">Position</span>, Salary
+    <span class="hljs-keyword">FROM</span> Employees
+    <span class="hljs-keyword">WHERE</span> DepartmentID = @DepartmentID
+)
+<span class="hljs-keyword">GO</span>
+</div></code></pre>
+<h3 id="ejemplo-de-funci%C3%B3n-de-tabla-de-valor-con-m%C3%BAltiples-instrucciones">Ejemplo de Función de Tabla de Valor con Múltiples Instrucciones</h3>
+<p>Estas funciones son útiles cuando necesitas realizar operaciones complejas antes de devolver los datos.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">FUNCTION</span> dbo.GetEmployeeStatistics (@DepartmentID <span class="hljs-built_in">int</span>)
+<span class="hljs-keyword">RETURNS</span> @EmployeeStats <span class="hljs-keyword">TABLE</span>
+(
+    EmployeeID <span class="hljs-built_in">int</span>,
+    <span class="hljs-keyword">Name</span> <span class="hljs-keyword">nvarchar</span>(<span class="hljs-number">50</span>),
+    TotalSales <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>),
+    AverageMonthlySales <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>)
+)
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment">-- Inserta datos en la tabla de variables</span>
+    <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> @EmployeeStats (EmployeeID, <span class="hljs-keyword">Name</span>, TotalSales, AverageMonthlySales)
+    <span class="hljs-keyword">SELECT</span> e.EmployeeID, e.Name, <span class="hljs-keyword">SUM</span>(s.Amount), <span class="hljs-keyword">AVG</span>(s.Amount)
+    <span class="hljs-keyword">FROM</span> Employees e
+    <span class="hljs-keyword">JOIN</span> Sales s <span class="hljs-keyword">ON</span> e.EmployeeID = s.EmployeeID
+    <span class="hljs-keyword">WHERE</span> e.DepartmentID = @DepartmentID
+    <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> e.EmployeeID, e.Name;
+
+    <span class="hljs-comment">-- Devuelve la tabla variable</span>
+    RETURN;
+<span class="hljs-keyword">END</span>
+<span class="hljs-keyword">GO</span>
+</div></code></pre>
+<h3 id="c%C3%B3mo-usar-funciones-de-tabla">Cómo Usar Funciones de Tabla</h3>
+<p>Ambos tipos de funciones de tabla se pueden usar de la misma manera en tus consultas SQL:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Llamada a una función de tabla de valor en línea</span>
+<span class="hljs-keyword">SELECT</span> *
+<span class="hljs-keyword">FROM</span> dbo.GetEmployeesByDepartment(<span class="hljs-number">1</span>);
+
+<span class="hljs-comment">-- Llamada a una función de tabla de valor con múltiples instrucciones</span>
+<span class="hljs-keyword">SELECT</span> *
+<span class="hljs-keyword">FROM</span> dbo.GetEmployeeStatistics(<span class="hljs-number">1</span>);
+</div></code></pre>
+<h3 id="consideraciones">Consideraciones</h3>
+<ul>
+<li><strong>Rendimiento:</strong> Las funciones de tabla en línea generalmente ofrecen mejor rendimiento porque el optimizador de consultas puede integrar la consulta de la función en la consulta principal.</li>
+<li><strong>Flexibilidad:</strong> Las funciones de tabla con múltiples instrucciones son más flexibles y permiten lógicas más complejas, como variables temporales y operaciones lógicas.</li>
+</ul>
+<p>Utiliza funciones de tabla para estructurar tus bases de datos de forma más eficiente y para hacer tus consultas más organizadas y mantenibles.</p>
+<h3 id="llamada-de-funciones-desde-python">Llamada de Funciones desde Python</h3>
+<p>Para llamar a una función desde una base de datos SQL Server utilizando Python, puedes usar el módulo <code>pymssql</code>, que es una interfaz popular para conectar Python con SQL Server. Veamos cómo configurar la conexión y ejecutar una llamada a una función SQL que has definido previamente, como las funciones de tabla que discutimos.</p>
+<h3 id="pre-requisitos">Pre-requisitos</h3>
+<p>Antes de comenzar, asegúrate de tener <code>pymssql</code> instalado en tu entorno de Python. Si no lo tienes instalado, puedes hacerlo utilizando pip:</p>
+<pre class="hljs"><code><div>pip install pymssql
+</div></code></pre>
+<h3 id="ejemplo-de-c%C3%B3digo-para-llamar-a-una-funci%C3%B3n-en-sql-server-usando-pymssql">Ejemplo de Código para Llamar a una Función en SQL Server usando pymssql</h3>
+<p>Aquí está un ejemplo básico de cómo llamar a una función de SQL Server (por ejemplo, una función que devuelve una tabla) usando <code>pymssql</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> pymssql
+
+<span class="hljs-comment"># Configura tus credenciales y detalles de la base de datos</span>
+server = <span class="hljs-string">'your_server_address'</span>
+user = <span class="hljs-string">'your_username'</span>
+password = <span class="hljs-string">'your_password'</span>
+database = <span class="hljs-string">'your_database_name'</span>
+
+<span class="hljs-comment"># Conecta a la base de datos</span>
+conn = pymssql.connect(server, user, password, database)
+cursor = conn.cursor(as_dict=<span class="hljs-literal">True</span>)  <span class="hljs-comment"># Use as_dict=True para obtener los resultados como diccionarios</span>
+
+<span class="hljs-comment"># Llamada a la función</span>
+<span class="hljs-comment"># Asegúrate de reemplazar 'dbo.GetEmployeesByDepartment' con el nombre de tu función</span>
+<span class="hljs-comment"># y ajustar los parámetros según sea necesario</span>
+department_id = <span class="hljs-number">1</span>  <span class="hljs-comment"># Ejemplo de parámetro</span>
+cursor.execute(<span class="hljs-string">"SELECT * FROM dbo.GetEmployeesByDepartment(%d)"</span>, (department_id,))
+
+<span class="hljs-comment"># Imprime los resultados</span>
+<span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> cursor:
+    print(row)
+
+<span class="hljs-comment"># Cierra la conexión</span>
+cursor.close()
+conn.close()
+</div></code></pre>
+<h3 id="explicaci%C3%B3n-del-c%C3%B3digo">Explicación del Código</h3>
+<ol>
+<li><strong>Importar pymssql:</strong> Incluye el módulo para poder usar sus funciones.</li>
+<li><strong>Conectar a la base de datos:</strong> Utiliza <code>pymssql.connect()</code> con los detalles de tu servidor para establecer una conexión.</li>
+<li><strong>Cursor:</strong> Utiliza el objeto <code>cursor</code> para ejecutar consultas. El argumento <code>as_dict=True</code> hace que los resultados de las consultas se devuelvan como diccionarios, lo cual es más fácil de manejar en Python.</li>
+<li><strong>Ejecutar la Función:</strong> Utiliza <code>cursor.execute()</code> para llamar a la función SQL Server. Aquí debes reemplazar <code>'dbo.GetEmployeesByDepartment'</code> con el nombre de tu función. Pasa los parámetros necesarios directamente en la consulta.</li>
+<li><strong>Manejar los Resultados:</strong> Itera sobre <code>cursor</code> para procesar cada fila del resultado.</li>
+<li><strong>Cerrar Conexiones:</strong> Cierra el cursor y la conexión para liberar recursos.</li>
+</ol>
+<h3 id="consejos-adicionales">Consejos Adicionales</h3>
+<ul>
+<li><strong>Manejo de Errores:</strong> Considera agregar manejo de errores utilizando bloques <code>try...except</code> para capturar y manejar excepciones que puedan ocurrir durante la conexión o la ejecución de la consulta.</li>
+<li><strong>Seguridad:</strong> Evita poner contraseñas directamente en el código. Considera usar variables de entorno u otros métodos seguros para manejar credenciales y configuraciones sensibles.</li>
+<li><strong>Reutilización de Conexiones:</strong> Para aplicaciones más complejas, considera usar un gestor de contexto (<code>with</code> statement) para manejar automáticamente el cierre de conexiones y cursores.</li>
+</ul>
+<p>Este ejemplo proporciona una base sobre cómo interactuar con SQL Server usando <code>pymssql</code> en Python, permitiéndote realizar llamadas a funciones almacenadas y manejar los datos devueltos de manera eficiente.</p>
+<h3 id="uso-de-variables-dentro-de-un-procedimiento-almacenado">Uso de Variables dentro de un Procedimiento Almacenado</h3>
+<p>Utilizar variables dentro de un procedimiento almacenado en SQL Server sigue la misma lógica que usarlas en scripts de SQL estándar, pero con la ventaja adicional de poder organizar código repetitivo y lógica en un solo lugar, permitiendo la reutilización y mantenimiento más fácil. Veamos cómo definir y usar variables dentro de un procedimiento almacenado.</p>
+<h3 id="crear-un-procedimiento-almacenado">Crear un Procedimiento Almacenado</h3>
+<p>Un procedimiento almacenado es esencialmente una colección de declaraciones SQL con un nombre dado que puedes ejecutar repetidamente. Es muy útil para encapsular la lógica de negocio, realizar operaciones repetitivas, y gestionar la seguridad y el acceso a los datos.</p>
+<p><strong>Pasos básicos para definir y usar variables:</strong></p>
+<ol>
+<li><strong>Definición del procedimiento:</strong> Usa la declaración <code>CREATE PROCEDURE</code> para comenzar la definición de tu procedimiento almacenado.</li>
+<li><strong>Declarar variables:</strong> Dentro del procedimiento, declara las variables usando la palabra clave <code>DECLARE</code>.</li>
+<li><strong>Inicializar variables:</strong> Asigna valores iniciales a las variables con la declaración <code>SET</code> o <code>SELECT</code>.</li>
+<li><strong>Usar las variables:</strong> Implementa la lógica del procedimiento utilizando las variables donde sea necesario.</li>
+<li><strong>Finalizar el procedimiento:</strong> Termina el procedimiento con las operaciones necesarias, como <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, etc., usando las variables declaradas.</li>
+</ol>
+<h3 id="ejemplo-de-un-procedimiento-almacenado">Ejemplo de un Procedimiento Almacenado</h3>
+<p>Supongamos que queremos crear un procedimiento que actualice la información de salario de un empleado basado en su ID y luego devuelva el nuevo salario.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PROCEDURE</span> UpdateEmployeeSalary
+    @EmployeeID <span class="hljs-built_in">int</span>,
+    @SalaryIncrement <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>),
+    @NewSalary <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>) <span class="hljs-keyword">OUTPUT</span>
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment">-- Declara una variable local para almacenar el salario actual</span>
+    <span class="hljs-keyword">DECLARE</span> @CurrentSalary <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>);
+
+    <span class="hljs-comment">-- Obtiene el salario actual del empleado</span>
+    <span class="hljs-keyword">SELECT</span> @CurrentSalary = Salary <span class="hljs-keyword">FROM</span> Employees <span class="hljs-keyword">WHERE</span> EmployeeID = @EmployeeID;
+
+    <span class="hljs-comment">-- Calcula el nuevo salario</span>
+    <span class="hljs-keyword">SET</span> @NewSalary = @CurrentSalary + @SalaryIncrement;
+
+    <span class="hljs-comment">-- Actualiza el salario del empleado en la base de datos</span>
+    <span class="hljs-keyword">UPDATE</span> Employees
+    <span class="hljs-keyword">SET</span> Salary = @NewSalary
+    <span class="hljs-keyword">WHERE</span> EmployeeID = @EmployeeID;
+
+    <span class="hljs-comment">-- Retorna el nuevo salario como parámetro de salida</span>
+<span class="hljs-keyword">END</span>;
+GO
+</div></code></pre>
+<h3 id="c%C3%B3mo-ejecutar-el-procedimiento-almacenado">Cómo ejecutar el procedimiento almacenado</h3>
+<p>Para ejecutar el procedimiento almacenado con parámetros y obtener un valor de salida, puedes hacerlo así:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">DECLARE</span> @MyNewSalary <span class="hljs-built_in">decimal</span>(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>);
+
+EXEC UpdateEmployeeSalary
+    @EmployeeID = 123,
+    @SalaryIncrement = 500.00,
+    @NewSalary = @MyNewSalary OUTPUT;
+
+<span class="hljs-keyword">SELECT</span> <span class="hljs-string">'El nuevo salario es: '</span> + <span class="hljs-keyword">CAST</span>(@MyNewSalary <span class="hljs-keyword">AS</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">20</span>));
+</div></code></pre>
+<h3 id="consideraciones">Consideraciones</h3>
+<ul>
+<li><strong>Documentación:</strong> Documenta tus procedimientos almacenados para que otros desarrolladores entiendan qué hacen y cómo usarlos.</li>
+<li><strong>Seguridad:</strong> Considera quién tiene permiso para ejecutar o modificar tus procedimientos almacenados.</li>
+<li><strong>Depuración:</strong> Depura los procedimientos almacenados cuidadosamente para asegurar que funcionan como se espera, especialmente en entornos donde los datos críticos son manipulados.</li>
+</ul>
+<p>Usar procedimientos almacenados te permite encapsular y optimizar las operaciones de la base de datos, manteniendo tu código organizado y reutilizable.</p>
+<h3 id="llamada-de-procedimientos-almacenados-desde-python">Llamada de Procedimientos Almacenados desde Python</h3>
+<p>Llamar a un procedimiento almacenado desde una base de datos SQL Server utilizando Python con <code>pymssql</code> es bastante similar a ejecutar una función, como expliqué anteriormente. La principal diferencia es en la forma en que especificas y ejecutas el procedimiento almacenado, especialmente si tiene parámetros de salida o requiere transacciones.</p>
+<h3 id="ejemplo-de-c%C3%B3digo-para-llamar-a-un-procedimiento-almacenado-en-sql-server-usando-pymssql">Ejemplo de Código para Llamar a un Procedimiento Almacenado en SQL Server usando pymssql</h3>
+<p>A continuación, vamos a ver cómo ejecutar un procedimiento almacenado con y sin parámetros. Primero, consideremos un procedimiento almacenado simple sin parámetros de salida.</p>
+<h4 id="procedimiento-almacenado-sin-par%C3%A1metros-de-salida">Procedimiento Almacenado Sin Parámetros de Salida</h4>
+<p>Supongamos que tienes un procedimiento almacenado llamado <code>UpdateEmployeeSalaries</code> que actualiza los salarios en la base de datos y no necesita ningún parámetro de entrada ni devuelve parámetros.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> pymssql
+
+<span class="hljs-comment"># Configuración de conexión</span>
+server = <span class="hljs-string">'your_server_address'</span>
+user = <span class="hljs-string">'your_username'</span>
+password = <span class="hljs-string">'your_password'</span>
+database = <span class="hljs-string">'your_database_name'</span>
+
+<span class="hljs-comment"># Establece la conexión</span>
+conn = pymssql.connect(server, user, password, database)
+cursor = conn.cursor()
+
+<span class="hljs-comment"># Llamar al procedimiento almacenado</span>
+cursor.callproc(<span class="hljs-string">'UpdateEmployeeSalaries'</span>)
+conn.commit()  <span class="hljs-comment"># Importante para asegurarse de que los cambios sean guardados si el SP hace cambios en la BD</span>
+
+<span class="hljs-comment"># Cierra el cursor y la conexión</span>
+cursor.close()
+conn.close()
+</div></code></pre>
+<h4 id="procedimiento-almacenado-con-par%C3%A1metros">Procedimiento Almacenado con Parámetros</h4>
+<p>Ahora, si tu procedimiento almacenado requiere parámetros, por ejemplo, un procedimiento <code>IncreaseSalary</code> que aumenta el salario en un porcentaje específico y tiene un parámetro de entrada y uno de salida, veamos cómo hacerlo:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> pymssql
+
+<span class="hljs-comment"># Configuración de conexión</span>
+server = <span class="hljs-string">'your_server_address'</span>
+user = <span class="hljs-string">'your_username'</span>
+password = <span class="hljs-string">'your_password'</span>
+database = <span class="hljs-string">'your_database_name'</span>
+
+<span class="hljs-comment"># Establece la conexión</span>
+conn = pymssql.connect(server, user, password, database)
+cursor = conn.cursor()
+
+<span class="hljs-comment"># Preparar los parámetros para el procedimiento almacenado</span>
+employee_id = <span class="hljs-number">123</span>
+salary_increment = <span class="hljs-number">5.0</span>  <span class="hljs-comment"># Incremento del salario en porcentaje</span>
+new_salary = <span class="hljs-number">0</span>  <span class="hljs-comment"># Variable para almacenar el nuevo salario</span>
+
+<span class="hljs-comment"># Llamar al procedimiento almacenado</span>
+cursor.execute(<span class="hljs-string">'EXEC IncreaseSalary @EmployeeID=%d, @SalaryIncrement=%f, @NewSalary=%d OUTPUT'</span>, (employee_id, salary_increment, new_salary))
+
+<span class="hljs-comment"># Obtener el parámetro de salida (si es necesario)</span>
+new_salary = cursor.fetchone()
+
+<span class="hljs-comment"># Confirmar los cambios si el procedimiento realiza modificaciones en la base de datos</span>
+conn.commit()
+
+<span class="hljs-comment"># Imprimir el nuevo salario</span>
+print(<span class="hljs-string">'Nuevo salario:'</span>, new_salary)
+
+<span class="hljs-comment"># Cierra el cursor y la conexión</span>
+cursor.close()
+conn.close()
+</div></code></pre>
+<h3 id="notas-importantes">Notas Importantes</h3>
+<ul>
+<li><strong>Commit de la Transacción:</strong> Si el procedimiento realiza cambios en la base de datos (como inserciones, actualizaciones o eliminaciones), debes llamar a <code>conn.commit()</code> para asegurar que los cambios se guarden.</li>
+<li><strong>Manejo de Errores:</strong> Es bueno envolver el código en un bloque <code>try...except</code> para manejar posibles errores en la conexión o la ejecución del procedimiento almacenado.</li>
+<li><strong>Cerrar Recursos:</strong> Asegúrate de cerrar siempre el cursor y la conexión para liberar recursos, idealmente utilizando un bloque <code>with</code> o asegurándote de llamar a <code>close</code> en un bloque <code>finally</code>.</li>
+</ul>
+<p>Este método te permitirá integrar procedimientos almacenados de SQL Server en tus aplicaciones Python de manera eficaz, manteniendo el código organizado y manejable.</p>
 
 </body>
 </html>
