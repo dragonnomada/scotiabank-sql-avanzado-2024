@@ -12,7 +12,13 @@ Instructor: [Alan Badillo Salas](alan@nomadacode.com)
 
 ## Notas del Curso en Google Colab
 
+### Sesión 04
+
 [https://colab.research.google.com/drive/1FcxGMRF5tDMkVoW1tfpemr1VOOw87pQ-?usp=sharing](https://colab.research.google.com/drive/1FcxGMRF5tDMkVoW1tfpemr1VOOw87pQ-?usp=sharing)
+
+### Sesión 05
+
+[https://colab.research.google.com/drive/1WJD-H64m2Z4h7-Lk4Wc1hoJWpGQHM63K?usp=sharing](https://colab.research.google.com/drive/1WJD-H64m2Z4h7-Lk4Wc1hoJWpGQHM63K?usp=sharing)
 
 ## Bienvenida
 
