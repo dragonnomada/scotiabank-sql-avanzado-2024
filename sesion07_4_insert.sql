@@ -1,1 +1,1 @@
-INSERT INTO todos (title) VALUES ('Hola mundo mundial')
+INSERT INTO todos (title) VALUES ('Prueba durante el curso')

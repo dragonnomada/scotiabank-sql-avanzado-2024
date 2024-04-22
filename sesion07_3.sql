@@ -5,6 +5,7 @@ AS
 BEGIN
     DECLARE @operation VARCHAR(255);
     DECLARE @username VARCHAR(255);
+    DECLARE @todoId int;
 
     IF EXISTS (SELECT * FROM inserted) AND EXISTS (SELECT * FROM deleted)
     BEGIN
@@ -17,6 +18,8 @@ BEGIN
 
     SET @username = SUSER_NAME();
 
-    INSERT INTO todos_audit (username, operation, created_at)
-        VALUES (@username, @operation, SYSDATETIME());
+    select @todoId = id from inserted;
+
+    INSERT INTO todos_audit (username, operation, todo_id, created_at)
+        VALUES (@username, @operation, @todoId, SYSDATETIME());
 END
