@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>notas.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="curso-de-sql-avanzado---sesi%C3%B3n-7">Curso de SQL Avanzado - Sesión 7</h1>
+<img src="https://amei.mx/wp-content/uploads/2016/08/Scotiabank-logo.jpg" alt="Scotiabank Logo" height="60">
+<img src="https://www.belatrix.com/wp-content/uploads/2023/08/belatrix-logosweb-1.png" alt="Belatrix Logo" height="60">
+<p><strong><a href="https://www.scotiabank.com.mx">Scotiabank</a></strong> | <strong><a href="https://www.belatrix.com">Belatrix</a></strong></p>
+<p>Instructor: <a href="alan@nomadacode.com">Alan Badillo Salas</a></p>
+<hr>
+<h2 id="contenido">Contenido</h2>
+<pre><code>Módulo 5: Seguridad y Auditoría
+
+1. Implementación de perfiles de seguridad
+2. Auditoría de accesos y cambios
+3. Estrategias de cifrado
+</code></pre>
+<h3 id="temas">Temas</h3>
+<ol start="701">
+<li>Implementación de perfiles de seguridad</li>
+<li>Auditoría de accesos y cambios</li>
+<li>Estrategias de cifrado</li>
+</ol>
+<h2 id="701-implementaci%C3%B3n-de-perfiles-de-seguridad">701. Implementación de perfiles de seguridad</h2>
+<p>Implementar perfiles de seguridad en SQL Server es fundamental para asegurar la integridad, confidencialidad y disponibilidad de los datos. Este un proceso general sobre cómo establecer una configuración de seguridad eficaz en SQL Server:</p>
+<h3 id="1-definir-requisitos-de-seguridad">1. Definir Requisitos de Seguridad</h3>
+<p>Antes de implementar cualquier medida, es esencial entender los requisitos específicos de tu organización. Esto incluye determinar qué datos necesitan protección y los niveles de acceso requeridos para diferentes usuarios o roles.</p>
+<h3 id="2-crear-roles-y-cuentas-de-usuario">2. Crear Roles y Cuentas de Usuario</h3>
+<p>SQL Server permite crear roles y cuentas de usuario para controlar el acceso a los datos. Debes:</p>
+<ul>
+<li><strong>Crear roles de servidor y de base de datos:</strong> Estos roles ayudan a agrupar usuarios con necesidades de acceso similares.</li>
+<li><strong>Asignar permisos a roles:</strong> Es más seguro y escalable asignar permisos a roles en lugar de a usuarios individuales.</li>
+</ul>
+<h3 id="3-utilizar-la-autenticaci%C3%B3n-y-autorizaci%C3%B3n-apropiadas">3. Utilizar la Autenticación y Autorización Apropiadas</h3>
+<ul>
+<li><strong>Autenticación:</strong> Decide entre utilizar la autenticación de Windows o la autenticación de SQL Server. La autenticación de Windows es generalmente preferida por su integración con las políticas de seguridad del sistema operativo.</li>
+<li><strong>Autorización:</strong> Implementa el principio de privilegio mínimo, asegurándote de que los usuarios y roles tengan solo los permisos estrictamente necesarios para realizar sus tareas.</li>
+</ul>
+<h3 id="4-aplicar-pol%C3%ADticas-de-contrase%C3%B1as-fuertes">4. Aplicar Políticas de Contraseñas Fuertes</h3>
+<p>Si eliges la autenticación de SQL Server, asegúrate de implementar políticas de contraseñas fuertes. SQL Server puede configurarse para hacer cumplir políticas que incluyan la expiración de contraseñas, la complejidad de las contraseñas y los intentos de acceso fallidos.</p>
+<h3 id="5-encriptar-datos-sensibles">5. Encriptar Datos Sensibles</h3>
+<p>Utiliza la encriptación para proteger datos sensibles. SQL Server ofrece varias opciones, incluyendo:</p>
+<ul>
+<li><strong>Transparent Data Encryption (TDE):</strong> Encripta los datos en el nivel de archivo de base de datos.</li>
+<li><strong>Column Encryption:</strong> Permite encriptar datos a nivel de columna.</li>
+</ul>
+<h3 id="6-auditar-y-monitorear-accesos">6. Auditar y Monitorear Accesos</h3>
+<p>Configura la auditoría para registrar y monitorear quién accede a qué datos y cuándo. SQL Server proporciona varias herramientas para la auditoría que pueden ayudarte a detectar y responder a actividades sospechosas o no autorizadas.</p>
+<h3 id="7-aplicar-parches-y-actualizaciones-regularmente">7. Aplicar Parches y Actualizaciones Regularmente</h3>
+<p>Mantén tu servidor SQL Server actualizado con los últimos parches de seguridad para protegerlo contra vulnerabilidades conocidas.</p>
+<h3 id="8-configurar-firewalls-y-redes">8. Configurar Firewalls y Redes</h3>
+<p>Asegúrate de que solo las aplicaciones y usuarios autorizados puedan acceder a tu servidor SQL Server. Configura adecuadamente los firewalls y limita la exposición del servidor a redes no seguras.</p>
+<h3 id="9-realizar-copias-de-seguridad-regularmente">9. Realizar Copias de Seguridad Regularmente</h3>
+<p>Aunque no es directamente una medida de seguridad de acceso, realizar copias de seguridad regulares es crucial para la recuperación de datos después de un incidente de seguridad.</p>
+<h3 id="10-revisar-y-actualizar-regularmente-las-configuraciones-de-seguridad">10. Revisar y Actualizar Regularmente las Configuraciones de Seguridad</h3>
+<p>La seguridad es un proceso continuo. Revisa regularmente tus configuraciones de seguridad y ajusta según sea necesario para adaptarte a nuevos riesgos y cumplir con las políticas internas.</p>
+<p>Estos pasos proporcionan un marco básico para implementar perfiles de seguridad en SQL Server. Dependiendo de las necesidades específicas y del entorno, podrían requerirse medidas adicionales.</p>
+<h3 id="crear-un-rol-espec%C3%ADfico-para-un-usuario">Crear un ROL específico para un usuario</h3>
+<p>Crear un rol y asignarlo a un usuario en SQL Server es una tarea administrativa común que permite gestionar eficientemente los permisos de acceso a la base de datos. Este es el proceso cómo puedes hacerlo paso a paso utilizando SQL Server Management Studio (SSMS) o mediante scripts SQL.</p>
+<h3 id="usando-sql-server-management-studio-ssms">Usando SQL Server Management Studio (SSMS)</h3>
+<ol>
+<li>
+<p><strong>Conectar a la Instancia de SQL Server:</strong></p>
+<ul>
+<li>Abre SQL Server Management Studio.</li>
+<li>Conéctate al servidor donde deseas crear el rol.</li>
+</ul>
+</li>
+<li>
+<p><strong>Crear un Nuevo Rol de Base de Datos:</strong></p>
+<ul>
+<li>Navega en el &quot;Explorador de Objetos&quot; hasta la base de datos específica donde quieres crear el rol.</li>
+<li>Haz clic derecho en la carpeta &quot;Roles de base de datos&quot; bajo &quot;Seguridad&quot; y selecciona &quot;Nuevo Rol de Base de Datos…&quot;.</li>
+</ul>
+</li>
+<li>
+<p><strong>Configurar el Rol:</strong></p>
+<ul>
+<li>En el cuadro de diálogo, ingresa el nombre del rol.</li>
+<li>Opcionalmente, puedes añadir miembros (usuarios) a este rol en este momento o puedes hacerlo más tarde.</li>
+<li>Haz clic en &quot;Aceptar&quot; para crear el rol.</li>
+</ul>
+</li>
+<li>
+<p><strong>Asignar Permisos al Rol:</strong></p>
+<ul>
+<li>Con el rol ya creado, puedes definir los permisos específicos para ese rol.</li>
+<li>Haz clic derecho sobre el rol recién creado y selecciona &quot;Propiedades&quot;.</li>
+<li>En la ventana de propiedades, ve a la página &quot;Securables&quot;.</li>
+<li>Aquí puedes añadir objetos específicos y definir los permisos como SELECT, INSERT, UPDATE, DELETE, etc.</li>
+</ul>
+</li>
+<li>
+<p><strong>Agregar Usuarios al Rol:</strong></p>
+<ul>
+<li>Si no añadiste usuarios durante la creación del rol, puedes hacerlo después.</li>
+<li>Haz clic derecho en el rol, selecciona &quot;Propiedades&quot;, y ve a la página &quot;Miembros del rol&quot;.</li>
+<li>Usa el botón &quot;Agregar…&quot; para incluir usuarios existentes en este rol.</li>
+</ul>
+</li>
+</ol>
+<h3 id="usando-scripts-sql">Usando Scripts SQL</h3>
+<p>También puedes realizar estas tareas utilizando scripts SQL:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Conectar a la base de datos correcta</span>
+<span class="hljs-keyword">USE</span> [NombreDeTuBaseDeDatos]
+<span class="hljs-keyword">GO</span>
+
+<span class="hljs-comment">-- Crear un nuevo rol de base de datos</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">ROLE</span> [NombreDelRol]
+<span class="hljs-keyword">GO</span>
+
+<span class="hljs-comment">-- Asignar permisos al rol</span>
+<span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">SELECT</span>, <span class="hljs-keyword">INSERT</span>, <span class="hljs-keyword">UPDATE</span> <span class="hljs-keyword">ON</span> [NombreDeLaTabla] <span class="hljs-keyword">TO</span> [NombreDelRol]
+<span class="hljs-keyword">GO</span>
+
+<span class="hljs-comment">-- Crear un usuario (si es necesario)</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">USER</span> [NombreDelUsuario] <span class="hljs-keyword">FOR</span> LOGIN [NombreDelLogin]
+<span class="hljs-keyword">GO</span>
+
+<span class="hljs-comment">-- Añadir un usuario al rol</span>
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">ROLE</span> [NombreDelRol] <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">MEMBER</span> [NombreDelUsuario]
+<span class="hljs-keyword">GO</span>
+</div></code></pre>
+<p>Recuerda reemplazar <code>[NombreDeTuBaseDeDatos]</code>, <code>[NombreDelRol]</code>, <code>[NombreDeLaTabla]</code>, <code>[NombreDelUsuario]</code>, y <code>[NombreDelLogin]</code> con los nombres reales que correspondan a tu entorno.</p>
+<p>Estos métodos te permiten manejar el control de acceso en SQL Server de una manera estructurada y segura. Asegúrate de tener los permisos adecuados para realizar estas acciones y siempre prueba los cambios en un entorno de desarrollo antes de aplicarlos en producción.</p>
+<h2 id="702-auditor%C3%ADa-de-accesos-y-cambios">702. Auditoría de accesos y cambios</h2>
+<p>Para crear una auditoría en SQL Server que registre las inserciones y actualizaciones en una tabla específica, como la tabla <code>todos</code>, utilizando un trigger, necesitas seguir varios pasos. Esto incluirá la creación de una tabla de auditoría adicional para almacenar los registros de auditoría y el desarrollo de un trigger que capturará los cambios y registrará detalles como el usuario que aplicó los cambios.</p>
+<h3 id="paso-1-crear-la-tabla-de-auditor%C3%ADa">Paso 1: Crear la Tabla de Auditoría</h3>
+<p>Primero, debes crear una tabla donde se almacenarán los registros de las operaciones de auditoría. Esta tabla debe ser capaz de almacenar información relevante como el tipo de operación, el usuario que hizo el cambio, la fecha y hora del cambio, y cualquier otra información relevante del registro modificado.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> AuditoriaTodos
+(
+    AuditID <span class="hljs-built_in">INT</span> <span class="hljs-keyword">IDENTITY</span>(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>) PRIMARY <span class="hljs-keyword">KEY</span>,
+    TipoOperacion <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+    Usuario <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">128</span>),
+    FechaOperacion DATETIME,
+    DatosAntiguos <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-keyword">MAX</span>),
+    DatosNuevos <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-keyword">MAX</span>)
+);
+</div></code></pre>
+<h3 id="paso-2-crear-el-trigger">Paso 2: Crear el Trigger</h3>
+<p>El siguiente paso es crear un trigger en la tabla <code>todos</code>. Este trigger se activará después de cualquier operación de inserción o actualización. Capturará información sobre la operación y la almacenará en la tabla de auditoría que creaste.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> trg_AuditoriaTodos
+<span class="hljs-keyword">ON</span> todos
+<span class="hljs-keyword">AFTER</span> <span class="hljs-keyword">INSERT</span>, <span class="hljs-keyword">UPDATE</span>
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-keyword">SET</span> NOCOUNT <span class="hljs-keyword">ON</span>;
+
+    <span class="hljs-keyword">DECLARE</span> @TipoOperacion <span class="hljs-keyword">AS</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>)
+    <span class="hljs-keyword">DECLARE</span> @Usuario <span class="hljs-keyword">AS</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">128</span>)
+    <span class="hljs-keyword">DECLARE</span> @DatosAntiguos <span class="hljs-keyword">AS</span> <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-keyword">MAX</span>)
+    <span class="hljs-keyword">DECLARE</span> @DatosNuevos <span class="hljs-keyword">AS</span> <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-keyword">MAX</span>)
+
+    <span class="hljs-keyword">IF</span> <span class="hljs-keyword">EXISTS</span> (<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> inserted) <span class="hljs-keyword">AND</span> <span class="hljs-keyword">EXISTS</span> (<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> deleted)
+    <span class="hljs-keyword">BEGIN</span>
+        <span class="hljs-keyword">SET</span> @TipoOperacion = <span class="hljs-string">'Update'</span>
+    <span class="hljs-keyword">END</span>
+    <span class="hljs-keyword">ELSE</span>
+    <span class="hljs-keyword">BEGIN</span>
+        <span class="hljs-keyword">SET</span> @TipoOperacion = <span class="hljs-string">'Insert'</span>
+    <span class="hljs-keyword">END</span>
+
+    <span class="hljs-comment">-- Capturar el usuario actual</span>
+    <span class="hljs-keyword">SET</span> @Usuario = SUSER_SNAME()
+
+    <span class="hljs-comment">-- Preparar datos antiguos y nuevos en formato JSON para almacenarlos</span>
+    <span class="hljs-keyword">SET</span> @DatosAntiguos = (<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> deleted <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">JSON</span> <span class="hljs-keyword">PATH</span>)
+    <span class="hljs-keyword">SET</span> @DatosNuevos = (<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> inserted <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">JSON</span> <span class="hljs-keyword">PATH</span>)
+
+    <span class="hljs-comment">-- Insertar el registro en la tabla de auditoría</span>
+    <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> AuditoriaTodos (TipoOperacion, Usuario, FechaOperacion, DatosAntiguos, DatosNuevos)
+    <span class="hljs-keyword">VALUES</span> (@TipoOperacion, @Usuario, <span class="hljs-keyword">GETDATE</span>(), @DatosAntiguos, @DatosNuevos)
+<span class="hljs-keyword">END</span>;
+</div></code></pre>
+<h3 id="consideraciones">Consideraciones</h3>
+<ol>
+<li>
+<p><strong>Manejo de Datos JSON</strong>: En el ejemplo anterior, los datos antiguos y nuevos se almacenan en formato JSON. Esto es útil para manejar diferentes estructuras de tablas, pero asegúrate de que tu versión de SQL Server soporte las operaciones JSON (<code>FOR JSON PATH</code> está disponible a partir de SQL Server 2016).</p>
+</li>
+<li>
+<p><strong>Rendimiento</strong>: Ten en cuenta que el uso de triggers puede afectar el rendimiento, especialmente en tablas con un volumen alto de transacciones. Asegúrate de evaluar y optimizar el rendimiento donde sea necesario.</p>
+</li>
+<li>
+<p><strong>Seguridad y Permisos</strong>: Asegúrate de que el trigger y las tablas de auditoría estén protegidos adecuadamente para evitar accesos no autorizados.</p>
+</li>
+</ol>
+<p>Este enfoque te permitirá realizar un seguimiento de quién hizo qué cambios en la tabla <code>todos</code>, capturando tanto inserciones como actualizaciones.</p>
+<h2 id="703-estrategias-de-cifrado">703. Estrategias de cifrado</h2>
+<p>En SQL Server, implementar estrategias de cifrado adecuadas es fundamental para proteger los datos sensibles y cumplir con las regulaciones de privacidad de datos. SQL Server ofrece varias opciones de cifrado para satisfacer diferentes necesidades de seguridad. Las principales estrategias de cifrado disponibles:</p>
+<h3 id="1-transparent-data-encryption-tde">1. Transparent Data Encryption (TDE)</h3>
+<p><strong>TDE</strong> cifra los archivos de datos a nivel de SQL Server, lo que significa que los datos y los archivos de registro se cifran en el disco. TDE es útil para proteger los datos en reposo, asegurando que los datos almacenados físicamente en el medio de almacenamiento no puedan ser leídos sin la clave de cifrado adecuada. TDE no aumenta la seguridad de los datos cuando están siendo transmitidos o cuando están en uso.</p>
+<ul>
+<li>
+<p><strong>Ventajas:</strong></p>
+<ul>
+<li>Protección completa contra el acceso no autorizado a los archivos físicos.</li>
+<li>Totalmente transparente para las aplicaciones; no requiere cambios en las aplicaciones existentes.</li>
+</ul>
+</li>
+<li>
+<p><strong>Desventajas:</strong></p>
+<ul>
+<li>No protege contra ataques de inyección de SQL o ataques similares que puedan exponer los datos durante su procesamiento.</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-column-level-encryption-cle">2. Column-Level Encryption (CLE)</h3>
+<p><strong>CLE</strong> permite el cifrado y descifrado de datos en columnas específicas dentro de una tabla. CLE es adecuado cuando sólo ciertos datos sensibles dentro de una base de datos necesitan protección, como números de seguridad social o información de tarjetas de crédito.</p>
+<ul>
+<li>
+<p><strong>Ventajas:</strong></p>
+<ul>
+<li>Flexibilidad para cifrar específicamente datos sensibles sin afectar el rendimiento de toda la base de datos.</li>
+<li>Los datos están cifrados en la base de datos y durante su transmisión al cliente.</li>
+</ul>
+</li>
+<li>
+<p><strong>Desventajas:</strong></p>
+<ul>
+<li>Puede requerir cambios en las consultas o en la lógica de la aplicación si la búsqueda o el filtrado sobre las columnas cifradas no están adecuadamente planificados.</li>
+<li>El rendimiento puede verse afectado debido al proceso de cifrado y descifrado.</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-always-encrypted">3. Always Encrypted</h3>
+<p><strong>Always Encrypted</strong> es una característica diseñada para proteger los datos sensibles tanto en reposo como en tránsito, asegurando que los datos nunca se revelen en texto claro dentro del servidor de la base de datos. Los datos se cifran en el lado del cliente y el SQL Server solo maneja los datos cifrados.</p>
+<ul>
+<li>
+<p><strong>Ventajas:</strong></p>
+<ul>
+<li>Aumenta la seguridad de los datos sensibles asegurando que el servidor de base de datos nunca tenga acceso a los datos en texto claro.</li>
+<li>Útil para escenarios en los que la base de datos y sus administradores no deben tener acceso a datos sensibles.</li>
+</ul>
+</li>
+<li>
+<p><strong>Desventajas:</strong></p>
+<ul>
+<li>Requiere el uso de controladores de base de datos específicos que soporten Always Encrypted.</li>
+<li>Limita algunas operaciones en el servidor de base de datos, como búsquedas o joins en columnas cifradas.</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-encryption-at-rest">4. Encryption at Rest</h3>
+<p>Además de TDE, SQL Server soporta el cifrado en reposo mediante el cifrado de archivos a nivel del sistema operativo o el almacenamiento, utilizando soluciones como BitLocker.</p>
+<ul>
+<li>
+<p><strong>Ventajas:</strong></p>
+<ul>
+<li>Proporciona una capa adicional de seguridad para proteger contra el acceso físico no autorizado a los dispositivos de almacenamiento.</li>
+</ul>
+</li>
+<li>
+<p><strong>Desventajas:</strong></p>
+<ul>
+<li>No protege contra ataques que puedan ocurrir cuando los sistemas están operativos y los datos son accesibles.</li>
+</ul>
+</li>
+</ul>
+<h3 id="consideraciones-generales">Consideraciones Generales</h3>
+<ul>
+<li><strong>Rendimiento:</strong> Todas las formas de cifrado tienen un coste de rendimiento asociado. Es vital realizar pruebas de carga para comprender el impacto en tu entorno específico.</li>
+<li><strong>Gestión de claves:</strong> Una buena gestión de claves es crucial para mantener la seguridad de los datos cifrados. Debes asegurarte de que las claves de cifrado estén protegidas contra acceso no autorizado y pérdida.</li>
+</ul>
+<p>Elegir la estrategia adecuada depende de tus requerimientos específicos de seguridad, el tipo de datos que necesitas proteger, y el entorno operativo de tu aplicación y base de datos.</p>
+<h3 id="cifrado-de-columnas">Cifrado de columnas</h3>
+<p>Para cifrar una columna en SQL Server, puedes utilizar diferentes estrategias de cifrado dependiendo de tus necesidades específicas de seguridad, rendimiento y accesibilidad. Dos de las principales técnicas que puedes emplear: <strong>Cifrado de Columna Transparente (TCE)</strong> y <strong>Cifrado de Columna Siempre (Always Encrypted)</strong>.</p>
+<h3 id="1-cifrado-de-columna-transparente-tce">1. Cifrado de Columna Transparente (TCE)</h3>
+<p><strong>TCE</strong> permite cifrar datos en columnas específicas de las tablas y vistas en SQL Server. La clave de cifrado utilizada es protegida por un certificado que el servidor SQL Server maneja, lo que permite que el cifrado y descifrado sea transparente para las aplicaciones.</p>
+<p><strong>Pasos para implementar TCE:</strong></p>
+<ol>
+<li>
+<p><strong>Crear un Certificado:</strong> Primero, necesitas un certificado para proteger la clave de cifrado.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> CERTIFICATE MyCertificate
+<span class="hljs-keyword">WITH</span> SUBJECT = <span class="hljs-string">'Column Encryption'</span>;
+</div></code></pre>
+</li>
+<li>
+<p><strong>Crear una Clave de Cifrado de Columna:</strong> Esta clave se usará para cifrar los datos de la columna.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">COLUMN</span> ENCRYPTION <span class="hljs-keyword">KEY</span> MyColumnKey
+<span class="hljs-keyword">WITH</span> <span class="hljs-keyword">VALUES</span>
+(
+    COLUMN_MASTER_KEY = MyCertificate,
+    ALGORITHM = <span class="hljs-string">'RSA_OAEP'</span>,
+    ENCRYPTED_VALUE = <span class="hljs-number">0xabcdef</span>...
+);
+</div></code></pre>
+</li>
+<li>
+<p><strong>Modificar la Tabla para Usar Cifrado:</strong> Elige el tipo de datos <code>varbinary(max)</code> para la columna que se cifrará.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> MyTable
+<span class="hljs-keyword">ADD</span> EncryptedColumn varbinary(<span class="hljs-keyword">max</span>)
+ENCRYPTED <span class="hljs-keyword">WITH</span>
+(
+    COLUMN_ENCRYPTION_KEY = MyColumnKey,
+    ENCRYPTION_TYPE = RANDOMIZED,
+    ALGORITHM = <span class="hljs-string">'AEAD_AES_256_CBC_HMAC_SHA_256'</span>
+);
+</div></code></pre>
+</li>
+<li>
+<p><strong>Actualizar Datos:</strong> Mueve los datos existentes a la columna cifrada.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">UPDATE</span> MyTable
+<span class="hljs-keyword">SET</span> EncryptedColumn = ENCRYPTBYKEY(KEY_GUID(<span class="hljs-string">'MyColumnKey'</span>), MyColumn);
+</div></code></pre>
+</li>
+</ol>
+<h3 id="2-cifrado-de-columna-siempre-always-encrypted">2. Cifrado de Columna Siempre (Always Encrypted)</h3>
+<p><strong>Always Encrypted</strong> es una característica diseñada para proteger datos sensibles, como números de tarjetas de crédito o datos de identificación personal, que se almacenan en bases de datos de SQL Server. Always Encrypted permite que los clientes cifren datos confidenciales dentro de aplicaciones cliente y nunca revelen las claves de cifrado al Motor de Base de Datos de SQL Server (SQL Database o SQL Server).</p>
+<p><strong>Pasos para implementar Always Encrypted:</strong></p>
+<ol>
+<li>
+<p><strong>Configurar el Entorno:</strong>
+Asegúrate de tener instalado SQL Server Management Studio (SSMS) que soporte Always Encrypted.</p>
+</li>
+<li>
+<p><strong>Crear o Modificar una Columna para Usar Always Encrypted:</strong>
+Puedes hacer esto directamente desde SSMS usando el Asistente para Always Encrypted:</p>
+<ul>
+<li>Abre el Explorador de Objetos, haz clic derecho en la base de datos y selecciona &quot;Tareas&quot; &gt; &quot;Cifrar Columnas...&quot;</li>
+<li>Sigue los pasos del asistente para seleccionar las columnas a cifrar, el tipo de cifrado (Determinista o Aleatorio), y generar las claves de cifrado.</li>
+</ul>
+</li>
+<li>
+<p><strong>Validar la Configuración:</strong>
+Asegúrate de que las aplicaciones cliente estén configuradas para usar los controladores apropiados que pueden interpretar Always Encrypted.</p>
+</li>
+</ol>
+<h3 id="consideraciones-adicionales">Consideraciones Adicionales</h3>
+<ul>
+<li>
+<p><strong>Rendimiento:</strong> El cifrado y descifrado de datos puede tener un impacto en el rendimiento. Es importante evaluar este impacto en un entorno de prueba antes de implementar en producción.</p>
+</li>
+<li>
+<p><strong>Acceso a Datos:</strong> Con Always Encrypted, el SQL Server nunca tiene acceso a los datos en texto claro. Esto puede limitar algunas operaciones que se pueden realizar directamente en la base de datos, como búsquedas o comparaciones en columnas cifradas.</p>
+</li>
+</ul>
+<p>Ambas estrategias ofrecen maneras robustas de proteger los datos sensibles en SQL Server. La elección entre TCE y Always Encrypted dependerá de tus necesidades específicas en cuanto a seguridad, control de acceso a las claves y operaciones permitidas en los datos cifrados.</p>
+<h3 id="ejemplo-para-cifrar-una-columna">Ejemplo para cifrar una columna</h3>
+<p>Para crear una tabla en SQL Server que incluya una columna cifrada llamada <code>password</code>, puedes usar la característica de cifrado a nivel de columna, específicamente Column-Level Encryption (CLE). En este ejemplo, usaré una clave simétrica para cifrar la columna <code>password</code>:</p>
+<h3 id="paso-1-crear-la-clave-maestra-de-la-base-de-datos">Paso 1: Crear la Clave Maestra de la Base de Datos</h3>
+<p>Primero, debes crear una clave maestra de la base de datos. Esta clave es necesaria para cifrar las claves simétricas en la base de datos.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">MASTER</span> <span class="hljs-keyword">KEY</span> ENCRYPTION <span class="hljs-keyword">BY</span> <span class="hljs-keyword">PASSWORD</span> = <span class="hljs-string">'tu_contraseña_segura123!'</span>;
+</div></code></pre>
+<h3 id="paso-2-crear-un-certificado">Paso 2: Crear un Certificado</h3>
+<p>El certificado se utilizará para proteger la clave simétrica. Puedes crearlo de la siguiente manera:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> CERTIFICATE MyCertificate
+<span class="hljs-keyword">WITH</span> SUBJECT = <span class="hljs-string">'Clave de cifrado para columna password'</span>;
+</div></code></pre>
+<h3 id="paso-3-crear-una-clave-sim%C3%A9trica">Paso 3: Crear una Clave Simétrica</h3>
+<p>Luego, crea una clave simétrica que será utilizada para cifrar y descifrar los datos en la columna <code>password</code>.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> SYMMETRIC <span class="hljs-keyword">KEY</span> SymmetricKey_Password
+<span class="hljs-keyword">WITH</span> ALGORITHM = AES_256
+ENCRYPTION <span class="hljs-keyword">BY</span> CERTIFICATE MyCertificate;
+</div></code></pre>
+<h3 id="paso-4-crear-la-tabla">Paso 4: Crear la Tabla</h3>
+<p>Ahora, crea la tabla <code>clients</code> con la columna <code>password</code> como <code>varbinary(max)</code> o cualquier tipo binario, adecuado para almacenar datos cifrados.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> clients
+(
+    client_id <span class="hljs-built_in">INT</span> <span class="hljs-keyword">IDENTITY</span>(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>) PRIMARY <span class="hljs-keyword">KEY</span>,
+    username <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    <span class="hljs-keyword">password</span> VARBINARY(<span class="hljs-keyword">MAX</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+);
+</div></code></pre>
+<h3 id="paso-5-cifrar-datos-al-insertar">Paso 5: Cifrar Datos al Insertar</h3>
+<p>Para insertar datos en la tabla, debes abrir la clave simétrica y usar la función <code>EncryptByKey</code>.</p>
+<pre class="hljs"><code><div>OPEN SYMMETRIC KEY SymmetricKey_Password
+DECRYPTION BY CERTIFICATE MyCertificate;
+
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> clients (username, <span class="hljs-keyword">password</span>)
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'nombre_usuario'</span>, EncryptByKey(Key_GUID(<span class="hljs-string">'SymmetricKey_Password'</span>), <span class="hljs-string">'contraseña_texto_plano'</span>));
+
+CLOSE SYMMETRIC KEY SymmetricKey_Password;
+</div></code></pre>
+<h3 id="paso-6-descifrar-datos-al-consultar">Paso 6: Descifrar Datos al Consultar</h3>
+<p>Para leer los datos cifrados, necesitas abrir la clave y descifrar los datos usando <code>DecryptByKey</code>.</p>
+<pre class="hljs"><code><div>OPEN SYMMETRIC KEY SymmetricKey_Password
+DECRYPTION BY CERTIFICATE MyCertificate;
+
+<span class="hljs-keyword">SELECT</span> client_id, username, <span class="hljs-keyword">CONVERT</span>(<span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>), DecryptByKey(<span class="hljs-keyword">password</span>)) <span class="hljs-keyword">AS</span> <span class="hljs-keyword">password</span>
+<span class="hljs-keyword">FROM</span> clients;
+
+CLOSE SYMMETRIC KEY SymmetricKey_Password;
+</div></code></pre>
+<h3 id="notas-importantes">Notas Importantes</h3>
+<ul>
+<li><strong>Seguridad:</strong> Asegúrate de que la contraseña de la clave maestra y el certificado estén protegidas y sean suficientemente robustas para prevenir accesos no autorizados.</li>
+<li><strong>Backup:</strong> No olvides hacer copias de seguridad de las claves y certificados utilizados en el cifrado, ya que la pérdida de estos elementos puede resultar en que los datos cifrados sean irrecuperables.</li>
+<li><strong>Rendimiento:</strong> Ten en cuenta que el cifrado y descifrado pueden tener un impacto en el rendimiento, por lo que debes evaluar este aspecto en función de tus necesidades.</li>
+</ul>
+<p>Este es un ejemplo básico que puedes adaptar y extender según las necesidades específicas de tu aplicación y entorno de trabajo.</p>
+<h3 id="descifrar-una-columna">Descifrar una columna</h3>
+<p>En SQL Server, los usuarios que pueden descifrar datos cifrados con una clave simétrica como <code>SymmetricKey_Password</code> dependen de varios factores relacionados con los permisos y la administración de claves. Algunos de los principales aspectos que determinan qué usuarios pueden descifrar la contraseña cifrada:</p>
+<h3 id="1-permisos-sobre-la-clave-sim%C3%A9trica">1. Permisos sobre la Clave Simétrica</h3>
+<p>Para que un usuario pueda descifrar los datos cifrados con una clave simétrica, debe tener permisos específicos sobre dicha clave. Los permisos necesarios son:</p>
+<ul>
+<li><strong>CONTROL</strong>: El permiso <code>CONTROL</code> sobre la clave simétrica permite a un usuario abrir y utilizar la clave para cifrar o descifrar datos.</li>
+<li><strong>VIEW DEFINITION</strong>: Este permiso permite al usuario ver las propiedades de la clave, incluyendo su existencia y configuración.</li>
+</ul>
+<p>Puedes otorgar estos permisos a un usuario de la siguiente manera:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">GRANT</span> CONTROL <span class="hljs-keyword">ON</span> SYMMETRIC <span class="hljs-keyword">KEY</span>::SymmetricKey_Password <span class="hljs-keyword">TO</span> [NombreUsuario];
+</div></code></pre>
+<h3 id="2-acceso-al-certificado-que-protege-la-clave">2. Acceso al Certificado que Protege la Clave</h3>
+<p>Como la clave simétrica <code>SymmetricKey_Password</code> está protegida por un certificado (<code>MyCertificate</code> en el ejemplo), el usuario también necesita tener permisos para utilizar este certificado. Esto incluye:</p>
+<ul>
+<li><strong>CONTROL</strong> o <strong>VIEW DEFINITION</strong> sobre el certificado, lo cual permite al usuario usar el certificado para descifrar la clave simétrica.</li>
+</ul>
+<p>Para otorgar permisos sobre el certificado:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">GRANT</span> CONTROL <span class="hljs-keyword">ON</span> CERTIFICATE::MyCertificate <span class="hljs-keyword">TO</span> [NombreUsuario];
+</div></code></pre>
+<h3 id="3-permisos-en-la-base-de-datos">3. Permisos en la Base de Datos</h3>
+<p>Además de los permisos específicos sobre la clave y el certificado, el usuario también necesita tener los permisos adecuados sobre cualquier tabla o vista que contenga los datos cifrados. Por ejemplo, necesitará permisos de <code>SELECT</code> para leer los datos de la tabla <code>clients</code>.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">ON</span> clients <span class="hljs-keyword">TO</span> [NombreUsuario];
+</div></code></pre>
+<h3 id="4-pol%C3%ADticas-de-seguridad-de-la-organizaci%C3%B3n">4. Políticas de Seguridad de la Organización</h3>
+<p>Las políticas de seguridad internas de una organización también pueden influir en quién tiene acceso a las claves de cifrado y los certificados. Estas políticas pueden establecer quién puede solicitar y recibir permisos para manejar claves de cifrado y datos sensibles.</p>
+<h3 id="consideraciones-adicionales">Consideraciones Adicionales</h3>
+<ul>
+<li><strong>Administración de Claves</strong>: Es crucial que la administración de claves y certificados se realice de manera segura y controlada. Los permisos deben ser otorgados cuidadosamente para evitar exposiciones innecesarias de datos sensibles.</li>
+<li><strong>Auditoría</strong>: Implementar una solución de auditoría para monitorear quién accede y utiliza las claves de cifrado puede ayudar a detectar y prevenir accesos no autorizados o maliciosos.</li>
+<li><strong>Formación y Concienciación</strong>: Asegurarse de que los usuarios con acceso a datos sensibles estén adecuadamente formados en las prácticas de seguridad es fundamental para prevenir filtraciones de datos o configuraciones erróneas.</li>
+</ul>
+<p>Por tanto, los usuarios que pueden descifrar la contraseña en <code>SymmetricKey_Password</code> serán aquellos a quienes explícitamente se les haya otorgado acceso tanto a la clave simétrica como al certificado que la protege, además de tener los permisos necesarios sobre las tablas que contienen los datos cifrados.</p>
+<h3 id="restringir-el-acceso-de-la-clave-sim%C3%A9trica-en-un-procedimiento-almacenado">Restringir el acceso de la clave simétrica en un procedimiento almacenado</h3>
+<p>Para restringir el uso de una clave simétrica como <code>SymmetricKey_Password</code> solo dentro de un Stored Procedure en SQL Server, puedes adoptar varias estrategias que combinan la gestión de permisos y técnicas de encapsulación. A continuación, te explico cómo configurarlo paso a paso:</p>
+<h3 id="paso-1-revocar-permisos-directos-sobre-la-clave-sim%C3%A9trica">Paso 1: Revocar Permisos Directos sobre la Clave Simétrica</h3>
+<p>Primero, debes asegurarte de que los usuarios generales no tengan permisos directos para usar la clave simétrica. Esto se puede hacer revocando cualquier permiso previamente concedido a los usuarios y manteniendo los permisos solo para el usuario dbo o un usuario administrativo.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">REVOKE</span> <span class="hljs-keyword">ALL</span> <span class="hljs-keyword">ON</span> SYMMETRIC <span class="hljs-keyword">KEY</span>::SymmetricKey_Password <span class="hljs-keyword">FROM</span> [NombreUsuario];
+</div></code></pre>
+<h3 id="paso-2-crear-el-stored-procedure">Paso 2: Crear el Stored Procedure</h3>
+<p>Crea un Stored Procedure que encapsule las operaciones que requieran el uso de la clave simétrica. Dentro de este Stored Procedure, abrirás y cerrarás la clave, realizando las operaciones de cifrado o descifrado como sea necesario.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PROCEDURE</span> usp_UseSymmetricKey
+    @<span class="hljs-keyword">Data</span> <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-keyword">MAX</span>),
+    @EncryptedData VARBINARY(<span class="hljs-keyword">MAX</span>) <span class="hljs-keyword">OUTPUT</span>
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment">-- Abrir la clave simétrica</span>
+    <span class="hljs-keyword">OPEN</span> SYMMETRIC <span class="hljs-keyword">KEY</span> SymmetricKey_Password
+    DECRYPTION <span class="hljs-keyword">BY</span> CERTIFICATE MyCertificate;
+
+    <span class="hljs-comment">-- Cifrar datos</span>
+    <span class="hljs-keyword">SET</span> @EncryptedData = EncryptByKey(Key_GUID(<span class="hljs-string">'SymmetricKey_Password'</span>), @<span class="hljs-keyword">Data</span>);
+
+    <span class="hljs-comment">-- Cerrar la clave simétrica</span>
+    CLOSE SYMMETRIC KEY SymmetricKey_Password;
+<span class="hljs-keyword">END</span>
+<span class="hljs-keyword">GO</span>
+</div></code></pre>
+<h3 id="paso-3-configurar-los-permisos-del-stored-procedure">Paso 3: Configurar los Permisos del Stored Procedure</h3>
+<p>Asigna permisos para ejecutar el Stored Procedure solo a aquellos usuarios que necesitan utilizar la clave simétrica. De esta forma, los usuarios no tienen acceso directo a la clave simétrica pero pueden ejecutar el procedimiento almacenado que realiza las operaciones de cifrado y descifrado necesarias.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">EXECUTE</span> <span class="hljs-keyword">ON</span> usp_UseSymmetricKey <span class="hljs-keyword">TO</span> [NombreUsuario];
+</div></code></pre>
+<h3 id="paso-4-uso-seguro-del-stored-procedure">Paso 4: Uso Seguro del Stored Procedure</h3>
+<p>Los usuarios ahora pueden utilizar el Stored Procedure para cifrar o descifrar datos, pero no tienen acceso directo para abrir o manipular la clave simétrica fuera del contexto del Stored Procedure. Esto limita el uso de la clave a contextos controlados y predefinidos.</p>
+<h3 id="consideraciones-adicionales">Consideraciones Adicionales</h3>
+<ul>
+<li>
+<p><strong>Seguridad de Ejecución</strong>: Para mayor seguridad, considera usar la opción <code>EXECUTE AS</code> dentro del Stored Procedure para ejecutar el procedimiento con un contexto de seguridad específico, como el de un usuario con permisos adecuados para acceder a la clave.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PROCEDURE</span> usp_UseSymmetricKey
+    @<span class="hljs-keyword">Data</span> <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-keyword">MAX</span>),
+    @EncryptedData VARBINARY(<span class="hljs-keyword">MAX</span>) <span class="hljs-keyword">OUTPUT</span>
+<span class="hljs-keyword">WITH</span> <span class="hljs-keyword">EXECUTE</span> <span class="hljs-keyword">AS</span> <span class="hljs-string">'UsuarioConPermiso'</span>
+<span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment">-- Cuerpo del procedimiento</span>
+<span class="hljs-keyword">END</span>
+<span class="hljs-keyword">GO</span>
+</div></code></pre>
+</li>
+<li>
+<p><strong>Auditoría</strong>: Implementa políticas de auditoría para monitorear el acceso y uso del Stored Procedure, especialmente si se manejan datos sensibles.</p>
+</li>
+<li>
+<p><strong>Documentación</strong>: Documenta claramente quién tiene acceso al Stored Procedure y bajo qué circunstancias, y asegúrate de que los desarrolladores y administradores de la base de datos comprendan las restricciones impuestas.</p>
+</li>
+</ul>
+<p>Al implementar estas estrategias, puedes controlar el acceso a las operaciones de cifrado y descifrado, limitando el uso de la clave simétrica a un contexto seguro y predefinido dentro de SQL Server.</p>
+<p>Claro, puedo mostrarte cómo utilizar el procedimiento almacenado <code>usp_UseSymmetricKey</code> que has definido para cifrar datos. A continuación, te proporciono un ejemplo detallado de cómo llamar a este procedimiento almacenado desde T-SQL, incluyendo la configuración necesaria para la clave simétrica y el manejo de la operación de cifrado dentro del procedimiento.</p>
+<h3 id="pasos-para-usar-el-procedimiento-almacenado">Pasos para Usar el Procedimiento Almacenado</h3>
+<ol>
+<li>
+<p><strong>Preparar el Ambiente de SQL Server</strong>:</p>
+<ul>
+<li>Asegúrate de que la clave simétrica y el certificado estén creados y configurados como mencioné anteriormente.</li>
+</ul>
+</li>
+<li>
+<p><strong>Ejecutar el Procedimiento Almacenado</strong>:</p>
+<ul>
+<li>Puedes llamar a este procedimiento almacenado desde cualquier aplicación cliente, script de SQL, o incluso manualmente desde SQL Server Management Studio (SSMS).</li>
+</ul>
+</li>
+</ol>
+<p>Para llamar al procedimiento almacenado para cifrar una pieza de información, por ejemplo, una contraseña o cualquier dato sensible:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">DECLARE</span> @InputData <span class="hljs-keyword">NVARCHAR</span>(<span class="hljs-keyword">MAX</span>) = <span class="hljs-string">'TextoClaro123'</span>;
+<span class="hljs-keyword">DECLARE</span> @OutputData VARBINARY(<span class="hljs-keyword">MAX</span>);
+
+EXEC usp_UseSymmetricKey
+    @Data = @InputData,
+    @EncryptedData = @OutputData OUTPUT;
+
+<span class="hljs-comment">-- Opcional: Mostrar el resultado cifrado</span>
+<span class="hljs-keyword">SELECT</span> @OutputData <span class="hljs-keyword">AS</span> EncryptedData;
+</div></code></pre>
+<h3 id="consideraciones-de-seguridad-y-uso">Consideraciones de Seguridad y Uso</h3>
+<ul>
+<li><strong>Seguridad</strong>: Asegúrate de que solo los usuarios autorizados tengan permisos para ejecutar el procedimiento almacenado <code>usp_UseSymmetricKey</code>. Esto es crucial para mantener la confidencialidad de los datos cifrados.</li>
+<li><strong>Auditoría</strong>: Es una buena práctica registrar y auditar el uso de operaciones de cifrado para detectar y prevenir usos inadecuados o no autorizados.</li>
+<li><strong>Manejo de Excepciones</strong>: Considera implementar manejo de excepciones en el procedimiento almacenado para lidiar con errores durante el cifrado, como problemas al abrir la clave simétrica.</li>
+</ul>
+<p>Este enfoque garantiza que el cifrado de datos se maneje de manera centralizada y segura dentro de SQL Server, permitiendo un mejor control y seguimiento del acceso y uso de los datos sensibles.</p>
+
+</body>
+</html>
