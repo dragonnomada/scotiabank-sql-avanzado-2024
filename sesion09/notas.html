@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>notas.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="curso-de-sql-avanzado---sesi%C3%B3n-9">Curso de SQL Avanzado - Sesión 9</h1>
+<img src="https://amei.mx/wp-content/uploads/2016/08/Scotiabank-logo.jpg" alt="Scotiabank Logo" height="60">
+<img src="https://www.belatrix.com/wp-content/uploads/2023/08/belatrix-logosweb-1.png" alt="Belatrix Logo" height="60">
+<p><strong><a href="https://www.scotiabank.com.mx">Scotiabank</a></strong> | <strong><a href="https://www.belatrix.com">Belatrix</a></strong></p>
+<p>Instructor: <a href="alan@nomadacode.com">Alan Badillo Salas</a></p>
+<hr>
+<h2 id="contenido">Contenido</h2>
+<pre><code>Módulo 7: Tuning y Monitoreo Avanzado
+
+1. Herramientas de monitoreo y diagnóstico
+2. Estrategias para identificar y resolver cuellos de botella
+3. Ajuste de parámetros avanzados
+</code></pre>
+<h3 id="temas">Temas</h3>
+<ol start="901">
+<li>Herramientas de monitoreo y diagnóstico</li>
+<li>Estrategias para identificar y resolver cuellos de botella</li>
+<li>Ajuste de parámetros avanzados
+Claro, puedo ayudarte a entender mejor estos temas de SQL Server relacionados con el Tuning y Monitoreo Avanzado. Vamos a desglosar cada uno de los subtemas que mencionaste, proporcionando explicaciones paso a paso y ejemplos prácticos.</li>
+</ol>
+<h2 id="901-herramientas-de-monitoreo-y-diagn%C3%B3stico">901. Herramientas de monitoreo y diagnóstico</h2>
+<p>SQL Server proporciona varias herramientas que ayudan a monitorear y diagnosticar problemas de rendimiento. Aquí algunas de las principales:</p>
+<ul>
+<li><strong>SQL Server Management Studio (SSMS)</strong>: Es la herramienta principal para la administración de SQL Server, que permite visualizar consultas en ejecución, historial de ejecución y mucho más.</li>
+<li><strong>Dynamic Management Views (DMVs)</strong>: Permiten ver información interna del servidor que puede ser utilizada para monitorear la salud del servidor y diagnosticar problemas.</li>
+<li><strong>SQL Server Profiler</strong>: Herramienta para capturar eventos en una instancia de SQL Server, lo que permite analizar y encontrar cuellos de botella.</li>
+<li><strong>Activity Monitor</strong>: Proporciona una vista rápida del rendimiento de SQL Server, incluyendo procesos en ejecución, uso de la CPU, I/O de disco y otros.</li>
+</ul>
+<p><strong>Ejemplo</strong>: Para utilizar el Activity Monitor en SSMS:</p>
+<ol>
+<li>Conecta a tu instancia de SQL Server en SSMS.</li>
+<li>Haz clic derecho en el servidor y selecciona &quot;Activity Monitor&quot;.</li>
+<li>Explora las diferentes áreas como Procesos, Esperas de Recursos, Uso de la CPU, y más para obtener detalles en tiempo real del rendimiento.</li>
+</ol>
+<h3 id="uso-de-herramientas-de-monitoreo-y-diagn%C3%B3stico-en-sql-server">Uso de Herramientas de Monitoreo y Diagnóstico en SQL Server</h3>
+<p>Vamos a detallar cómo utilizar cada una de estas herramientas paso a paso, lo que te ayudará a gestionar y optimizar tu instancia de SQL Server.</p>
+<h4 id="1-sql-server-management-studio-ssms">1. SQL Server Management Studio (SSMS)</h4>
+<p><strong>SQL Server Management Studio</strong> (SSMS) es una herramienta integral para la gestión de SQL Server. Veamos cómo puedes visualizar consultas en ejecución y el historial de ejecución:</p>
+<ul>
+<li>
+<p><strong>Conectar y navegar</strong>:</p>
+<ol>
+<li>Abre SSMS y conecta a tu instancia de SQL Server.</li>
+<li>Navega en el &quot;Object Explorer&quot; hasta tu base de datos de interés.</li>
+</ol>
+</li>
+<li>
+<p><strong>Ver consultas en ejecución</strong>:</p>
+<ol>
+<li>Haz clic derecho en el servidor en &quot;Object Explorer&quot; y selecciona &quot;Activity Monitor&quot;.</li>
+<li>En el &quot;Activity Monitor&quot;, expande la sección &quot;Processes&quot;. Aquí puedes ver todas las consultas y procesos en ejecución, junto con información detallada como el usuario, estado, CPU, y uso de memoria.</li>
+</ol>
+</li>
+<li>
+<p><strong>Ver historial de ejecución</strong>:</p>
+<ol>
+<li>Para ver el historial de ejecuciones, puedes utilizar herramientas como &quot;SQL Server Profiler&quot; (ver más abajo) o consultar las DMVs relacionadas con el historial de consultas.</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-dynamic-management-views-dmvs">2. Dynamic Management Views (DMVs)</h4>
+<p>Las <strong>Dynamic Management Views</strong> ofrecen una visión interna de la salud del servidor. Aquí hay un ejemplo simple de cómo usar DMVs para obtener información sobre las sesiones activas:</p>
+<ul>
+<li>
+<p><strong>Consulta básica a DMVs</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">SELECT</span> session_id, <span class="hljs-keyword">status</span>, 
+       total_elapsed_time, 
+       cpu_time, memory_usage, 
+       (<span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">text</span> <span class="hljs-keyword">FROM</span> sys.dm_exec_sql_text(sql_handle))
+<span class="hljs-keyword">FROM</span> sys.dm_exec_requests
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">status</span> = <span class="hljs-string">'running'</span>;
+</div></code></pre>
+<p>Esta consulta te proporcionará detalles de las consultas que están actualmente en ejecución, incluyendo el tiempo total de ejecución, el tiempo de CPU utilizado y el uso de memoria.</p>
+</li>
+</ul>
+<h4 id="3-sql-server-profiler">3. SQL Server Profiler</h4>
+<p><strong>SQL Server Profiler</strong> es una herramienta poderosa para capturar eventos en SQL Server. Aquí está cómo puedes usarlo para identificar cuellos de botella:</p>
+<ul>
+<li><strong>Iniciar una nueva traza</strong>:
+<ol>
+<li>Abre SQL Server Profiler y selecciona &quot;File&quot; &gt; &quot;New Trace&quot;.</li>
+<li>Conecta al servidor que deseas monitorear.</li>
+<li>Configura las propiedades de la traza, eligiendo los eventos y columnas que quieres capturar, como &quot;SQL:BatchStarting&quot;, &quot;SQL:BatchCompleted&quot;, y &quot;Showplan XML&quot;.</li>
+<li>Inicia la traza y observa los eventos en tiempo real. Puedes filtrar y buscar eventos específicos para analizar consultas lentas o problemáticas.</li>
+</ol>
+</li>
+</ul>
+<h4 id="4-activity-monitor">4. Activity Monitor</h4>
+<p><strong>Activity Monitor</strong> proporciona una visión rápida del rendimiento de SQL Server. Para usarlo:</p>
+<ul>
+<li><strong>Abrir Activity Monitor</strong>:
+<ol>
+<li>Conecta a tu servidor en SSMS.</li>
+<li>Haz clic derecho en el servidor en &quot;Object Explorer&quot; y selecciona &quot;Activity Monitor&quot;.</li>
+<li>Explora las diversas secciones como &quot;Processes&quot;, &quot;Resource Waits&quot;, &quot;Data File I/O&quot;, y &quot;Recent Expensive Queries&quot;.</li>
+</ol>
+</li>
+</ul>
+<p>Cada sección del &quot;Activity Monitor&quot; te brinda datos en tiempo real sobre diferentes aspectos del rendimiento del servidor, permitiéndote identificar rápidamente problemas potenciales.</p>
+<p>Estas herramientas son fundamentales para un administrador de SQL Server. Utilizándolas correctamente, puedes monitorear el rendimiento, identificar y solucionar problemas de rendimiento de manera proactiva. Si tienes alguna pregunta específica sobre estas herramientas o necesitas ejemplos más detallados, no dudes en preguntar.</p>
+<h2 id="902-estrategias-para-identificar-y-resolver-cuellos-de-botella">902. Estrategias para identificar y resolver cuellos de botella</h2>
+<p>Identificar y resolver cuellos de botella en SQL Server es crucial para mejorar el rendimiento. Aquí algunas estrategias efectivas:</p>
+<ul>
+<li><strong>Monitorización del rendimiento</strong>: Usa herramientas como DMVs para identificar operaciones lentas y recursos bajo presión (CPU, memoria, I/O).</li>
+<li><strong>Análisis de consultas</strong>: Revisa las consultas con tiempos de ejecución prolongados o gran consumo de recursos. Utiliza el Plan de Ejecución para entender cómo SQL Server está ejecutando tus consultas.</li>
+<li><strong>Indexación eficaz</strong>: Asegúrate de que tus tablas están adecuadamente indexadas para mejorar el rendimiento de las consultas. Los índices faltantes o ineficientes pueden ser cuellos de botella significativos.</li>
+</ul>
+<p><strong>Ejemplo</strong>: Utilizar DMVs para encontrar consultas lentas:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">SELECT</span> TOP <span class="hljs-number">10</span>
+    qs.total_elapsed_time / qs.execution_count <span class="hljs-keyword">AS</span> avg_duration,
+    qs.execution_count,
+    <span class="hljs-keyword">SUBSTRING</span>(qt.text, qs.statement_start_offset / <span class="hljs-number">2</span> + <span class="hljs-number">1</span>, 
+        (<span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> qs.statement_end_offset = <span class="hljs-number">-1</span> 
+              <span class="hljs-keyword">THEN</span> <span class="hljs-keyword">LEN</span>(<span class="hljs-keyword">CONVERT</span>(<span class="hljs-keyword">nvarchar</span>(<span class="hljs-keyword">max</span>), qt.text)) * <span class="hljs-number">2</span> 
+              <span class="hljs-keyword">ELSE</span> qs.statement_end_offset <span class="hljs-keyword">END</span> - qs.statement_start_offset) / <span class="hljs-number">2</span>) <span class="hljs-keyword">AS</span> statement_text
+<span class="hljs-keyword">FROM</span>
+    sys.dm_exec_query_stats <span class="hljs-keyword">AS</span> qs
+<span class="hljs-keyword">CROSS</span> <span class="hljs-keyword">APPLY</span>
+    sys.dm_exec_sql_text(qs.sql_handle) <span class="hljs-keyword">AS</span> qt
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span>
+    avg_duration <span class="hljs-keyword">DESC</span>;
+</div></code></pre>
+<h2 id="903-ajuste-de-par%C3%A1metros-avanzados">903. Ajuste de parámetros avanzados</h2>
+<p>Ajustar los parámetros de configuración de SQL Server puede tener un impacto significativo en el rendimiento. Algunos parámetros clave incluyen:</p>
+<ul>
+<li><strong>Max Degree of Parallelism (MAXDOP)</strong>: Limita el número de procesadores que SQL Server utilizará para ejecutar una sola consulta.</li>
+<li><strong>Cost Threshold for Parallelism</strong>: Define el coste mínimo que una consulta debe tener antes de que SQL Server considere ejecutarla en paralelo.</li>
+<li><strong>Memory Allocation</strong>: Asegúrate de que SQL Server tiene suficiente memoria asignada, pero no tanto como para que interfiera con las operaciones del sistema operativo.</li>
+</ul>
+<p><strong>Ejemplo</strong>: Configurar el MAXDOP:</p>
+<pre class="hljs"><code><div>EXEC sp_configure '<span class="hljs-keyword">show</span> <span class="hljs-keyword">advanced</span> options<span class="hljs-string">', 1;
+RECONFIGURE;
+EXEC sp_configure '</span><span class="hljs-keyword">max</span> degree <span class="hljs-keyword">of</span> parallelism<span class="hljs-string">', 4;
+RECONFIGURE;
+</span></div></code></pre>
+<p>Estas explicaciones y ejemplos deberían proporcionarte una buena base para entender y trabajar con tuning y monitoreo avanzado en SQL Server. Si necesitas más detalles o ejemplos adicionales sobre algún punto específico, házmelo saber.</p>
+
+</body>
+</html>
